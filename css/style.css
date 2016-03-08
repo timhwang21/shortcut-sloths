@@ -94,15 +94,22 @@
     -o-transform: rotate(30deg);
     transform: rotate(30deg); } }
 .sloth {
-  height: 120px;
-  width: 120px; }
+  height: 100px;
+  width: 100px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 250px;
+  margin: 10px; }
 
 .sloth .bg {
-  height: 80%;
-  width: 80%;
+  height: 95%;
+  width: 95%;
   background-position: center center;
   background-size: contain;
   background-repeat: no-repeat; }
+
+#selected {
+  background: rgba(200, 200, 200, 0.5); }
 
 .sloth.sleepy .bg {
   background-image: url("../images/sloth-sleepy.svg"); }
