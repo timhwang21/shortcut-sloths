@@ -1,6 +1,8 @@
 key('⌘+d', function() {
   console.log("You pressed select word!");
   return false;
+  // if selected === undefined, do nothing
+  // if selected is x, find next element of x
 });
 
 key('ctrl+⌘+g', function() {

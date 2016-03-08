@@ -98,8 +98,8 @@
   width: 120px; }
 
 .sloth .bg {
-  height: 100%;
-  width: 100%;
+  height: 80%;
+  width: 80%;
   background-position: center center;
   background-size: contain;
   background-repeat: no-repeat; }
@@ -154,13 +154,12 @@ body {
   flex-direction: column;
   background: brown;
   height: 100%;
-  width: 480px;
-  min-width: 480px;
+  width: 40%;
   padding: 20px; }
 
 .game {
-  background: white;
+  background: green;
   height: 80%;
-  width: 1440px; }
+  width: 60%; }
 
 /*# sourceMappingURL=style.css.map */
