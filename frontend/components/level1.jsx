@@ -6,15 +6,19 @@ var Level1 = React.createClass({
   render: function() {
     return (
       <section className="game">
-        <div id="board">
+          <Sloth />
           <Sloth />
           <Sloth />
           <Sloth />
           <Sloth />
           <Sloth />
 
-
-        </div>
+          <Sloth />
+          <Sloth />
+          <Sloth />
+          <Sloth />
+          <Sloth />
+          <Sloth />
       </section>
     );
 

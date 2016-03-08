@@ -24794,15 +24794,18 @@
 	    return React.createElement(
 	      'section',
 	      { className: 'game' },
-	      React.createElement(
-	        'div',
-	        { id: 'board' },
-	        React.createElement(Sloth, null),
-	        React.createElement(Sloth, null),
-	        React.createElement(Sloth, null),
-	        React.createElement(Sloth, null),
-	        React.createElement(Sloth, null)
-	      )
+	      React.createElement(Sloth, null),
+	      React.createElement(Sloth, null),
+	      React.createElement(Sloth, null),
+	      React.createElement(Sloth, null),
+	      React.createElement(Sloth, null),
+	      React.createElement(Sloth, null),
+	      React.createElement(Sloth, null),
+	      React.createElement(Sloth, null),
+	      React.createElement(Sloth, null),
+	      React.createElement(Sloth, null),
+	      React.createElement(Sloth, null),
+	      React.createElement(Sloth, null)
 	    );
 	  }
 	
@@ -24827,11 +24830,6 @@
 	
 	  componentDidMount: function componentDidMount() {
 	    document.addEventListener('click', this.handleClickOutside, false);
-	    key('space', function () {
-	      // debugger;
-	      $(".clicked").toggleClass("sleepy shortcut shake-slow shake-fast");
-	      return false;
-	    }.bind(this));
 	  },
 	
 	  componentWillUnmount: function componentWillUnmount() {
@@ -24839,33 +24837,20 @@
 	  },
 	
 	  handleClick: function handleClick(e) {
-	    // debugger;
 	    $(e.currentTarget).addClass("clicked");
-	    window.selected = e.currentTarget.classList;
-	    // maybe this would be better? returns string instead of ary
-	    // window.selected = e.currentTarget.className;
 	  },
 	
 	  handleClickOutside: function handleClickOutside(e) {
 	    if (!ReactDOM.findDOMNode(this).contains(event.target)) {
-	      // debugger;
 	      $(ReactDOM.findDOMNode(this)).removeClass("clicked");
-	      window.selected = undefined;
 	    }
 	  },
 	
 	  render: function render() {
-	    var slothClass = classNames({
-	      "sloth": true,
-	      "clicked": false,
-	      "sleepy": true,
-	      "shake-slow": true
-	    });
-	
 	    return React.createElement(
 	      'div',
 	      {
-	        className: slothClass,
+	        className: 'sloth sleepy',
 	        onClick: this.handleClick },
 	      React.createElement('div', { className: 'bg' })
 	    );
@@ -24932,13 +24917,37 @@
 /* 220 */
 /***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 	
 	var shortcuts = {
 	  loadHotKeys: function loadHotKeys() {
+	    key('space', function () {
+	      $(".clicked").toggleClass("sleepy shortcut");
+	      return false;
+	    });
 	
 	    key('⌘+d', function () {
-	      console.log("You pressed select word!");
+	      // Select word
+	      if ($(".clicked ").length > 0) {
+	        var selected = $(".clicked").last().attr("class").split(" ");
+	        var index = selected.indexOf("clicked");
+	        if (index > -1) {
+	          selected.splice(index, 1);
+	        }
+	        selected = selected.map(function (klass) {
+	          return "." + klass;
+	        }).join("");
+	
+	        var sameElements = $(".clicked").last().nextAll(selected).not(".clicked");
+	        // debugger;
+	        if (sameElements.length > 0) {
+	          sameElements.first().addClass("clicked");
+	        } else {
+	          $(selected).not(".clicked").first().addClass("clicked");
+	        }
+	      }
+	      // debugger;
+	
 	      return false;
 	      // if selected === undefined, do nothing
 	      // if selected is x, find next element of x

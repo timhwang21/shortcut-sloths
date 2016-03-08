@@ -23,18 +23,12 @@
 
 .sloth.sleepy .bg {
   background-image: url("../images/sloth-sleepy.svg");
-}
-
-.sloth.shortcut .bg {
-  background-image: url("../images/sloth-shortcut.svg");
-}
-
-.shake-slow {
   @include animation($shake-animation);
   @include animation-duration(3s);
 }
 
-.shake-fast {
+.sloth.shortcut .bg {
+  background-image: url("../images/sloth-shortcut.svg");
   @include animation($shake-animation);
   @include animation-duration(1s);
 }

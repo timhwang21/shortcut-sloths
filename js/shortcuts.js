@@ -1,9 +1,36 @@
 var shortcuts = {
   loadHotKeys: function() {
-
+    key('space', function() {
+      $( ".clicked" ).toggleClass( "sleepy shortcut" );
+      return false;
+    });
 
     key('⌘+d', function() {
-      console.log("You pressed select word!");
+      // Select word
+      if ($( ".clicked ").length > 0) {
+        var selected = $( ".clicked" ).last().attr( "class" ).split(" ");
+        var index = selected.indexOf("clicked");
+        if (index > -1) {
+          selected.splice(index, 1);
+        }
+        selected = selected.map(klass=>"." + klass).join("");
+
+        var sameElements = $( ".clicked" ).
+            last().
+            nextAll(selected).not( ".clicked" );
+        // debugger;
+        if ( sameElements.length > 0) {
+          sameElements.
+            first().
+            addClass( "clicked" )
+        } else {
+          $( selected ).not( ".clicked" ).
+            first().
+            addClass( "clicked" )
+        }
+      }
+      // debugger;
+
       return false;
       // if selected === undefined, do nothing
       // if selected is x, find next element of x

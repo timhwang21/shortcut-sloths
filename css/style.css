@@ -112,12 +112,7 @@
   background: rgba(255, 255, 255, 0.4); }
 
 .sloth.sleepy .bg {
-  background-image: url("../images/sloth-sleepy.svg"); }
-
-.sloth.shortcut .bg {
-  background-image: url("../images/sloth-shortcut.svg"); }
-
-.shake-slow {
+  background-image: url("../images/sloth-sleepy.svg");
   -webkit-animation: shake infinite ease;
   -moz-animation: shake infinite ease;
   -ms-animation: shake infinite ease;
@@ -129,7 +124,8 @@
   -o-animation-duration: 3s;
   animation-duration: 3s; }
 
-.shake-fast {
+.sloth.shortcut .bg {
+  background-image: url("../images/sloth-shortcut.svg");
   -webkit-animation: shake infinite ease;
   -moz-animation: shake infinite ease;
   -ms-animation: shake infinite ease;
@@ -166,9 +162,13 @@ body {
   padding: 20px 30px; }
 
 .game {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: flex-start;
   background: #55bb22;
-  height: 80%;
-  width: 60%;
+  height: 720px;
+  width: 720px;
+  min-width: 720px;
   border-bottom-left-radius: 10px; }
 
 #root, .sloths {

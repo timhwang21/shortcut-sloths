@@ -31,8 +31,12 @@ body {
 }
 
 .game {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: flex-start;
   background: #55bb22;
-  height: 80%;
-  width: 60%;
+  height: 720px;
+  width: 720px;
+  min-width: 720px;
   border-bottom-left-radius: 10px;
 }
