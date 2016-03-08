@@ -1,8 +1,10 @@
 html, body, div, span, section, header {
   display: flex;
   box-sizing: border-box;
+  margin: 0;
+  border: 0;
+  color: white;
 }
-
 
 html, body {
   flex-direction: row;
@@ -12,24 +14,25 @@ html, body {
 
 body {
   justify-content: space-between;
-  background: brown;
+  background: #706060;
 }
 
 .sidebar, .game {
-  border: 2px solid red;
+  // border: 2px solid red;
 }
 
 .sidebar {
   flex-direction: column;
-  background: brown;
+  background: #706060;
   height: 100%;
   width: 40%;
-  // min-width: 480px;
-  padding: 20px;
+  min-width: 300px;
+  padding: 20px 30px;
 }
 
 .game {
-  background: green;
+  background: #55bb22;
   height: 80%;
   width: 60%;
+  border-bottom-left-radius: 10px;
 }
