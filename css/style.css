@@ -1,7 +1,166 @@
+@-webkit-keyframes shake {
+  0% {
+    -webkit-transform: rotate(30deg);
+    -moz-transform: rotate(30deg);
+    -ms-transform: rotate(30deg);
+    -o-transform: rotate(30deg);
+    transform: rotate(30deg); }
+  50% {
+    -webkit-transform: rotate(-30deg);
+    -moz-transform: rotate(-30deg);
+    -ms-transform: rotate(-30deg);
+    -o-transform: rotate(-30deg);
+    transform: rotate(-30deg); }
+  100% {
+    -webkit-transform: rotate(30deg);
+    -moz-transform: rotate(30deg);
+    -ms-transform: rotate(30deg);
+    -o-transform: rotate(30deg);
+    transform: rotate(30deg); } }
+@-moz-keyframes shake {
+  0% {
+    -webkit-transform: rotate(30deg);
+    -moz-transform: rotate(30deg);
+    -ms-transform: rotate(30deg);
+    -o-transform: rotate(30deg);
+    transform: rotate(30deg); }
+  50% {
+    -webkit-transform: rotate(-30deg);
+    -moz-transform: rotate(-30deg);
+    -ms-transform: rotate(-30deg);
+    -o-transform: rotate(-30deg);
+    transform: rotate(-30deg); }
+  100% {
+    -webkit-transform: rotate(30deg);
+    -moz-transform: rotate(30deg);
+    -ms-transform: rotate(30deg);
+    -o-transform: rotate(30deg);
+    transform: rotate(30deg); } }
+@-ms-keyframes shake {
+  0% {
+    -webkit-transform: rotate(30deg);
+    -moz-transform: rotate(30deg);
+    -ms-transform: rotate(30deg);
+    -o-transform: rotate(30deg);
+    transform: rotate(30deg); }
+  50% {
+    -webkit-transform: rotate(-30deg);
+    -moz-transform: rotate(-30deg);
+    -ms-transform: rotate(-30deg);
+    -o-transform: rotate(-30deg);
+    transform: rotate(-30deg); }
+  100% {
+    -webkit-transform: rotate(30deg);
+    -moz-transform: rotate(30deg);
+    -ms-transform: rotate(30deg);
+    -o-transform: rotate(30deg);
+    transform: rotate(30deg); } }
+@-o-keyframes shake {
+  0% {
+    -webkit-transform: rotate(30deg);
+    -moz-transform: rotate(30deg);
+    -ms-transform: rotate(30deg);
+    -o-transform: rotate(30deg);
+    transform: rotate(30deg); }
+  50% {
+    -webkit-transform: rotate(-30deg);
+    -moz-transform: rotate(-30deg);
+    -ms-transform: rotate(-30deg);
+    -o-transform: rotate(-30deg);
+    transform: rotate(-30deg); }
+  100% {
+    -webkit-transform: rotate(30deg);
+    -moz-transform: rotate(30deg);
+    -ms-transform: rotate(30deg);
+    -o-transform: rotate(30deg);
+    transform: rotate(30deg); } }
+@keyframes shake {
+  0% {
+    -webkit-transform: rotate(30deg);
+    -moz-transform: rotate(30deg);
+    -ms-transform: rotate(30deg);
+    -o-transform: rotate(30deg);
+    transform: rotate(30deg); }
+  50% {
+    -webkit-transform: rotate(-30deg);
+    -moz-transform: rotate(-30deg);
+    -ms-transform: rotate(-30deg);
+    -o-transform: rotate(-30deg);
+    transform: rotate(-30deg); }
+  100% {
+    -webkit-transform: rotate(30deg);
+    -moz-transform: rotate(30deg);
+    -ms-transform: rotate(30deg);
+    -o-transform: rotate(30deg);
+    transform: rotate(30deg); } }
+.sloth {
+  height: 120px;
+  width: 120px; }
+
+.sloth .bg {
+  height: 100%;
+  width: 100%;
+  background-position: center center;
+  background-size: contain;
+  background-repeat: no-repeat; }
+
 .sloth.sleepy .bg {
   background-image: url("../images/sloth-sleepy.svg"); }
 
 .sloth.shortcut .bg {
   background-image: url("../images/sloth-shortcut.svg"); }
+
+.shake-slow {
+  -webkit-animation: shake infinite ease;
+  -moz-animation: shake infinite ease;
+  -ms-animation: shake infinite ease;
+  -o-animation: shake infinite ease;
+  animation: shake infinite ease;
+  -webkit-animation-duration: 3s;
+  -moz-animation-duration: 3s;
+  -ms-animation-duration: 3s;
+  -o-animation-duration: 3s;
+  animation-duration: 3s; }
+
+.shake-fast {
+  -webkit-animation: shake infinite ease;
+  -moz-animation: shake infinite ease;
+  -ms-animation: shake infinite ease;
+  -o-animation: shake infinite ease;
+  animation: shake infinite ease;
+  -webkit-animation-duration: 1s;
+  -moz-animation-duration: 1s;
+  -ms-animation-duration: 1s;
+  -o-animation-duration: 1s;
+  animation-duration: 1s; }
+
+html, body, div, span, section, header {
+  display: flex;
+  box-sizing: border-box; }
+
+html, body {
+  flex-direction: row;
+  height: 100%;
+  width: 100%; }
+
+body {
+  justify-content: space-between;
+  background: brown; }
+
+.sidebar, .game {
+  border: 2px solid red; }
+
+.sidebar {
+  flex-direction: column;
+  background: brown;
+  height: 100%;
+  width: 480px;
+  min-width: 480px;
+  padding: 20px; }
+
+.game {
+  background: white;
+  height: 80%;
+  width: 1440px; }
 
 /*# sourceMappingURL=style.css.map */

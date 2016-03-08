@@ -1,0 +1,63 @@
+@mixin keyframes($animation-name) {
+    @-webkit-keyframes #{$animation-name} {
+        @content;
+    }
+    @-moz-keyframes #{$animation-name} {
+        @content;
+    }
+    @-ms-keyframes #{$animation-name} {
+        @content;
+    }
+    @-o-keyframes #{$animation-name} {
+        @content;
+    }
+    @keyframes #{$animation-name} {
+        @content;
+    }
+}
+
+@mixin animation($str) {
+  -webkit-animation: #{$str};
+  -moz-animation: #{$str};
+  -ms-animation: #{$str};
+  -o-animation: #{$str};
+  animation: #{$str};
+}
+
+@mixin animation-duration($str) {
+  -webkit-animation-duration: #{$str};
+  -moz-animation-duration: #{$str};
+  -ms-animation-duration: #{$str};
+  -o-animation-duration: #{$str};
+  animation-duration: #{$str};
+}
+
+@mixin transition($args...) {
+  -webkit-transition: $args;
+  -moz-transition: $args;
+  -ms-transition: $args;
+  -o-transition: $args;
+  transition: $args;
+}
+
+@mixin transform($str) {
+  -webkit-transform: #{$str};
+  -moz-transform: #{$str};
+  -ms-transform: #{$str};
+  -o-transform: #{$str};
+  transform: #{$str};
+}
+
+@include keyframes(shake) {
+  0% {
+    @include transform(rotate(30deg))
+  }
+  50% {
+    @include transform(rotate(-30deg))
+  }
+  100% {
+    @include transform(rotate(30deg))
+  }
+}
+
+$shake-animation: 'shake infinite ease';

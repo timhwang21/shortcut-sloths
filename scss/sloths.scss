@@ -1,0 +1,32 @@
+@import "mixins.scss";
+
+.sloth {
+  height: 120px;
+  width: 120px;
+}
+
+.sloth .bg {
+  height: 100%;
+  width: 100%;
+  background-position: center center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.sloth.sleepy .bg {
+  background-image: url("../images/sloth-sleepy.svg");
+}
+
+.sloth.shortcut .bg {
+  background-image: url("../images/sloth-shortcut.svg");
+}
+
+.shake-slow {
+  @include animation($shake-animation);
+  @include animation-duration(3s);
+}
+
+.shake-fast {
+  @include animation($shake-animation);
+  @include animation-duration(1s);
+}
