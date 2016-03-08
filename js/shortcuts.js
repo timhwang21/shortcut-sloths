@@ -1,4 +1,3 @@
-
 key('⌘+d', function() {
   console.log("You pressed select word!");
   return false;
@@ -47,14 +46,4 @@ key('⌘+/', function() {
 key('⇧+⌘+.', function() {
   console.log("You pressed close open tag!");
   return false;
-});
-
-
-
-
-
-
-
-$(document).ready(function() {
-  console.log("Script loaded!");
 });
