@@ -1,17 +1,19 @@
 var React = require('react');
 
+var Sloth = require('./sloth');
+
 var Level1 = React.createClass({
   render: function() {
     return (
       <section className="game">
         <div id="board">
-          <div className="sloth sleepy" id="selected">
-            <div className="bg shake-slow"></div>
-          </div>
+          <Sloth />
+          <Sloth />
+          <Sloth />
+          <Sloth />
+          <Sloth />
 
-          <div className="sloth shortcut">
-            <div className="bg shake-fast"></div>
-          </div>
+
         </div>
       </section>
     );

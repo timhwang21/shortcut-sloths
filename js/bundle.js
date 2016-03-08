@@ -24730,39 +24730,44 @@
 /* 216 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	var React = __webpack_require__(1);
+	var Shortcuts = __webpack_require__(220);
 	
 	var App = React.createClass({
-	  displayName: "App",
+	  displayName: 'App',
+	
+	  componentDidMount: function componentDidMount() {
+	    Shortcuts.loadHotKeys();
+	  },
 	
 	  render: function render() {
 	    return React.createElement(
-	      "div",
-	      { className: "sloths" },
+	      'div',
+	      { className: 'sloths' },
 	      React.createElement(
-	        "section",
-	        { className: "sidebar" },
+	        'section',
+	        { className: 'sidebar' },
 	        React.createElement(
-	          "h1",
+	          'h1',
 	          null,
-	          "SHORTCUT SLOTHS"
+	          'SHORTCUT SLOTHS'
 	        ),
 	        React.createElement(
-	          "div",
+	          'div',
 	          null,
-	          "Instructions go here"
+	          'Instructions go here'
 	        ),
 	        React.createElement(
-	          "div",
+	          'div',
 	          null,
-	          "More text goes here"
+	          'More text goes here'
 	        ),
 	        React.createElement(
-	          "div",
+	          'div',
 	          null,
-	          "Other text here"
+	          'Other text here'
 	        )
 	      ),
 	      this.props.children
@@ -24776,30 +24781,27 @@
 /* 217 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	var React = __webpack_require__(1);
 	
+	var Sloth = __webpack_require__(218);
+	
 	var Level1 = React.createClass({
-	  displayName: "Level1",
+	  displayName: 'Level1',
 	
 	  render: function render() {
 	    return React.createElement(
-	      "section",
-	      { className: "game" },
+	      'section',
+	      { className: 'game' },
 	      React.createElement(
-	        "div",
-	        { id: "board" },
-	        React.createElement(
-	          "div",
-	          { className: "sloth sleepy", id: "selected" },
-	          React.createElement("div", { className: "bg shake-slow" })
-	        ),
-	        React.createElement(
-	          "div",
-	          { className: "sloth shortcut" },
-	          React.createElement("div", { className: "bg shake-fast" })
-	        )
+	        'div',
+	        { id: 'board' },
+	        React.createElement(Sloth, null),
+	        React.createElement(Sloth, null),
+	        React.createElement(Sloth, null),
+	        React.createElement(Sloth, null),
+	        React.createElement(Sloth, null)
 	      )
 	    );
 	  }
@@ -24807,6 +24809,189 @@
 	});
 	
 	module.exports = Level1;
+
+/***/ },
+/* 218 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var ReactDOM = __webpack_require__(158);
+	
+	var classNames = __webpack_require__(219);
+	
+	var Sloth = React.createClass({
+	  displayName: 'Sloth',
+	
+	
+	  componentDidMount: function componentDidMount() {
+	    document.addEventListener('click', this.handleClickOutside, false);
+	    key('space', function () {
+	      // debugger;
+	      $(".clicked").toggleClass("sleepy shortcut shake-slow shake-fast");
+	      return false;
+	    }.bind(this));
+	  },
+	
+	  componentWillUnmount: function componentWillUnmount() {
+	    document.removeEventListener('click', this.handleClickOutside, false);
+	  },
+	
+	  handleClick: function handleClick(e) {
+	    // debugger;
+	    $(e.currentTarget).addClass("clicked");
+	    window.selected = e.currentTarget.classList;
+	    // maybe this would be better? returns string instead of ary
+	    // window.selected = e.currentTarget.className;
+	  },
+	
+	  handleClickOutside: function handleClickOutside(e) {
+	    if (!ReactDOM.findDOMNode(this).contains(event.target)) {
+	      // debugger;
+	      $(ReactDOM.findDOMNode(this)).removeClass("clicked");
+	      window.selected = undefined;
+	    }
+	  },
+	
+	  render: function render() {
+	    var slothClass = classNames({
+	      "sloth": true,
+	      "clicked": false,
+	      "sleepy": true,
+	      "shake-slow": true
+	    });
+	
+	    return React.createElement(
+	      'div',
+	      {
+	        className: slothClass,
+	        onClick: this.handleClick },
+	      React.createElement('div', { className: 'bg' })
+	    );
+	  }
+	});
+	
+	module.exports = Sloth;
+
+/***/ },
+/* 219 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	  Copyright (c) 2016 Jed Watson.
+	  Licensed under the MIT License (MIT), see
+	  http://jedwatson.github.io/classnames
+	*/
+	/* global define */
+	
+	(function () {
+		'use strict';
+	
+		var hasOwn = {}.hasOwnProperty;
+	
+		function classNames () {
+			var classes = [];
+	
+			for (var i = 0; i < arguments.length; i++) {
+				var arg = arguments[i];
+				if (!arg) continue;
+	
+				var argType = typeof arg;
+	
+				if (argType === 'string' || argType === 'number') {
+					classes.push(arg);
+				} else if (Array.isArray(arg)) {
+					classes.push(classNames.apply(null, arg));
+				} else if (argType === 'object') {
+					for (var key in arg) {
+						if (hasOwn.call(arg, key) && arg[key]) {
+							classes.push(key);
+						}
+					}
+				}
+			}
+	
+			return classes.join(' ');
+		}
+	
+		if (typeof module !== 'undefined' && module.exports) {
+			module.exports = classNames;
+		} else if (true) {
+			// register as 'classnames', consistent with npm package name
+			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+				return classNames;
+			}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		} else {
+			window.classNames = classNames;
+		}
+	}());
+
+
+/***/ },
+/* 220 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	var shortcuts = {
+	  loadHotKeys: function loadHotKeys() {
+	
+	    key('⌘+d', function () {
+	      console.log("You pressed select word!");
+	      return false;
+	      // if selected === undefined, do nothing
+	      // if selected is x, find next element of x
+	    });
+	
+	    key('ctrl+⌘+g', function () {
+	      console.log("You pressed select all words!");
+	      return false;
+	    });
+	
+	    key('⌘+l', function () {
+	      console.log("You pressed select line!");
+	      return false;
+	    });
+	
+	    key('⇧+⌘+l', function () {
+	      console.log("You pressed split line!");
+	      return false;
+	    });
+	
+	    key('ctrl+⌘+up', function () {
+	      console.log("You pressed swap up!");
+	      return false;
+	    });
+	
+	    key('ctrl+⌘+down', function () {
+	      console.log("You pressed swap down!");
+	      return false;
+	    });
+	
+	    key('⇧+⌘+d', function () {
+	      console.log("You pressed duplicate line!");
+	      return false;
+	    });
+	
+	    key('⌘+j', function () {
+	      console.log("You pressed join line!");
+	      return false;
+	    });
+	
+	    key('⌘+/', function () {
+	      console.log("You pressed comment!");
+	      return false;
+	    });
+	
+	    key('⇧+⌘+.', function () {
+	      console.log("You pressed close open tag!");
+	      return false;
+	    });
+	  }
+	};
+	
+	module.exports = shortcuts;
 
 /***/ }
 /******/ ]);

@@ -1,6 +1,11 @@
 var React = require('react');
+var Shortcuts = require('../../js/shortcuts');
 
 var App = React.createClass({
+  componentDidMount: function() {
+    Shortcuts.loadHotKeys();
+  },
+
   render: function() {
     return (
       <div className="sloths">

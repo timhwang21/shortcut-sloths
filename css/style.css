@@ -108,7 +108,7 @@
   background-size: contain;
   background-repeat: no-repeat; }
 
-#selected {
+.clicked {
   background: rgba(255, 255, 255, 0.4); }
 
 .sloth.sleepy .bg {
