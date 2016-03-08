@@ -171,4 +171,8 @@ body {
   width: 60%;
   border-bottom-left-radius: 10px; }
 
+#root, .sloths {
+  height: 100%;
+  width: 100%; }
+
 /*# sourceMappingURL=style.css.map */

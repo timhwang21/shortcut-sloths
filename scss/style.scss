@@ -1,2 +1,7 @@
 @import "sloths.scss";
 @import "board.scss";
+
+#root, .sloths {
+  height: 100%;
+  width: 100%;
+}
