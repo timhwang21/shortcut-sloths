@@ -1,45 +1,49 @@
 var shortcuts = {
+  returnSelectedClasses: function() {
+    var selectedClasses = $( ".clicked" ).last().attr( "class" ).split(" ");
+    var index = selectedClasses.indexOf("clicked");
+    if (index > -1) {
+      selectedClasses.splice(index, 1);
+    }
+    return selectedClasses.map(klass=>"." + klass).join("");
+  },
+
   loadHotKeys: function() {
     key('space', function() {
       $( ".clicked" ).toggleClass( "sleepy shortcut" );
-      return false;
     });
 
+    // Select word
     key('⌘+d', function() {
-      // Select word
+      console.log("You pressed select word!");
+      
       if ($( ".clicked ").length > 0) {
-        var selected = $( ".clicked" ).last().attr( "class" ).split(" ");
-        var index = selected.indexOf("clicked");
-        if (index > -1) {
-          selected.splice(index, 1);
-        }
-        selected = selected.map(klass=>"." + klass).join("");
+        var selectedClasses = this.returnSelectedClasses();
+        var sameElements = $( ".clicked ").last().nextAll(this.returnSelectedClasses()).not( ".clicked ");
 
-        var sameElements = $( ".clicked" ).
-            last().
-            nextAll(selected).not( ".clicked" );
-        // debugger;
         if ( sameElements.length > 0) {
           sameElements.
             first().
             addClass( "clicked" )
         } else {
-          $( selected ).not( ".clicked" ).
+          $( selectedClasses ).not( ".clicked" ).
             first().
             addClass( "clicked" )
         }
       }
-      // debugger;
-
       return false;
-      // if selected === undefined, do nothing
-      // if selected is x, find next element of x
-    });
+    }.bind(this));
 
     key('ctrl+⌘+g', function() {
       console.log("You pressed select all words!");
+
+      if ($( ".clicked ").length > 0) {
+        var selectedClasses = this.returnSelectedClasses();
+        $( selectedClasses ).not( ".clicked" ).
+          addClass( "clicked" )
+      }
       return false;
-    });
+    }.bind(this));
 
     key('⌘+l', function() {
       console.log("You pressed select line!");

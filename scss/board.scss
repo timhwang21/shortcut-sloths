@@ -6,18 +6,21 @@ html, body, div, span, section, header {
   color: white;
 }
 
-html, body {
+html, body, .root, .game, .level {
   flex-direction: row;
   height: 100%;
   width: 100%;
 }
 
 body {
-  justify-content: space-between;
   background: #706060;
 }
 
-.sidebar, .game {
+.level {
+  justify-content: space-between;
+}
+
+.sidebar, .board {
   // border: 2px solid red;
 }
 
@@ -30,7 +33,7 @@ body {
   padding: 20px 30px;
 }
 
-.game {
+.board {
   flex-direction: row;
   flex-wrap: wrap;
   align-content: flex-start;

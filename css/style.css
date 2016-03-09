@@ -144,14 +144,16 @@ html, body, div, span, section, header {
   border: 0;
   color: white; }
 
-html, body {
+html, body, .root, .game, .level {
   flex-direction: row;
   height: 100%;
   width: 100%; }
 
 body {
-  justify-content: space-between;
   background: #706060; }
+
+.level {
+  justify-content: space-between; }
 
 .sidebar {
   flex-direction: column;
@@ -161,7 +163,7 @@ body {
   min-width: 300px;
   padding: 20px 30px; }
 
-.game {
+.board {
   flex-direction: row;
   flex-wrap: wrap;
   align-content: flex-start;

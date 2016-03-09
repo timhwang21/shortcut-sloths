@@ -24738,38 +24738,37 @@
 	var App = React.createClass({
 	  displayName: 'App',
 	
+	  getInitialState: function getInitialState() {
+	    return { won: false };
+	  },
+	
 	  componentDidMount: function componentDidMount() {
 	    Shortcuts.loadHotKeys();
+	  },
+	
+	  childContextTypes: {
+	    checkWin: React.PropTypes.func,
+	    won: React.PropTypes.bool
+	  },
+	
+	  getChildContext: function getChildContext() {
+	    return {
+	      checkWin: this.checkWin,
+	      won: this.state.won
+	    };
+	  },
+	
+	  checkWin: function checkWin(e) {
+	    if ($(".sleepy").length === 0) {
+	      console.log("You won!!");
+	      this.setState({ won: true });
+	    }
 	  },
 	
 	  render: function render() {
 	    return React.createElement(
 	      'div',
-	      { className: 'sloths' },
-	      React.createElement(
-	        'section',
-	        { className: 'sidebar' },
-	        React.createElement(
-	          'h1',
-	          null,
-	          'SHORTCUT SLOTHS'
-	        ),
-	        React.createElement(
-	          'div',
-	          null,
-	          'Instructions go here'
-	        ),
-	        React.createElement(
-	          'div',
-	          null,
-	          'More text goes here'
-	        ),
-	        React.createElement(
-	          'div',
-	          null,
-	          'Other text here'
-	        )
-	      ),
+	      { className: 'game' },
 	      this.props.children
 	    );
 	  }
@@ -24790,22 +24789,59 @@
 	var Level1 = React.createClass({
 	  displayName: 'Level1',
 	
+	
+	  contextTypes: {
+	    checkWin: React.PropTypes.func,
+	    won: React.PropTypes.bool
+	  },
+	
 	  render: function render() {
 	    return React.createElement(
-	      'section',
-	      { className: 'game' },
-	      React.createElement(Sloth, null),
-	      React.createElement(Sloth, null),
-	      React.createElement(Sloth, null),
-	      React.createElement(Sloth, null),
-	      React.createElement(Sloth, null),
-	      React.createElement(Sloth, null),
-	      React.createElement(Sloth, null),
-	      React.createElement(Sloth, null),
-	      React.createElement(Sloth, null),
-	      React.createElement(Sloth, null),
-	      React.createElement(Sloth, null),
-	      React.createElement(Sloth, null)
+	      'div',
+	      { className: 'level' },
+	      React.createElement(
+	        'section',
+	        { className: 'sidebar' },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'SHORTCUT SLOTHS'
+	        ),
+	        React.createElement(
+	          'div',
+	          null,
+	          'Level 1'
+	        ),
+	        React.createElement(
+	          'div',
+	          null,
+	          'Turn the sleepy sloths into shortcut sloths! (click and press space)'
+	        ),
+	        React.createElement(
+	          'button',
+	          { onClick: this.context.checkWin },
+	          'Win Check'
+	        ),
+	        this.context.won ? React.createElement(
+	          'span',
+	          null,
+	          'Won'
+	        ) : React.createElement(
+	          'span',
+	          null,
+	          'Not Won'
+	        )
+	      ),
+	      React.createElement(
+	        'section',
+	        { className: 'board', style: { alignItems: "center" } },
+	        React.createElement(Sloth, null),
+	        React.createElement(Sloth, null),
+	        React.createElement(Sloth, null),
+	        React.createElement(Sloth, null),
+	        React.createElement(Sloth, null),
+	        React.createElement(Sloth, null)
+	      )
 	    );
 	  }
 	
@@ -24920,43 +24956,48 @@
 	"use strict";
 	
 	var shortcuts = {
+	  returnSelectedClasses: function returnSelectedClasses() {
+	    var selectedClasses = $(".clicked").last().attr("class").split(" ");
+	    var index = selectedClasses.indexOf("clicked");
+	    if (index > -1) {
+	      selectedClasses.splice(index, 1);
+	    }
+	    return selectedClasses.map(function (klass) {
+	      return "." + klass;
+	    }).join("");
+	  },
+	
 	  loadHotKeys: function loadHotKeys() {
 	    key('space', function () {
 	      $(".clicked").toggleClass("sleepy shortcut");
-	      return false;
 	    });
 	
+	    // Select word
 	    key('⌘+d', function () {
-	      // Select word
-	      if ($(".clicked ").length > 0) {
-	        var selected = $(".clicked").last().attr("class").split(" ");
-	        var index = selected.indexOf("clicked");
-	        if (index > -1) {
-	          selected.splice(index, 1);
-	        }
-	        selected = selected.map(function (klass) {
-	          return "." + klass;
-	        }).join("");
+	      console.log("You pressed select word!");
 	
-	        var sameElements = $(".clicked").last().nextAll(selected).not(".clicked");
-	        // debugger;
+	      if ($(".clicked ").length > 0) {
+	        var selectedClasses = this.returnSelectedClasses();
+	        var sameElements = $(".clicked ").last().nextAll(this.returnSelectedClasses()).not(".clicked ");
+	
 	        if (sameElements.length > 0) {
 	          sameElements.first().addClass("clicked");
 	        } else {
-	          $(selected).not(".clicked").first().addClass("clicked");
+	          $(selectedClasses).not(".clicked").first().addClass("clicked");
 	        }
 	      }
-	      // debugger;
-	
 	      return false;
-	      // if selected === undefined, do nothing
-	      // if selected is x, find next element of x
-	    });
+	    }.bind(this));
 	
 	    key('ctrl+⌘+g', function () {
 	      console.log("You pressed select all words!");
+	
+	      if ($(".clicked ").length > 0) {
+	        var selectedClasses = this.returnSelectedClasses();
+	        $(selectedClasses).not(".clicked").addClass("clicked");
+	      }
 	      return false;
-	    });
+	    }.bind(this));
 	
 	    key('⌘+l', function () {
 	      console.log("You pressed select line!");
