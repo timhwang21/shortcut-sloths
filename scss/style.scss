@@ -1,7 +1,7 @@
 @import "sloths.scss";
 @import "board.scss";
 
-html, body, div, span, section, header {
+html, body, div, section, header {
   display: flex;
   box-sizing: border-box;
   font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif;
@@ -23,21 +23,32 @@ body {
 h1 {
   font-size: 40px;
   text-align: center;
+  margin: 16px;
 }
 
 h2 {
   font-size: 28px;
   text-align: center;
+  margin: 16px;
 }
 
-div {
+h3 {
+  font-size: 28px;
+  margin: 10px;
+}
+
+p {
   font-size: 18px;
   font-family: 'Varela Round', sans-serif;
+  display: inline;
+  text-weight: 100;
+  margin: 10px;
 }
 
 em {
-  color: #ff7473;
-  text-decoration: underline;
+  color: #f99;
+  display: inline;
+  font-style: normal;
 }
 
 #root, .sloths {
@@ -48,7 +59,7 @@ em {
 .button-row {
   width: 100%;
   justify-content: center;
-  padding-top: 100px;
+  padding-top: 40px;
 }
 
 .button {

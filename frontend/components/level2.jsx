@@ -2,8 +2,9 @@ var React = require('react');
 var Link = require('react-router').Link;
 var Shortcuts = require('../../js/shortcuts');
 
-
 var Sloth = require('./sloth');
+var ShortcutSloth = require('./shortcutSloth');
+
 
 var Level2 = React.createClass({
   contextTypes: {
@@ -22,10 +23,11 @@ var Level2 = React.createClass({
         <section className="sidebar">
           <h1>SHORTCUT SLOTHS</h1>
           <h2>Level 2</h2>
-          <div>Great job! But wasn't it slow clicking on each individual sloth?</div>
-          <div>Wouldn't it be great if you could simultaneously wake up multiple sloths?</div>
-          <div>Try pressing 'command+D' when selecting a sloth!</div>
-          <div>(You should be able to finish this level with 1 click and 5 shortcuts!)</div>
+          <p>Great job! But wasn't it slow clicking on each individual sloth?
+             Wouldn't it be great if you could <em>wake up multiple sloths at a time?</em></p>
+          <p><em>Select a sloth</em>, and press <em>'command + D'</em>!</p>
+          <p>Remember to hit <em>space</em> to wake a sloth up!</p>
+          <p>(You should be able to finish this level with <em>1 click</em> and <em>5 shortcuts</em>!)</p>
 
           <div className="button-row">
             <button 
@@ -41,8 +43,16 @@ var Level2 = React.createClass({
           <div className="row">
             <Sloth />
             <Sloth />
+            <ShortcutSloth />
             <Sloth />
             <Sloth />
+            <ShortcutSloth />
+          </div>
+          <div className="row">
+            <ShortcutSloth />
+            <Sloth />
+            <Sloth />
+            <ShortcutSloth />
             <Sloth />
             <Sloth />
           </div>

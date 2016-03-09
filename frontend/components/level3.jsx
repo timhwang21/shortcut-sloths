@@ -2,8 +2,8 @@ var React = require('react');
 var Link = require('react-router').Link;
 var Shortcuts = require('../../js/shortcuts');
 
-
 var Sloth = require('./sloth');
+var ShortcutSloth = require('./shortcutSloth');
 
 var Level3 = React.createClass({
   contextTypes: {
@@ -23,9 +23,9 @@ var Level3 = React.createClass({
         <section className="sidebar">
           <h1>SHORTCUT SLOTHS</h1>
           <h2>Level 3</h2>
-          <div>Nice! But we can go even faster!</div>
-          <div>Try using 'ctrl+command+G' when selecting a sloth!</div>
-          <div>(You should be able to finish this level with 1 click and 1 shortcut!)</div>
+          <p>Nice! But we can go even faster! Is it possible to <em>select all sloths of the same type?</em></p>
+          <p><em>Select a sloth</em>, then press <em>'ctrl + command + G'</em>!</p>
+          <p>(You should be able to finish this level with <em>1 click</em> and <em>1 shortcut</em>!)</p>
 
           <div className="button-row">
             <button 
@@ -33,7 +33,8 @@ var Level3 = React.createClass({
               onClick={this.context.checkWin.bind(null, 4)}>
               Next
             </button>
-          </div>        </section>
+          </div>        
+        </section>
 
         <section className="board" style={{alignItems: "center"}}>
           <div className="row"></div>
@@ -41,8 +42,16 @@ var Level3 = React.createClass({
           <div className="row">
             <Sloth />
             <Sloth />
+            <ShortcutSloth />
             <Sloth />
             <Sloth />
+            <ShortcutSloth />
+          </div>
+          <div className="row">
+            <ShortcutSloth />
+            <Sloth />
+            <Sloth />
+            <ShortcutSloth />
             <Sloth />
             <Sloth />
           </div>

@@ -26,11 +26,12 @@ var Level6 = React.createClass({
         <section className="sidebar">
           <h1>SHORTCUT SLOTHS</h1>
           <h2>Level 6</h2>
-          <div>Oh no! These sloths are REALLY angry!</div>
-          <div>Savage sloths cannot be reasoned with! There is only one way to deal with them...</div>
-          <h2>THROW THEM IN JAIL.</h2>
-          <div>Use 'command-/' to put a sloth in jail!</div>
-          <div>But make sure not to jail any other sloths!</div>
+          <p>Oh no! These sloths are <em>REALLY</em> angry!</p>
+          <p>Savage sloths <em>cannot be reasoned with</em>! There is only one way to deal with them...</p>
+          <h3>JAIL THEM.</h3>
+          <p>Use <em>'command-/'</em> to <em>throw a selected sloth in jail</em>!</p>
+          <p>(How did you <em>select unselectable sloths</em> before?)</p>
+          <p>Make sure to free any innocent sloths before moving on!</p>
 
           <div className="button-row">
             <button 

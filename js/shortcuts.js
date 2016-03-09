@@ -30,6 +30,40 @@ var shortcuts = {
       clicked.not( ".jailed" ).removeClass( "sleepy surly" );
       clicked.not( ".jailed" ).addClass( "shortcut" );
     });
+
+    key('left', function() {
+      var clicked = $( ".clicked" );
+      var prev = clicked.prev();
+      var prevRow = clicked.parent().prev().children();
+      if (prev.length > 0 && 
+        prev.not( ".surly" ).length > 0 &&
+        prev.not( ".savage" ).length > 0) {
+        prev.addClass( "clicked" );
+        clicked.removeClass( "clicked" );
+      } else if (prevRow.length > 0 && 
+        prevRow.last().not( ".surly" ).length > 0 && 
+        prevRow.last().not( ".savage" ).length > 0) {
+        prevRow.last().addClass( "clicked" );
+        clicked.removeClass( "clicked" );
+      }
+    });
+
+    key('right', function() {
+      var clicked = $( ".clicked" );
+      var next = clicked.next();
+      var nextRow = clicked.parent().next().children();
+      if (next.length > 0 && 
+        next.not( ".surly" ).length > 0 &&
+        next.not( ".savage" ).length > 0) {
+        next.addClass( "clicked" );
+        clicked.removeClass( "clicked" );
+      } else if (nextRow.length > 0 && 
+        nextRow.first().not( ".surly" ).length > 0 && 
+        nextRow.first().not( ".savage" ).length > 0) {
+        nextRow.first().addClass( "clicked" );
+        clicked.removeClass( "clicked" );
+      }
+    });
   },
 
   loadLvl2: function() {

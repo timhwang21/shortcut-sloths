@@ -25,11 +25,11 @@ var Level5 = React.createClass({
         <section className="sidebar">
           <h1>SHORTCUT SLOTHS</h1>
           <h2>Level 5</h2>
-          <div>What's this? Some sloths didn't like being woken up!</div>
-          <div>Surly sloths cannot be clicked. Oh no! What can we do?</div>
-          <div>Maybe you can try selecting an entire row at once with 'command-L'!)</div>
-          <div>Pressing 'command-L' again with a line selected selects the next line!</div>
-          <div>(You should be able to finish this level with 1 click and 2 shortcuts!)</div>
+          <p>What's this? Some sloths didn't like being woken up!</p>
+          <p>Surly sloths <em>cannot be clicked</em>, but <em>can be placated</em> with <em>space</em>!</p>
+          <p>Try <em>selecting an entire row at once</em> with <em>'command-L'</em>!)</p>
+          <p>Pressing <em>'command-L'</em> again with a line selected <em>selects the next line</em>!</p>
+          <p>(You should be able to finish this level with <em>1 click</em> and <em>3 shortcuts</em>!)</p>
 
           <div className="button-row">
             <button 
@@ -42,7 +42,6 @@ var Level5 = React.createClass({
 
         <section className="board" style={{alignItems: "center"}}>
           <div className="row"></div>
-          <div className="row"></div>
           <div className="row">
             <Sloth />
             <SurlySloth />
@@ -58,6 +57,14 @@ var Level5 = React.createClass({
             <Sloth />
             <SurlySloth />
             <Sloth />
+          </div>
+          <div className="row">
+            <Sloth />
+            <SurlySloth />
+            <Sloth />
+            <SurlySloth />
+            <Sloth />
+            <SurlySloth />
           </div>
         </section>
       </div>

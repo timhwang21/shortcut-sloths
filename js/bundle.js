@@ -24831,6 +24831,32 @@
 	      clicked.not(".jailed").removeClass("sleepy surly");
 	      clicked.not(".jailed").addClass("shortcut");
 	    });
+	
+	    key('left', function () {
+	      var clicked = $(".clicked");
+	      var prev = clicked.prev();
+	      var prevRow = clicked.parent().prev().children();
+	      if (prev.length > 0 && prev.not(".surly").length > 0 && prev.not(".savage").length > 0) {
+	        prev.addClass("clicked");
+	        clicked.removeClass("clicked");
+	      } else if (prevRow.length > 0 && prevRow.last().not(".surly").length > 0 && prevRow.last().not(".savage").length > 0) {
+	        prevRow.last().addClass("clicked");
+	        clicked.removeClass("clicked");
+	      }
+	    });
+	
+	    key('right', function () {
+	      var clicked = $(".clicked");
+	      var next = clicked.next();
+	      var nextRow = clicked.parent().next().children();
+	      if (next.length > 0 && next.not(".surly").length > 0 && next.not(".savage").length > 0) {
+	        next.addClass("clicked");
+	        clicked.removeClass("clicked");
+	      } else if (nextRow.length > 0 && nextRow.first().not(".surly").length > 0 && nextRow.first().not(".savage").length > 0) {
+	        nextRow.first().addClass("clicked");
+	        clicked.removeClass("clicked");
+	      }
+	    });
 	  },
 	
 	  loadLvl2: function loadLvl2() {
@@ -24965,14 +24991,25 @@
 	          'Level 1'
 	        ),
 	        React.createElement(
-	          'div',
+	          'p',
 	          null,
 	          'Oh no! The regularly active shortcut sloths have turned into sleepy sloths! It\'s your job to wake them up!'
 	        ),
 	        React.createElement(
-	          'div',
+	          'p',
 	          null,
-	          '(Click each sloth, and press space to transform them from a sleepy sloth to a shortcut sloth!)'
+	          React.createElement(
+	            'em',
+	            null,
+	            'Click each sloth'
+	          ),
+	          ', and ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'press space'
+	          ),
+	          ' to transform them from a sleepy sloth to a shortcut sloth!'
 	        ),
 	        React.createElement(
 	          'div',
@@ -25120,6 +25157,7 @@
 	var Shortcuts = __webpack_require__(217);
 	
 	var Sloth = __webpack_require__(219);
+	var ShortcutSloth = __webpack_require__(229);
 	
 	var Level2 = React.createClass({
 	  displayName: 'Level2',
@@ -25152,24 +25190,58 @@
 	          'Level 2'
 	        ),
 	        React.createElement(
-	          'div',
+	          'p',
 	          null,
-	          'Great job! But wasn\'t it slow clicking on each individual sloth?'
+	          'Great job! But wasn\'t it slow clicking on each individual sloth? Wouldn\'t it be great if you could ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'wake up multiple sloths at a time?'
+	          )
 	        ),
 	        React.createElement(
-	          'div',
+	          'p',
 	          null,
-	          'Wouldn\'t it be great if you could simultaneously wake up multiple sloths?'
+	          React.createElement(
+	            'em',
+	            null,
+	            'Select a sloth'
+	          ),
+	          ', and press ',
+	          React.createElement(
+	            'em',
+	            null,
+	            '\'command + D\''
+	          ),
+	          '!'
 	        ),
 	        React.createElement(
-	          'div',
+	          'p',
 	          null,
-	          'Try pressing \'command+D\' when selecting a sloth!'
+	          'Remember to hit ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'space'
+	          ),
+	          ' to wake a sloth up!'
 	        ),
 	        React.createElement(
-	          'div',
+	          'p',
 	          null,
-	          '(You should be able to finish this level with 1 click and 5 shortcuts!)'
+	          '(You should be able to finish this level with ',
+	          React.createElement(
+	            'em',
+	            null,
+	            '1 click'
+	          ),
+	          ' and ',
+	          React.createElement(
+	            'em',
+	            null,
+	            '5 shortcuts'
+	          ),
+	          '!)'
 	        ),
 	        React.createElement(
 	          'div',
@@ -25194,8 +25266,18 @@
 	          { className: 'row' },
 	          React.createElement(Sloth, null),
 	          React.createElement(Sloth, null),
+	          React.createElement(ShortcutSloth, null),
 	          React.createElement(Sloth, null),
 	          React.createElement(Sloth, null),
+	          React.createElement(ShortcutSloth, null)
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'row' },
+	          React.createElement(ShortcutSloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(ShortcutSloth, null),
 	          React.createElement(Sloth, null),
 	          React.createElement(Sloth, null)
 	        )
@@ -25217,6 +25299,7 @@
 	var Shortcuts = __webpack_require__(217);
 	
 	var Sloth = __webpack_require__(219);
+	var ShortcutSloth = __webpack_require__(229);
 	
 	var Level3 = React.createClass({
 	  displayName: 'Level3',
@@ -25250,19 +25333,47 @@
 	          'Level 3'
 	        ),
 	        React.createElement(
-	          'div',
+	          'p',
 	          null,
-	          'Nice! But we can go even faster!'
+	          'Nice! But we can go even faster! Is it possible to ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'select all sloths of the same type?'
+	          )
 	        ),
 	        React.createElement(
-	          'div',
+	          'p',
 	          null,
-	          'Try using \'ctrl+command+G\' when selecting a sloth!'
+	          React.createElement(
+	            'em',
+	            null,
+	            'Select a sloth'
+	          ),
+	          ', then press ',
+	          React.createElement(
+	            'em',
+	            null,
+	            '\'ctrl + command + G\''
+	          ),
+	          '!'
 	        ),
 	        React.createElement(
-	          'div',
+	          'p',
 	          null,
-	          '(You should be able to finish this level with 1 click and 1 shortcut!)'
+	          '(You should be able to finish this level with ',
+	          React.createElement(
+	            'em',
+	            null,
+	            '1 click'
+	          ),
+	          ' and ',
+	          React.createElement(
+	            'em',
+	            null,
+	            '1 shortcut'
+	          ),
+	          '!)'
 	        ),
 	        React.createElement(
 	          'div',
@@ -25274,8 +25385,7 @@
 	              onClick: this.context.checkWin.bind(null, 4) },
 	            'Next'
 	          )
-	        ),
-	        '        '
+	        )
 	      ),
 	      React.createElement(
 	        'section',
@@ -25287,8 +25397,18 @@
 	          { className: 'row' },
 	          React.createElement(Sloth, null),
 	          React.createElement(Sloth, null),
+	          React.createElement(ShortcutSloth, null),
 	          React.createElement(Sloth, null),
 	          React.createElement(Sloth, null),
+	          React.createElement(ShortcutSloth, null)
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'row' },
+	          React.createElement(ShortcutSloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(ShortcutSloth, null),
 	          React.createElement(Sloth, null),
 	          React.createElement(Sloth, null)
 	        )
@@ -25344,14 +25464,26 @@
 	          'Level 4'
 	        ),
 	        React.createElement(
-	          'div',
+	          'p',
 	          null,
 	          'There are more sloths than before! Wake them up, you got this!'
 	        ),
 	        React.createElement(
-	          'div',
+	          'p',
 	          null,
-	          'Use either \'command-D\' or \'ctrl-command-G\' to select all the sloths!'
+	          'Use either ',
+	          React.createElement(
+	            'em',
+	            null,
+	            '\'command-D\''
+	          ),
+	          ' or ',
+	          React.createElement(
+	            'em',
+	            null,
+	            '\'ctrl-command-G\''
+	          ),
+	          ' to select all the sloths!'
 	        ),
 	        React.createElement(
 	          'div',
@@ -25363,14 +25495,22 @@
 	              onClick: this.context.checkWin.bind(null, 5) },
 	            'Next'
 	          )
-	        ),
-	        '        '
+	        )
 	      ),
 	      React.createElement(
 	        'section',
 	        { className: 'board', style: { alignItems: "center" } },
 	        React.createElement('div', { className: 'row' }),
-	        React.createElement('div', { className: 'row' }),
+	        React.createElement(
+	          'div',
+	          { className: 'row' },
+	          React.createElement(Sloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(Sloth, null)
+	        ),
 	        React.createElement(
 	          'div',
 	          { className: 'row' },
@@ -25493,29 +25633,83 @@
 	          'Level 5'
 	        ),
 	        React.createElement(
-	          'div',
+	          'p',
 	          null,
 	          'What\'s this? Some sloths didn\'t like being woken up!'
 	        ),
 	        React.createElement(
-	          'div',
+	          'p',
 	          null,
-	          'Surly sloths cannot be clicked. Oh no! What can we do?'
+	          'Surly sloths ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'cannot be clicked'
+	          ),
+	          ', but ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'can be placated'
+	          ),
+	          ' with ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'space'
+	          ),
+	          '!'
 	        ),
 	        React.createElement(
-	          'div',
+	          'p',
 	          null,
-	          'Maybe you can try selecting an entire row at once with \'command-L\'!)'
+	          'Try ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'selecting an entire row at once'
+	          ),
+	          ' with ',
+	          React.createElement(
+	            'em',
+	            null,
+	            '\'command-L\''
+	          ),
+	          '!)'
 	        ),
 	        React.createElement(
-	          'div',
+	          'p',
 	          null,
-	          'Pressing \'command-L\' again with a line selected selects the next line!'
+	          'Pressing ',
+	          React.createElement(
+	            'em',
+	            null,
+	            '\'command-L\''
+	          ),
+	          ' again with a line selected ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'selects the next line'
+	          ),
+	          '!'
 	        ),
 	        React.createElement(
-	          'div',
+	          'p',
 	          null,
-	          '(You should be able to finish this level with 1 click and 2 shortcuts!)'
+	          '(You should be able to finish this level with ',
+	          React.createElement(
+	            'em',
+	            null,
+	            '1 click'
+	          ),
+	          ' and ',
+	          React.createElement(
+	            'em',
+	            null,
+	            '3 shortcuts'
+	          ),
+	          '!)'
 	        ),
 	        React.createElement(
 	          'div',
@@ -25532,7 +25726,6 @@
 	      React.createElement(
 	        'section',
 	        { className: 'board', style: { alignItems: "center" } },
-	        React.createElement('div', { className: 'row' }),
 	        React.createElement('div', { className: 'row' }),
 	        React.createElement(
 	          'div',
@@ -25553,6 +25746,16 @@
 	          React.createElement(Sloth, null),
 	          React.createElement(SurlySloth, null),
 	          React.createElement(Sloth, null)
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'row' },
+	          React.createElement(Sloth, null),
+	          React.createElement(SurlySloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(SurlySloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(SurlySloth, null)
 	        )
 	      )
 	    );
@@ -25608,29 +25811,64 @@
 	          'Level 6'
 	        ),
 	        React.createElement(
-	          'div',
+	          'p',
 	          null,
-	          'Oh no! These sloths are REALLY angry!'
+	          'Oh no! These sloths are ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'REALLY'
+	          ),
+	          ' angry!'
 	        ),
 	        React.createElement(
-	          'div',
+	          'p',
 	          null,
-	          'Savage sloths cannot be reasoned with! There is only one way to deal with them...'
+	          'Savage sloths ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'cannot be reasoned with'
+	          ),
+	          '! There is only one way to deal with them...'
 	        ),
 	        React.createElement(
-	          'h2',
+	          'h3',
 	          null,
-	          'THROW THEM IN JAIL.'
+	          'JAIL THEM.'
 	        ),
 	        React.createElement(
-	          'div',
+	          'p',
 	          null,
-	          'Use \'command-/\' to put a sloth in jail!'
+	          'Use ',
+	          React.createElement(
+	            'em',
+	            null,
+	            '\'command-/\''
+	          ),
+	          ' to ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'throw a selected sloth in jail'
+	          ),
+	          '!'
 	        ),
 	        React.createElement(
-	          'div',
+	          'p',
 	          null,
-	          'But make sure not to jail any other sloths!'
+	          '(How did you ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'select unselectable sloths'
+	          ),
+	          ' before?)'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'Make sure to free any innocent sloths before moving on!'
 	        ),
 	        React.createElement(
 	          'div',
@@ -25749,8 +25987,8 @@
 	  },
 	
 	  componentDidMount: function componentDidMount() {
-	    Shortcuts.unbindAll();
-	    Shortcuts.unbindSpace();
+	    // Shortcuts.unbindAll();
+	    // Shortcuts.unbindSpace();
 	  },
 	
 	  render: function render() {

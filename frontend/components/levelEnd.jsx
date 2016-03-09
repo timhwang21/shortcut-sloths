@@ -15,8 +15,8 @@ var LevelEnd = React.createClass({
   },
 
   componentDidMount: function() {
-    Shortcuts.unbindAll();
-    Shortcuts.unbindSpace();
+    // Shortcuts.unbindAll();
+    // Shortcuts.unbindSpace();
   },
 
   render: function() {
