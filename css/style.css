@@ -506,40 +506,18 @@
   -o-animation-duration: 0.2s;
   animation-duration: 0.2s; }
 
+.sloth:hover {
+  cursor: pointer; }
+
+.sloth.surly:hover, .sloth.savage:hover {
+  cursor: not-allowed; }
+
 .sloth.jailed .jail {
   position: absolute;
   z-index: 1;
   height: 100px;
   width: 100px;
   background: repeating-linear-gradient(to right, #555, #555 10px, transparent 10px, transparent 20px); }
-
-html, body, div, span, section, header {
-  display: flex;
-  box-sizing: border-box;
-  font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif;
-  margin: 0;
-  border: 0;
-  color: white; }
-
-html, body, .root, .game, .level {
-  flex-direction: row;
-  height: 100%;
-  width: 100%; }
-
-body {
-  background: #706060; }
-
-h1 {
-  font-size: 40px;
-  text-align: center; }
-
-h2 {
-  font-size: 28px;
-  text-align: center; }
-
-div {
-  font-size: 18px;
-  font-family: 'Varela Round', sans-serif; }
 
 .level {
   justify-content: space-between; }
@@ -572,6 +550,42 @@ div {
   height: 120px;
   width: 100%; }
 
+html, body, div, span, section, header {
+  display: flex;
+  box-sizing: border-box;
+  font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif;
+  margin: 0;
+  border: 0;
+  color: white; }
+
+html, body, .root, .game, .level {
+  flex-direction: row;
+  height: 100%;
+  width: 100%; }
+
+body {
+  background: #706060; }
+
+h1 {
+  font-size: 40px;
+  text-align: center; }
+
+h2 {
+  font-size: 28px;
+  text-align: center; }
+
+div {
+  font-size: 18px;
+  font-family: 'Varela Round', sans-serif; }
+
+em {
+  color: #ff7473;
+  text-decoration: underline; }
+
+#root, .sloths {
+  height: 100%;
+  width: 100%; }
+
 .button-row {
   width: 100%;
   justify-content: center;
@@ -593,9 +607,7 @@ div {
     opacity: .75;
     transform: scale(0.97);
     transition: all 100ms ease; }
-
-#root, .sloths {
-  height: 100%;
-  width: 100%; }
+  .button:focus {
+    outline: 0; }
 
 /*# sourceMappingURL=style.css.map */

@@ -30,7 +30,7 @@ var Level4 = React.createClass({
           <div className="button-row">
             <button 
               className="button" 
-              onClick={this.context.checkWin.bind(null, 6)}>
+              onClick={this.context.checkWin.bind(null, 5)}>
               Next
             </button>
           </div>        </section>

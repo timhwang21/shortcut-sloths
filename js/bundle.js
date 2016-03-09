@@ -24981,7 +24981,7 @@
 	            'button',
 	            {
 	              className: 'button',
-	              onClick: this.context.checkWin.bind(null, 6) },
+	              onClick: this.context.checkWin.bind(null, 2) },
 	            'Next'
 	          )
 	        )
@@ -25178,7 +25178,7 @@
 	            'button',
 	            {
 	              className: 'button',
-	              onClick: this.context.checkWin.bind(null, 6) },
+	              onClick: this.context.checkWin.bind(null, 3) },
 	            'Next'
 	          )
 	        ),
@@ -25271,7 +25271,7 @@
 	            'button',
 	            {
 	              className: 'button',
-	              onClick: this.context.checkWin.bind(null, 6) },
+	              onClick: this.context.checkWin.bind(null, 4) },
 	            'Next'
 	          )
 	        ),
@@ -25360,7 +25360,7 @@
 	            'button',
 	            {
 	              className: 'button',
-	              onClick: this.context.checkWin.bind(null, 6) },
+	              onClick: this.context.checkWin.bind(null, 5) },
 	            'Next'
 	          )
 	        ),
@@ -25639,7 +25639,7 @@
 	            'button',
 	            {
 	              className: 'button',
-	              onClick: this.context.checkWin.bind(null, 6) },
+	              onClick: this.context.checkWin.bind(null, "end") },
 	            'Next'
 	          )
 	        )

@@ -57,6 +57,14 @@
   @include animation-duration(.2s);
 }
 
+.sloth:hover {
+  cursor: pointer;
+}
+
+.sloth.surly:hover, .sloth.savage:hover {
+  cursor: not-allowed;
+}
+
 .sloth.jailed .jail{
   position: absolute;
   z-index: 1;
