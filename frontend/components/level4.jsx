@@ -5,7 +5,7 @@ var Shortcuts = require('../../js/shortcuts');
 
 var Sloth = require('./sloth');
 
-var Level3 = React.createClass({
+var Level4 = React.createClass({
   contextTypes: {
     router: React.PropTypes.object.isRequired,
     checkWin: React.PropTypes.func
@@ -23,12 +23,12 @@ var Level3 = React.createClass({
       <div className="level">
         <section className="sidebar">
           <h1>SHORTCUT SLOTHS</h1>
-          <div>Level 3</div>
-          <div>Nice! But we can go even faster! </div>
-          <div>Try using 'ctrl+command+G' when selecting a sloth!</div>
+          <div>Level 4</div>
+          <div>Different lines </div>
+          <div>'command-l' to select a line! (need different sloths eventually)</div>
           <div>(You should be able to finish this level with 1 click and 1 shortcut!)</div>
 
-          <button onClick={this.context.checkWin.bind(null, 3)}>Next</button>
+          <button onClick={this.context.checkWin.bind(null, 4)}>Next</button>
         </section>
 
         <section className="board" style={{alignItems: "center"}}>
@@ -56,4 +56,4 @@ var Level3 = React.createClass({
   }
 });
 
-module.exports = Level3;
+module.exports = Level4;

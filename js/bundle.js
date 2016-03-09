@@ -59,6 +59,7 @@
 	var Level1 = __webpack_require__(217);
 	var Level2 = __webpack_require__(221);
 	var Level3 = __webpack_require__(222);
+	var Level4 = __webpack_require__(223);
 	
 	var routes = React.createElement(
 	  Route,
@@ -66,7 +67,8 @@
 	  React.createElement(IndexRedirect, { to: '1' }),
 	  React.createElement(Route, { path: '1', component: Level1 }),
 	  React.createElement(Route, { path: '2', component: Level2 }),
-	  React.createElement(Route, { path: '3', component: Level3 })
+	  React.createElement(Route, { path: '3', component: Level3 }),
+	  React.createElement(Route, { path: '4', component: Level4 })
 	);
 	
 	$(function () {
@@ -25005,8 +25007,9 @@
 	
 	      if ($(".clicked ").length > 0) {
 	        var selectedClasses = $(this.returnSelectedClasses());
-	        var sameElements = $(".clicked ").last().nextAll(this.returnSelectedClasses()).not(".clicked ");
-	        var startIdx = selectedClasses.index($(".clicked").last()) + 1;
+	        var clicked = $(".clicked");
+	        var sameElements = clicked.last().nextAll(this.returnSelectedClasses()).not(".clicked ");
+	        var startIdx = selectedClasses.index(clicked.last()) + 1;
 	
 	        if (startIdx < selectedClasses.length) {
 	          selectedClasses.slice(startIdx).first().addClass("clicked");
@@ -25023,8 +25026,8 @@
 	      console.log("You pressed select all words!");
 	
 	      if ($(".clicked ").length > 0) {
-	        var selectedClasses = this.returnSelectedClasses();
-	        $(selectedClasses).not(".clicked").addClass("clicked");
+	        var selectedClasses = $(this.returnSelectedClasses());
+	        selectedClasses.not(".clicked").addClass("clicked");
 	      }
 	      return false;
 	    }.bind(this));
@@ -25033,8 +25036,16 @@
 	  loadLvl4: function loadLvl4() {
 	    key('⌘+l', function () {
 	      console.log("You pressed select line!");
-	      $(".clicked").siblings().addClass("clicked");
-	    });
+	
+	      var clicked = $(".clicked");
+	      // debugger;
+	      if (clicked.length < clicked.siblings().length) {
+	        clicked.siblings().addClass("clicked");
+	      } else {
+	        clicked.parent().next().children().addClass("clicked");
+	      }
+	      return false;
+	    }.bind(this));
 	  },
 	
 	  tempLoadRest: function tempLoadRest() {
@@ -25263,6 +25274,103 @@
 	});
 	
 	module.exports = Level3;
+
+/***/ },
+/* 223 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var Link = __webpack_require__(159).Link;
+	var Shortcuts = __webpack_require__(220);
+	
+	var Sloth = __webpack_require__(218);
+	
+	var Level4 = React.createClass({
+	  displayName: 'Level4',
+	
+	  contextTypes: {
+	    router: React.PropTypes.object.isRequired,
+	    checkWin: React.PropTypes.func
+	  },
+	
+	  componentDidMount: function componentDidMount() {
+	    Shortcuts.unbindAll();
+	    Shortcuts.loadLvl2();
+	    Shortcuts.loadLvl3();
+	    Shortcuts.loadLvl4();
+	  },
+	
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      { className: 'level' },
+	      React.createElement(
+	        'section',
+	        { className: 'sidebar' },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'SHORTCUT SLOTHS'
+	        ),
+	        React.createElement(
+	          'div',
+	          null,
+	          'Level 4'
+	        ),
+	        React.createElement(
+	          'div',
+	          null,
+	          'Different lines '
+	        ),
+	        React.createElement(
+	          'div',
+	          null,
+	          '\'command-l\' to select a line! (need different sloths eventually)'
+	        ),
+	        React.createElement(
+	          'div',
+	          null,
+	          '(You should be able to finish this level with 1 click and 1 shortcut!)'
+	        ),
+	        React.createElement(
+	          'button',
+	          { onClick: this.context.checkWin.bind(null, 4) },
+	          'Next'
+	        )
+	      ),
+	      React.createElement(
+	        'section',
+	        { className: 'board', style: { alignItems: "center" } },
+	        React.createElement('div', { className: 'row' }),
+	        React.createElement('div', { className: 'row' }),
+	        React.createElement(
+	          'div',
+	          { className: 'row' },
+	          React.createElement(Sloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(Sloth, null)
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'row' },
+	          React.createElement(Sloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(Sloth, null)
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Level4;
 
 /***/ }
 /******/ ]);
