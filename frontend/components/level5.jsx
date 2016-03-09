@@ -17,7 +17,20 @@ var Level5 = React.createClass({
     Shortcuts.loadLvl2();
     Shortcuts.loadLvl3();
     Shortcuts.loadLvl5();
+    document.addEventListener('keydown', this.handleEnter, false);
   },
+
+  componentWillUnmount: function() {
+    Shortcuts.unbindAll();
+    document.removeEventListener('keydown', this.handleEnter, false)
+  },
+
+  handleEnter: function(e) {
+    if (e.keyCode == 13) {
+      $( ".button" ).click();
+    }
+  },
+
 
   render: function() {
     return (
@@ -25,11 +38,10 @@ var Level5 = React.createClass({
         <section className="sidebar">
           <h1>SHORTCUT SLOTHS</h1>
           <h2>Level 5</h2>
-          <p>What's this? Some sloths didn't like being woken up!</p>
-          <p>Surly sloths <em>cannot be clicked</em>, but <em>can be placated</em> with <em>space</em>!</p>
-          <p>Try <em>selecting an entire row at once</em> with <em>'command-L'</em>!)</p>
+          <p>What's this? Some sloths didn't like being woken up, and are <em>surly</em>!</p>
+          <p>Surly sloths <em>cannot be clicked</em>, but <em>can be placated</em> with <em>space</em>! How can you select them without clicking them?</p>
+          <p>Try <em>selecting an entire row at once</em> with <em>'command-L'</em>!</p>
           <p>Pressing <em>'command-L'</em> again with a line selected <em>selects the next line</em>!</p>
-          <p>(You should be able to finish this level with <em>1 click</em> and <em>3 shortcuts</em>!)</p>
 
           <div className="button-row">
             <button 

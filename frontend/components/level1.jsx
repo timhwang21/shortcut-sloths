@@ -12,6 +12,18 @@ var Level1 = React.createClass({
 
   componentDidMount: function() {
     Shortcuts.unbindAll();
+    document.addEventListener('keydown', this.handleEnter, false);
+  },
+
+  componentWillUnmount: function() {
+    Shortcuts.unbindAll();
+    document.removeEventListener('keydown', this.handleEnter, false)
+  },
+
+  handleEnter: function(e) {
+    if (e.keyCode == 13) {
+      $( ".button" ).click();
+    }
   },
 
   render: function() {
@@ -20,8 +32,8 @@ var Level1 = React.createClass({
         <section className="sidebar">
           <h1>SHORTCUT SLOTHS</h1>
           <h2>Level 1</h2>
-          <p>Oh no! The regularly active shortcut sloths have turned into sleepy sloths! It's your job to wake them up!</p>
-          <p><em>Click each sloth</em>, and <em>press space</em> to transform them from a sleepy sloth to a shortcut sloth!</p>
+          <p>Oh no! The regularly active <em>shortcut sloths</em> have turned into <em>sleepy sloths</em>! It's your job to <em>wake them up</em>!</p>
+          <p><em>Click each sloth</em>, and press <em>space</em> to transform them from sleepy sloths to shortcut sloths!</p>
 
           <div className="button-row">
             <button 

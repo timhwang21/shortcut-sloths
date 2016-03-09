@@ -24834,27 +24834,41 @@
 	
 	    key('left', function () {
 	      var clicked = $(".clicked");
-	      var prev = clicked.prev();
+	      var prev = clicked.prev().first();
 	      var prevRow = clicked.parent().prev().children();
-	      if (prev.length > 0 && prev.not(".surly").length > 0 && prev.not(".savage").length > 0) {
+	      if (prev.length > 0 && prev.not(".surly").length > 0 && prev.not(".savage").length > 0 && prev.not(".clicked").length > 0) {
 	        prev.addClass("clicked");
 	        clicked.removeClass("clicked");
 	      } else if (prevRow.length > 0 && prevRow.last().not(".surly").length > 0 && prevRow.last().not(".savage").length > 0) {
 	        prevRow.last().addClass("clicked");
 	        clicked.removeClass("clicked");
 	      }
+	      return false;
 	    });
 	
 	    key('right', function () {
 	      var clicked = $(".clicked");
-	      var next = clicked.next();
+	      if (clicked.length === 0) {
+	        $(".sloth").first().not(".surly ").not(".savage").addClass("clicked");
+	        return false;
+	      }
+	
+	      var next = clicked.next().last();
 	      var nextRow = clicked.parent().next().children();
-	      if (next.length > 0 && next.not(".surly").length > 0 && next.not(".savage").length > 0) {
+	      if (next.length > 0 && next.not(".surly").length > 0 && next.not(".savage").length > 0 && next.not(".clicked").length > 0) {
 	        next.addClass("clicked");
 	        clicked.removeClass("clicked");
 	      } else if (nextRow.length > 0 && nextRow.first().not(".surly").length > 0 && nextRow.first().not(".savage").length > 0) {
 	        nextRow.first().addClass("clicked");
 	        clicked.removeClass("clicked");
+	      }
+	      return false;
+	    });
+	
+	    key('escape', function () {
+	      var clicked = $(".clicked");
+	      if (clicked.length > 1) {
+	        $(".clicked:not(:last)").removeClass("clicked");
 	      }
 	    });
 	  },
@@ -24971,6 +24985,18 @@
 	
 	  componentDidMount: function componentDidMount() {
 	    Shortcuts.unbindAll();
+	    document.addEventListener('keydown', this.handleEnter, false);
+	  },
+	
+	  componentWillUnmount: function componentWillUnmount() {
+	    Shortcuts.unbindAll();
+	    document.removeEventListener('keydown', this.handleEnter, false);
+	  },
+	
+	  handleEnter: function handleEnter(e) {
+	    if (e.keyCode == 13) {
+	      $(".button").click();
+	    }
 	  },
 	
 	  render: function render() {
@@ -24993,7 +25019,25 @@
 	        React.createElement(
 	          'p',
 	          null,
-	          'Oh no! The regularly active shortcut sloths have turned into sleepy sloths! It\'s your job to wake them up!'
+	          'Oh no! The regularly active ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'shortcut sloths'
+	          ),
+	          ' have turned into ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'sleepy sloths'
+	          ),
+	          '! It\'s your job to ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'wake them up'
+	          ),
+	          '!'
 	        ),
 	        React.createElement(
 	          'p',
@@ -25003,13 +25047,13 @@
 	            null,
 	            'Click each sloth'
 	          ),
-	          ', and ',
+	          ', and press ',
 	          React.createElement(
 	            'em',
 	            null,
-	            'press space'
+	            'space'
 	          ),
-	          ' to transform them from a sleepy sloth to a shortcut sloth!'
+	          ' to transform them from sleepy sloths to shortcut sloths!'
 	        ),
 	        React.createElement(
 	          'div',
@@ -25170,6 +25214,18 @@
 	  componentDidMount: function componentDidMount() {
 	    Shortcuts.unbindAll();
 	    Shortcuts.loadLvl2();
+	    document.addEventListener('keydown', this.handleEnter, false);
+	  },
+	
+	  componentWillUnmount: function componentWillUnmount() {
+	    Shortcuts.unbindAll();
+	    document.removeEventListener('keydown', this.handleEnter, false);
+	  },
+	
+	  handleEnter: function handleEnter(e) {
+	    if (e.keyCode == 13) {
+	      $(".button").click();
+	    }
 	  },
 	
 	  render: function render() {
@@ -25205,13 +25261,19 @@
 	          React.createElement(
 	            'em',
 	            null,
-	            'Select a sloth'
+	            'Click a sloth'
 	          ),
 	          ', and press ',
 	          React.createElement(
 	            'em',
 	            null,
 	            '\'command + D\''
+	          ),
+	          ' to ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'select the next sloth of the same type'
 	          ),
 	          '!'
 	        ),
@@ -25225,23 +25287,6 @@
 	            'space'
 	          ),
 	          ' to wake a sloth up!'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          '(You should be able to finish this level with ',
-	          React.createElement(
-	            'em',
-	            null,
-	            '1 click'
-	          ),
-	          ' and ',
-	          React.createElement(
-	            'em',
-	            null,
-	            '5 shortcuts'
-	          ),
-	          '!)'
 	        ),
 	        React.createElement(
 	          'div',
@@ -25313,6 +25358,18 @@
 	    Shortcuts.unbindAll();
 	    Shortcuts.loadLvl2();
 	    Shortcuts.loadLvl3();
+	    document.addEventListener('keydown', this.handleEnter, false);
+	  },
+	
+	  componentWillUnmount: function componentWillUnmount() {
+	    Shortcuts.unbindAll();
+	    document.removeEventListener('keydown', this.handleEnter, false);
+	  },
+	
+	  handleEnter: function handleEnter(e) {
+	    if (e.keyCode == 13) {
+	      $(".button").click();
+	    }
 	  },
 	
 	  render: function render() {
@@ -25361,17 +25418,23 @@
 	        React.createElement(
 	          'p',
 	          null,
-	          '(You should be able to finish this level with ',
+	          '(You can also use the ',
 	          React.createElement(
 	            'em',
 	            null,
-	            '1 click'
+	            'arrow keys'
+	          ),
+	          ' to move ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'left'
 	          ),
 	          ' and ',
 	          React.createElement(
 	            'em',
 	            null,
-	            '1 shortcut'
+	            'right'
 	          ),
 	          '!)'
 	        ),
@@ -25444,6 +25507,18 @@
 	    Shortcuts.unbindAll();
 	    Shortcuts.loadLvl2();
 	    Shortcuts.loadLvl3();
+	    document.addEventListener('keydown', this.handleEnter, false);
+	  },
+	
+	  componentWillUnmount: function componentWillUnmount() {
+	    Shortcuts.unbindAll();
+	    document.removeEventListener('keydown', this.handleEnter, false);
+	  },
+	
+	  handleEnter: function handleEnter(e) {
+	    if (e.keyCode == 13) {
+	      $(".button").click();
+	    }
 	  },
 	
 	  render: function render() {
@@ -25484,6 +25559,11 @@
 	            '\'ctrl-command-G\''
 	          ),
 	          ' to select all the sloths!'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'Or click them one by one, if that\'s your thing.'
 	        ),
 	        React.createElement(
 	          'div',
@@ -25613,6 +25693,18 @@
 	    Shortcuts.loadLvl2();
 	    Shortcuts.loadLvl3();
 	    Shortcuts.loadLvl5();
+	    document.addEventListener('keydown', this.handleEnter, false);
+	  },
+	
+	  componentWillUnmount: function componentWillUnmount() {
+	    Shortcuts.unbindAll();
+	    document.removeEventListener('keydown', this.handleEnter, false);
+	  },
+	
+	  handleEnter: function handleEnter(e) {
+	    if (e.keyCode == 13) {
+	      $(".button").click();
+	    }
 	  },
 	
 	  render: function render() {
@@ -25635,7 +25727,13 @@
 	        React.createElement(
 	          'p',
 	          null,
-	          'What\'s this? Some sloths didn\'t like being woken up!'
+	          'What\'s this? Some sloths didn\'t like being woken up, and are ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'surly'
+	          ),
+	          '!'
 	        ),
 	        React.createElement(
 	          'p',
@@ -25658,7 +25756,7 @@
 	            null,
 	            'space'
 	          ),
-	          '!'
+	          '! How can you select them without clicking them?'
 	        ),
 	        React.createElement(
 	          'p',
@@ -25675,7 +25773,7 @@
 	            null,
 	            '\'command-L\''
 	          ),
-	          '!)'
+	          '!'
 	        ),
 	        React.createElement(
 	          'p',
@@ -25693,23 +25791,6 @@
 	            'selects the next line'
 	          ),
 	          '!'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          '(You should be able to finish this level with ',
-	          React.createElement(
-	            'em',
-	            null,
-	            '1 click'
-	          ),
-	          ' and ',
-	          React.createElement(
-	            'em',
-	            null,
-	            '3 shortcuts'
-	          ),
-	          '!)'
 	        ),
 	        React.createElement(
 	          'div',
@@ -25775,6 +25856,7 @@
 	var Shortcuts = __webpack_require__(217);
 	
 	var Sloth = __webpack_require__(219);
+	var ShortcutSloth = __webpack_require__(229);
 	var SavageSloth = __webpack_require__(227);
 	
 	var Level6 = React.createClass({
@@ -25791,6 +25873,18 @@
 	    Shortcuts.loadLvl3();
 	    Shortcuts.loadLvl5();
 	    Shortcuts.loadLvl6();
+	    document.addEventListener('keydown', this.handleEnter, false);
+	  },
+	
+	  componentWillUnmount: function componentWillUnmount() {
+	    Shortcuts.unbindAll();
+	    document.removeEventListener('keydown', this.handleEnter, false);
+	  },
+	
+	  handleEnter: function handleEnter(e) {
+	    if (e.keyCode == 13) {
+	      $(".button").click();
+	    }
 	  },
 	
 	  render: function render() {
@@ -25868,7 +25962,13 @@
 	        React.createElement(
 	          'p',
 	          null,
-	          'Make sure to free any innocent sloths before moving on!'
+	          'Make sure to ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'free any innocent sloths'
+	          ),
+	          ' before moving on!'
 	        ),
 	        React.createElement(
 	          'div',
@@ -25891,11 +25991,11 @@
 	          'div',
 	          { className: 'row' },
 	          React.createElement(Sloth, null),
+	          React.createElement(ShortcutSloth, null),
 	          React.createElement(Sloth, null),
+	          React.createElement(ShortcutSloth, null),
 	          React.createElement(Sloth, null),
-	          React.createElement(Sloth, null),
-	          React.createElement(Sloth, null),
-	          React.createElement(Sloth, null)
+	          React.createElement(ShortcutSloth, null)
 	        ),
 	        React.createElement(
 	          'div',

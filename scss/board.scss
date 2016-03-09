@@ -24,7 +24,7 @@
   flex-direction: column;
   align-content: center;
   background: #55bb22;
-  height: 750px;
+  height: 620px;
   width: 1000px;
   min-width: 725px;
   border-bottom-left-radius: 10px;
@@ -33,8 +33,9 @@
 .row {
   flex-direction: row;
   flex-wrap: wrap;
+  align-items: center;
   justify-content: space-around;
-  height: 120px;
+  height: 100px;
   width: 100%;
 }
 

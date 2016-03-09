@@ -33,11 +33,12 @@ var shortcuts = {
 
     key('left', function() {
       var clicked = $( ".clicked" );
-      var prev = clicked.prev();
+      var prev = clicked.prev().first();
       var prevRow = clicked.parent().prev().children();
       if (prev.length > 0 && 
         prev.not( ".surly" ).length > 0 &&
-        prev.not( ".savage" ).length > 0) {
+        prev.not( ".savage" ).length > 0 && 
+        prev.not( ".clicked" ).length > 0) {
         prev.addClass( "clicked" );
         clicked.removeClass( "clicked" );
       } else if (prevRow.length > 0 && 
@@ -46,15 +47,22 @@ var shortcuts = {
         prevRow.last().addClass( "clicked" );
         clicked.removeClass( "clicked" );
       }
+      return false;
     });
 
     key('right', function() {
       var clicked = $( ".clicked" );
-      var next = clicked.next();
+      if (clicked.length === 0) {
+        $( ".sloth" ).first().not( ".surly ").not( ".savage" ).addClass( "clicked" );
+        return false;
+      }
+
+      var next = clicked.next().last();
       var nextRow = clicked.parent().next().children();
       if (next.length > 0 && 
         next.not( ".surly" ).length > 0 &&
-        next.not( ".savage" ).length > 0) {
+        next.not( ".savage" ).length > 0 && 
+        next.not( ".clicked" ).length > 0) {
         next.addClass( "clicked" );
         clicked.removeClass( "clicked" );
       } else if (nextRow.length > 0 && 
@@ -62,6 +70,14 @@ var shortcuts = {
         nextRow.first().not( ".savage" ).length > 0) {
         nextRow.first().addClass( "clicked" );
         clicked.removeClass( "clicked" );
+      }
+      return false;
+    });
+
+    key('escape', function() {
+      var clicked = $( ".clicked" );
+      if (clicked.length > 1) {
+        $( ".clicked:not(:last)" ).removeClass( "clicked" );
       }
     });
   },

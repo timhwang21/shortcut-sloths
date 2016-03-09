@@ -15,7 +15,20 @@ var Level3 = React.createClass({
     Shortcuts.unbindAll();
     Shortcuts.loadLvl2();
     Shortcuts.loadLvl3();
+    document.addEventListener('keydown', this.handleEnter, false);
   },
+
+  componentWillUnmount: function() {
+    Shortcuts.unbindAll();
+    document.removeEventListener('keydown', this.handleEnter, false)
+  },
+
+  handleEnter: function(e) {
+    if (e.keyCode == 13) {
+      $( ".button" ).click();
+    }
+  },
+
 
   render: function() {
     return (
@@ -25,7 +38,7 @@ var Level3 = React.createClass({
           <h2>Level 3</h2>
           <p>Nice! But we can go even faster! Is it possible to <em>select all sloths of the same type?</em></p>
           <p><em>Select a sloth</em>, then press <em>'ctrl + command + G'</em>!</p>
-          <p>(You should be able to finish this level with <em>1 click</em> and <em>1 shortcut</em>!)</p>
+          <p>(You can also use the <em>arrow keys</em> to move <em>left</em> and <em>right</em>!)</p>
 
           <div className="button-row">
             <button 

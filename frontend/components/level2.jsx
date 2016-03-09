@@ -15,7 +15,20 @@ var Level2 = React.createClass({
   componentDidMount: function() {
     Shortcuts.unbindAll();
     Shortcuts.loadLvl2();
+    document.addEventListener('keydown', this.handleEnter, false);
   },
+
+  componentWillUnmount: function() {
+    Shortcuts.unbindAll();
+    document.removeEventListener('keydown', this.handleEnter, false)
+  },
+
+  handleEnter: function(e) {
+    if (e.keyCode == 13) {
+      $( ".button" ).click();
+    }
+  },
+
 
   render: function() {
     return (
@@ -25,9 +38,8 @@ var Level2 = React.createClass({
           <h2>Level 2</h2>
           <p>Great job! But wasn't it slow clicking on each individual sloth?
              Wouldn't it be great if you could <em>wake up multiple sloths at a time?</em></p>
-          <p><em>Select a sloth</em>, and press <em>'command + D'</em>!</p>
+          <p><em>Click a sloth</em>, and press <em>'command + D'</em> to <em>select the next sloth of the same type</em>!</p>
           <p>Remember to hit <em>space</em> to wake a sloth up!</p>
-          <p>(You should be able to finish this level with <em>1 click</em> and <em>5 shortcuts</em>!)</p>
 
           <div className="button-row">
             <button 

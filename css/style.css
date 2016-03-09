@@ -437,8 +437,8 @@
   margin: 10px; }
 
 .sloth .bg {
-  height: 95%;
-  width: 95%;
+  height: 100%;
+  width: 100%;
   background-position: center center;
   background-size: contain;
   background-repeat: no-repeat; }
@@ -538,7 +538,7 @@
   flex-direction: column;
   align-content: center;
   background: #55bb22;
-  height: 750px;
+  height: 620px;
   width: 1000px;
   min-width: 725px;
   border-bottom-left-radius: 10px; }
@@ -546,8 +546,9 @@
 .row {
   flex-direction: row;
   flex-wrap: wrap;
+  align-items: center;
   justify-content: space-around;
-  height: 120px;
+  height: 100px;
   width: 100%; }
 
 html, body, div, section, header {

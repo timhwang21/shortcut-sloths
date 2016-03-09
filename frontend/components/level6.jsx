@@ -4,6 +4,7 @@ var Shortcuts = require('../../js/shortcuts');
 
 
 var Sloth = require('./sloth');
+var ShortcutSloth = require('./shortcutSloth');
 var SavageSloth = require('./savageSloth');
 
 var Level6 = React.createClass({
@@ -18,6 +19,18 @@ var Level6 = React.createClass({
     Shortcuts.loadLvl3();
     Shortcuts.loadLvl5();
     Shortcuts.loadLvl6();
+    document.addEventListener('keydown', this.handleEnter, false);
+  },
+
+  componentWillUnmount: function() {
+    Shortcuts.unbindAll();
+    document.removeEventListener('keydown', this.handleEnter, false)
+  },
+
+  handleEnter: function(e) {
+    if (e.keyCode == 13) {
+      $( ".button" ).click();
+    }
   },
 
   render: function() {
@@ -31,7 +44,7 @@ var Level6 = React.createClass({
           <h3>JAIL THEM.</h3>
           <p>Use <em>'command-/'</em> to <em>throw a selected sloth in jail</em>!</p>
           <p>(How did you <em>select unselectable sloths</em> before?)</p>
-          <p>Make sure to free any innocent sloths before moving on!</p>
+          <p>Make sure to <em>free any innocent sloths</em> before moving on!</p>
 
           <div className="button-row">
             <button 
@@ -47,11 +60,11 @@ var Level6 = React.createClass({
           <div className="row"></div>
           <div className="row">
             <Sloth />
+            <ShortcutSloth />
             <Sloth />
+            <ShortcutSloth />
             <Sloth />
-            <Sloth />
-            <Sloth />
-            <Sloth />
+            <ShortcutSloth />
           </div>
           <div className="row">
             <SavageSloth />
@@ -61,6 +74,7 @@ var Level6 = React.createClass({
             <SavageSloth />
             <SavageSloth />
           </div>
+
         </section>
       </div>
     );
