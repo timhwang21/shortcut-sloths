@@ -4,8 +4,9 @@ var Shortcuts = require('../../js/shortcuts');
 
 
 var Sloth = require('./sloth');
+var SurlySloth = require('./surlySloth');
 
-var Level1 = React.createClass({
+var Level5 = React.createClass({
   contextTypes: {
     router: React.PropTypes.object.isRequired,
     checkWin: React.PropTypes.func
@@ -13,6 +14,9 @@ var Level1 = React.createClass({
 
   componentDidMount: function() {
     Shortcuts.unbindAll();
+    Shortcuts.loadLvl2();
+    Shortcuts.loadLvl3();
+    Shortcuts.loadLvl5();
   },
 
   render: function() {
@@ -20,9 +24,12 @@ var Level1 = React.createClass({
       <div className="level">
         <section className="sidebar">
           <h1>SHORTCUT SLOTHS</h1>
-          <h2>Level 1</h2>
-          <div>Oh no! The regularly active shortcut sloths have turned into sleepy sloths! It's your job to wake them up!</div>
-          <div>(Click each sloth, and press space to transform them from a sleepy sloth to a shortcut sloth!)</div>
+          <h2>Level 5</h2>
+          <div>What's this? Some sloths didn't like being woken up!</div>
+          <div>Surly sloths cannot be clicked. Oh no! What can we do?</div>
+          <div>Maybe you can try selecting an entire row at once with 'command-L'!)</div>
+          <div>Pressing 'command-L' again with a line selected selects the next line!</div>
+          <div>(You should be able to finish this level with 1 click and 2 shortcuts!)</div>
 
           <div className="button-row">
             <button 
@@ -38,10 +45,18 @@ var Level1 = React.createClass({
           <div className="row"></div>
           <div className="row">
             <Sloth />
+            <SurlySloth />
             <Sloth />
+            <SurlySloth />
             <Sloth />
+            <SurlySloth />
+          </div>
+          <div className="row">
+            <SurlySloth />
             <Sloth />
+            <SurlySloth />
             <Sloth />
+            <SurlySloth />
             <Sloth />
           </div>
         </section>
@@ -50,4 +65,4 @@ var Level1 = React.createClass({
   }
 });
 
-module.exports = Level1;
+module.exports = Level5;

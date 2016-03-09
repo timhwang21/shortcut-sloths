@@ -1,6 +1,7 @@
 html, body, div, span, section, header {
   display: flex;
   box-sizing: border-box;
+  font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif;
   margin: 0;
   border: 0;
   color: white;
@@ -16,6 +17,21 @@ body {
   background: #706060;
 }
 
+h1 {
+  font-size: 40px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 28px;
+  text-align: center;
+}
+
+div {
+  font-size: 18px;
+  font-family: 'Varela Round', sans-serif;
+}
+
 .level {
   justify-content: space-between;
 }
@@ -28,9 +44,14 @@ body {
   flex-direction: column;
   background: #706060;
   height: 100%;
-  width: 40%;
-  min-width: 300px;
-  padding: 20px 30px;
+  width: 500px;
+  min-width: 400px;
+  padding: 40px 40px;
+  margin: 0 auto;
+}
+
+.sidebar div {
+  margin: 10px 0;
 }
 
 .board {
@@ -38,11 +59,10 @@ body {
   align-content: center;
   background: #55bb22;
   height: 750px;
-  width: 750px;
-  min-width: 750px;
+  width: 1000px;
+  min-width: 725px;
   border-bottom-left-radius: 10px;
 }
-
 
 .row {
   flex-direction: row;
@@ -50,4 +70,32 @@ body {
   justify-content: space-around;
   height: 120px;
   width: 100%;
+}
+
+.button-row {
+  width: 100%;
+  justify-content: center;
+  padding-top: 100px;
+}
+
+.button {
+  background: #ff7473;
+  border: none;
+  border-radius: 24px;
+  color: #fff;
+  font-family: 'Varela Round', sans-serif;
+  font-size: 24px;
+  padding: 12px 18px;
+  text-align: center;
+
+  &:hover {
+    opacity: .9;
+    transition: all 100ms ease;
+  }
+    
+  &:active {
+    opacity: .75;
+    transform: scale(.97);
+    transition: all 100ms ease;
+  }
 }

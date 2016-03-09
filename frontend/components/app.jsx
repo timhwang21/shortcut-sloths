@@ -25,9 +25,12 @@ var App = React.createClass({
   },
 
   checkWin: function(level) {
-    console.log("level", level);
-    if ($( ".sleepy" ).length === 0) {
-      this.context.router.push(String(level + 1))
+    if (
+      $( ".sleepy" ).length === 0 &&
+      $( ".shortcut.jailed" ).length === 0 &&
+      $( ".savage" ).not( ".jailed" ).length === 0
+      ) {
+      this.context.router.push(String(level))
     } else {
       console.log("Eventually the sidebar will shake!");
     }

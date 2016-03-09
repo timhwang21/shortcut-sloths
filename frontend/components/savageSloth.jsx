@@ -3,7 +3,7 @@ var ReactDOM = require('react-dom');
 
 var classNames = require('classnames');
 
-var Sloth = React.createClass({
+var SavageSloth = React.createClass({
 
   componentDidMount: function() {
     document.addEventListener('click', this.handleClickOutside, false);
@@ -14,7 +14,9 @@ var Sloth = React.createClass({
   },
 
   handleClick: function(e) {
-    $(e.currentTarget).addClass( "clicked" );
+    if (!e.currentTarget.classList.contains("savage")) {
+      $(e.currentTarget).addClass( "clicked" );
+    }
   },
 
   handleClickOutside: function(e) {
@@ -26,7 +28,7 @@ var Sloth = React.createClass({
   render: function() {
     return (
       <div 
-        className="sloth sleepy animated" 
+        className="sloth savage animated"
         onClick={this.handleClick}>
         <div className="jail"></div>
         <div className="bg"></div>
@@ -35,4 +37,4 @@ var Sloth = React.createClass({
   }
 });
 
-module.exports = Sloth;
+module.exports = SavageSloth;

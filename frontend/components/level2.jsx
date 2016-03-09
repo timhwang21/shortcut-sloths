@@ -21,14 +21,19 @@ var Level2 = React.createClass({
       <div className="level">
         <section className="sidebar">
           <h1>SHORTCUT SLOTHS</h1>
-          <div>Level 2</div>
+          <h2>Level 2</h2>
           <div>Great job! But wasn't it slow clicking on each individual sloth?</div>
-          <div>What if you could select many sloths and simultaneously wake them up?</div>
-          <div>Try using 'command+D' when selecting a sloth!</div>
+          <div>Wouldn't it be great if you could simultaneously wake up multiple sloths?</div>
+          <div>Try pressing 'command+D' when selecting a sloth!</div>
           <div>(You should be able to finish this level with 1 click and 5 shortcuts!)</div>
 
-          <button onClick={this.context.checkWin.bind(null, 2)}>Next</button>
-        </section>
+          <div className="button-row">
+            <button 
+              className="button" 
+              onClick={this.context.checkWin.bind(null, 6)}>
+              Next
+            </button>
+          </div>        </section>
 
         <section className="board" style={{alignItems: "center"}}>
           <div className="row"></div>

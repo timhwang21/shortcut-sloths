@@ -3,7 +3,7 @@ var ReactDOM = require('react-dom');
 
 var classNames = require('classnames');
 
-var Sloth = React.createClass({
+var ShortcutSloth = React.createClass({
 
   componentDidMount: function() {
     document.addEventListener('click', this.handleClickOutside, false);
@@ -26,7 +26,7 @@ var Sloth = React.createClass({
   render: function() {
     return (
       <div 
-        className="sloth sleepy animated" 
+        className="sloth shortcut animated"
         onClick={this.handleClick}>
         <div className="jail"></div>
         <div className="bg"></div>
@@ -35,4 +35,4 @@ var Sloth = React.createClass({
   }
 });
 
-module.exports = Sloth;
+module.exports = ShortcutSloth;

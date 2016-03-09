@@ -60,4 +60,41 @@
   }
 }
 
+@include keyframes(shake-angry) {
+  0% {
+    @include transform(translate(4px, 2px))
+  }
+  10% {
+    @include transform(translate(-2px,-4px))
+  }
+  20% {
+    @include transform(translate(-6px,0px))
+  }
+  30% {
+    @include transform(translate(0px,4px))
+  }
+  40% {
+    @include transform(translate(2px,-2px))
+  }
+  50% {
+    @include transform(translate(4px,2px))
+  }
+  60% {
+    @include transform(translate(-2px,4px))
+  }
+  70% {
+    @include transform(translate(-6px,2px))
+  }
+  80% {
+    @include transform(translate(4px,-2px))
+  }
+  90% {
+    @include transform(translate(-2px,-2px))
+  }
+  100% {
+    @include transform(translate(2px, -4px))
+  }
+}
+
 $shake-animation: 'shake infinite ease';
+$shake-angry-animation: 'shake-angry infinite ease';

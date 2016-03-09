@@ -4,6 +4,7 @@ var Shortcuts = require('../../js/shortcuts');
 
 
 var Sloth = require('./sloth');
+var SurlySloth = require('./surlySloth');
 
 var Level4 = React.createClass({
   contextTypes: {
@@ -15,7 +16,6 @@ var Level4 = React.createClass({
     Shortcuts.unbindAll();
     Shortcuts.loadLvl2();
     Shortcuts.loadLvl3();
-    Shortcuts.loadLvl4();
   },
 
   render: function() {
@@ -23,13 +23,17 @@ var Level4 = React.createClass({
       <div className="level">
         <section className="sidebar">
           <h1>SHORTCUT SLOTHS</h1>
-          <div>Level 4</div>
-          <div>Different lines </div>
-          <div>'command-l' to select a line! (need different sloths eventually)</div>
-          <div>(You should be able to finish this level with 1 click and 1 shortcut!)</div>
+          <h2>Level 4</h2>
+          <div>There are more sloths than before! Wake them up, you got this!</div>
+          <div>Use either 'command-D' or 'ctrl-command-G' to select all the sloths!</div>
 
-          <button onClick={this.context.checkWin.bind(null, 4)}>Next</button>
-        </section>
+          <div className="button-row">
+            <button 
+              className="button" 
+              onClick={this.context.checkWin.bind(null, 6)}>
+              Next
+            </button>
+          </div>        </section>
 
         <section className="board" style={{alignItems: "center"}}>
           <div className="row"></div>

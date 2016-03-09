@@ -4,8 +4,9 @@ var Shortcuts = require('../../js/shortcuts');
 
 
 var Sloth = require('./sloth');
+var SavageSloth = require('./savageSloth');
 
-var Level1 = React.createClass({
+var Level6 = React.createClass({
   contextTypes: {
     router: React.PropTypes.object.isRequired,
     checkWin: React.PropTypes.func
@@ -13,6 +14,10 @@ var Level1 = React.createClass({
 
   componentDidMount: function() {
     Shortcuts.unbindAll();
+    Shortcuts.loadLvl2();
+    Shortcuts.loadLvl3();
+    Shortcuts.loadLvl5();
+    Shortcuts.loadLvl6();
   },
 
   render: function() {
@@ -20,9 +25,12 @@ var Level1 = React.createClass({
       <div className="level">
         <section className="sidebar">
           <h1>SHORTCUT SLOTHS</h1>
-          <h2>Level 1</h2>
-          <div>Oh no! The regularly active shortcut sloths have turned into sleepy sloths! It's your job to wake them up!</div>
-          <div>(Click each sloth, and press space to transform them from a sleepy sloth to a shortcut sloth!)</div>
+          <h2>Level 6</h2>
+          <div>Oh no! These sloths are REALLY angry!</div>
+          <div>Savage sloths cannot be reasoned with! There is only one way to deal with them...</div>
+          <h2>THROW THEM IN JAIL.</h2>
+          <div>Use 'command-/' to put a sloth in jail!</div>
+          <div>But make sure not to jail any other sloths!</div>
 
           <div className="button-row">
             <button 
@@ -44,10 +52,18 @@ var Level1 = React.createClass({
             <Sloth />
             <Sloth />
           </div>
+          <div className="row">
+            <SavageSloth />
+            <SavageSloth />
+            <SavageSloth />
+            <SavageSloth />
+            <SavageSloth />
+            <SavageSloth />
+          </div>
         </section>
       </div>
     );
   }
 });
 
-module.exports = Level1;
+module.exports = Level6;

@@ -12,6 +12,9 @@ var Level1 = require('./components/level1');
 var Level2 = require('./components/level2');
 var Level3 = require('./components/level3');
 var Level4 = require('./components/level4');
+var Level5 = require('./components/level5');
+var Level6 = require('./components/level6');
+var LevelEnd = require('./components/levelEnd');
 
 var routes = (
   <Route path="/" component={App}>
@@ -20,6 +23,9 @@ var routes = (
     <Route path="2" component={Level2} />
     <Route path="3" component={Level3} />
     <Route path="4" component={Level4} />
+    <Route path="5" component={Level5} />
+    <Route path="6" component={Level6} />
+    <Route path="end" component={LevelEnd} />
   </Route>
   );
 

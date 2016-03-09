@@ -11,6 +11,10 @@ var shortcuts = {
     key.unbind('⌘+/');
   },
 
+  unbindSpace: function() {
+    key.unbind('space');
+  },
+
   returnSelectedClasses: function() {
     var selectedClasses = $( ".clicked" ).last().attr( "class" ).split(" ");
     var index = selectedClasses.indexOf("clicked");
@@ -22,17 +26,18 @@ var shortcuts = {
 
   loadHotKeys: function() {
     key('space', function() {
-      $( ".clicked" ).toggleClass( "sleepy shortcut" );
+      var clicked = $( ".clicked" );
+      clicked.not( ".jailed" ).removeClass( "sleepy surly" );
+      clicked.not( ".jailed" ).addClass( "shortcut" );
     });
   },
 
   loadLvl2: function() {
     key('⌘+d', function() {
       console.log("You pressed select word!");
-      
-      if ($( ".clicked ").length > 0) {
+      var clicked = $( ".clicked" );
+      if (clicked.length > 0) {
         var selectedClasses = $( this.returnSelectedClasses() );
-        var clicked = $( ".clicked" );
         var sameElements = clicked.last().nextAll(this.returnSelectedClasses()).not( ".clicked ");
         var startIdx = selectedClasses.index(clicked.last()) + 1; 
 
@@ -58,17 +63,24 @@ var shortcuts = {
     }.bind(this));
   },
 
-  loadLvl4: function() {
+  loadLvl5: function() {
     key('⌘+l', function() {
       console.log("You pressed select line!");
 
       var clicked = $( ".clicked" );
-      // debugger;
       if (clicked.length < clicked.siblings().length) {
         clicked.siblings().addClass( "clicked" );
       } else {
         clicked.parent().next().children().addClass( "clicked" );
       }
+      return false;
+    }.bind(this));
+  },
+
+  loadLvl6: function() {
+    key('⌘+/', function() {
+      console.log("You pressed comment!");
+      $( ".clicked" ).toggleClass( "jailed animated" );
       return false;
     }.bind(this));
   },
@@ -99,6 +111,7 @@ var shortcuts = {
 
     key('⇧+⌘+d', function() {
       console.log("You pressed duplicate line!");
+
       return false;
     });
 
@@ -107,10 +120,7 @@ var shortcuts = {
       return false;
     });
 
-    key('⌘+/', function() {
-      console.log("You pressed comment!");
-      return false;
-    });
+
   }
 };
 

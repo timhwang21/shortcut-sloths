@@ -56,10 +56,13 @@
 	var hashHistory = __webpack_require__(159).hashHistory;
 	
 	var App = __webpack_require__(216);
-	var Level1 = __webpack_require__(217);
+	var Level1 = __webpack_require__(218);
 	var Level2 = __webpack_require__(221);
 	var Level3 = __webpack_require__(222);
 	var Level4 = __webpack_require__(223);
+	var Level5 = __webpack_require__(225);
+	var Level6 = __webpack_require__(226);
+	var LevelEnd = __webpack_require__(228);
 	
 	var routes = React.createElement(
 	  Route,
@@ -68,7 +71,10 @@
 	  React.createElement(Route, { path: '1', component: Level1 }),
 	  React.createElement(Route, { path: '2', component: Level2 }),
 	  React.createElement(Route, { path: '3', component: Level3 }),
-	  React.createElement(Route, { path: '4', component: Level4 })
+	  React.createElement(Route, { path: '4', component: Level4 }),
+	  React.createElement(Route, { path: '5', component: Level5 }),
+	  React.createElement(Route, { path: '6', component: Level6 }),
+	  React.createElement(Route, { path: 'end', component: LevelEnd })
 	);
 	
 	$(function () {
@@ -24739,7 +24745,7 @@
 	'use strict';
 	
 	var React = __webpack_require__(1);
-	var Shortcuts = __webpack_require__(220);
+	var Shortcuts = __webpack_require__(217);
 	
 	var App = React.createClass({
 	  displayName: 'App',
@@ -24767,9 +24773,8 @@
 	  },
 	
 	  checkWin: function checkWin(level) {
-	    console.log("level", level);
-	    if ($(".sleepy").length === 0) {
-	      this.context.router.push(String(level + 1));
+	    if ($(".sleepy").length === 0 && $(".shortcut.jailed").length === 0 && $(".savage").not(".jailed").length === 0) {
+	      this.context.router.push(String(level));
 	    } else {
 	      console.log("Eventually the sidebar will shake!");
 	    }
@@ -24788,15 +24793,147 @@
 
 /***/ },
 /* 217 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	var shortcuts = {
+	  unbindAll: function unbindAll() {
+	    key.unbind('⌘+d');
+	    key.unbind('ctrl+⌘+g');
+	    key.unbind('⌘+j');
+	    key.unbind('⌘+l');
+	    key.unbind('⇧+⌘+l');
+	    key.unbind('ctrl+⌘+up');
+	    key.unbind('ctrl+⌘+down');
+	    key.unbind('⌘+j');
+	    key.unbind('⌘+/');
+	  },
+	
+	  unbindSpace: function unbindSpace() {
+	    key.unbind('space');
+	  },
+	
+	  returnSelectedClasses: function returnSelectedClasses() {
+	    var selectedClasses = $(".clicked").last().attr("class").split(" ");
+	    var index = selectedClasses.indexOf("clicked");
+	    if (index > -1) {
+	      selectedClasses.splice(index, 1);
+	    }
+	    return selectedClasses.map(function (klass) {
+	      return "." + klass;
+	    }).join("");
+	  },
+	
+	  loadHotKeys: function loadHotKeys() {
+	    key('space', function () {
+	      var clicked = $(".clicked");
+	      clicked.not(".jailed").removeClass("sleepy surly");
+	      clicked.not(".jailed").addClass("shortcut");
+	    });
+	  },
+	
+	  loadLvl2: function loadLvl2() {
+	    key('⌘+d', function () {
+	      console.log("You pressed select word!");
+	      var clicked = $(".clicked");
+	      if (clicked.length > 0) {
+	        var selectedClasses = $(this.returnSelectedClasses());
+	        var sameElements = clicked.last().nextAll(this.returnSelectedClasses()).not(".clicked ");
+	        var startIdx = selectedClasses.index(clicked.last()) + 1;
+	
+	        if (startIdx < selectedClasses.length) {
+	          selectedClasses.slice(startIdx).first().addClass("clicked");
+	        } else {
+	          selectedClasses.not(".clicked").first().addClass("clicked");
+	        }
+	      }
+	      return false;
+	    }.bind(this));
+	  },
+	
+	  loadLvl3: function loadLvl3() {
+	    key('ctrl+⌘+g', function () {
+	      console.log("You pressed select all words!");
+	
+	      if ($(".clicked ").length > 0) {
+	        var selectedClasses = $(this.returnSelectedClasses());
+	        selectedClasses.not(".clicked").addClass("clicked");
+	      }
+	      return false;
+	    }.bind(this));
+	  },
+	
+	  loadLvl5: function loadLvl5() {
+	    key('⌘+l', function () {
+	      console.log("You pressed select line!");
+	
+	      var clicked = $(".clicked");
+	      if (clicked.length < clicked.siblings().length) {
+	        clicked.siblings().addClass("clicked");
+	      } else {
+	        clicked.parent().next().children().addClass("clicked");
+	      }
+	      return false;
+	    }.bind(this));
+	  },
+	
+	  loadLvl6: function loadLvl6() {
+	    key('⌘+/', function () {
+	      console.log("You pressed comment!");
+	      $(".clicked").toggleClass("jailed animated");
+	      return false;
+	    }.bind(this));
+	  },
+	
+	  tempLoadRest: function tempLoadRest() {
+	
+	    key('⌘+j', function () {
+	      console.log("You pressed join line!");
+	      return false;
+	    });
+	
+	    key('⇧+⌘+l', function () {
+	      console.log("You pressed split line!");
+	      return false;
+	    });
+	
+	    key('ctrl+⌘+up', function () {
+	      console.log("You pressed swap up!");
+	      return false;
+	    });
+	
+	    key('ctrl+⌘+down', function () {
+	      console.log("You pressed swap down!");
+	      return false;
+	    });
+	
+	    key('⇧+⌘+d', function () {
+	      console.log("You pressed duplicate line!");
+	
+	      return false;
+	    });
+	
+	    key('⌘+j', function () {
+	      console.log("You pressed join line!");
+	      return false;
+	    });
+	  }
+	};
+	
+	module.exports = shortcuts;
+
+/***/ },
+/* 218 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(1);
 	var Link = __webpack_require__(159).Link;
-	var Shortcuts = __webpack_require__(220);
+	var Shortcuts = __webpack_require__(217);
 	
-	var Sloth = __webpack_require__(218);
+	var Sloth = __webpack_require__(219);
 	
 	var Level1 = React.createClass({
 	  displayName: 'Level1',
@@ -24823,7 +24960,7 @@
 	          'SHORTCUT SLOTHS'
 	        ),
 	        React.createElement(
-	          'div',
+	          'h2',
 	          null,
 	          'Level 1'
 	        ),
@@ -24838,9 +24975,15 @@
 	          '(Click each sloth, and press space to transform them from a sleepy sloth to a shortcut sloth!)'
 	        ),
 	        React.createElement(
-	          'button',
-	          { onClick: this.context.checkWin.bind(null, 1) },
-	          'Next'
+	          'div',
+	          { className: 'button-row' },
+	          React.createElement(
+	            'button',
+	            {
+	              className: 'button',
+	              onClick: this.context.checkWin.bind(null, 6) },
+	            'Next'
+	          )
 	        )
 	      ),
 	      React.createElement(
@@ -24866,7 +25009,7 @@
 	module.exports = Level1;
 
 /***/ },
-/* 218 */
+/* 219 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24874,7 +25017,7 @@
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(158);
 	
-	var classNames = __webpack_require__(219);
+	var classNames = __webpack_require__(220);
 	
 	var Sloth = React.createClass({
 	  displayName: 'Sloth',
@@ -24902,8 +25045,9 @@
 	    return React.createElement(
 	      'div',
 	      {
-	        className: 'sloth sleepy',
+	        className: 'sloth sleepy animated',
 	        onClick: this.handleClick },
+	      React.createElement('div', { className: 'jail' }),
 	      React.createElement('div', { className: 'bg' })
 	    );
 	  }
@@ -24912,7 +25056,7 @@
 	module.exports = Sloth;
 
 /***/ },
-/* 219 */
+/* 220 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -24966,130 +25110,6 @@
 
 
 /***/ },
-/* 220 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	var shortcuts = {
-	  unbindAll: function unbindAll() {
-	    key.unbind('⌘+d');
-	    key.unbind('ctrl+⌘+g');
-	    key.unbind('⌘+j');
-	    key.unbind('⌘+l');
-	    key.unbind('⇧+⌘+l');
-	    key.unbind('ctrl+⌘+up');
-	    key.unbind('ctrl+⌘+down');
-	    key.unbind('⌘+j');
-	    key.unbind('⌘+/');
-	  },
-	
-	  returnSelectedClasses: function returnSelectedClasses() {
-	    var selectedClasses = $(".clicked").last().attr("class").split(" ");
-	    var index = selectedClasses.indexOf("clicked");
-	    if (index > -1) {
-	      selectedClasses.splice(index, 1);
-	    }
-	    return selectedClasses.map(function (klass) {
-	      return "." + klass;
-	    }).join("");
-	  },
-	
-	  loadHotKeys: function loadHotKeys() {
-	    key('space', function () {
-	      $(".clicked").toggleClass("sleepy shortcut");
-	    });
-	  },
-	
-	  loadLvl2: function loadLvl2() {
-	    key('⌘+d', function () {
-	      console.log("You pressed select word!");
-	
-	      if ($(".clicked ").length > 0) {
-	        var selectedClasses = $(this.returnSelectedClasses());
-	        var clicked = $(".clicked");
-	        var sameElements = clicked.last().nextAll(this.returnSelectedClasses()).not(".clicked ");
-	        var startIdx = selectedClasses.index(clicked.last()) + 1;
-	
-	        if (startIdx < selectedClasses.length) {
-	          selectedClasses.slice(startIdx).first().addClass("clicked");
-	        } else {
-	          selectedClasses.not(".clicked").first().addClass("clicked");
-	        }
-	      }
-	      return false;
-	    }.bind(this));
-	  },
-	
-	  loadLvl3: function loadLvl3() {
-	    key('ctrl+⌘+g', function () {
-	      console.log("You pressed select all words!");
-	
-	      if ($(".clicked ").length > 0) {
-	        var selectedClasses = $(this.returnSelectedClasses());
-	        selectedClasses.not(".clicked").addClass("clicked");
-	      }
-	      return false;
-	    }.bind(this));
-	  },
-	
-	  loadLvl4: function loadLvl4() {
-	    key('⌘+l', function () {
-	      console.log("You pressed select line!");
-	
-	      var clicked = $(".clicked");
-	      // debugger;
-	      if (clicked.length < clicked.siblings().length) {
-	        clicked.siblings().addClass("clicked");
-	      } else {
-	        clicked.parent().next().children().addClass("clicked");
-	      }
-	      return false;
-	    }.bind(this));
-	  },
-	
-	  tempLoadRest: function tempLoadRest() {
-	
-	    key('⌘+j', function () {
-	      console.log("You pressed join line!");
-	      return false;
-	    });
-	
-	    key('⇧+⌘+l', function () {
-	      console.log("You pressed split line!");
-	      return false;
-	    });
-	
-	    key('ctrl+⌘+up', function () {
-	      console.log("You pressed swap up!");
-	      return false;
-	    });
-	
-	    key('ctrl+⌘+down', function () {
-	      console.log("You pressed swap down!");
-	      return false;
-	    });
-	
-	    key('⇧+⌘+d', function () {
-	      console.log("You pressed duplicate line!");
-	      return false;
-	    });
-	
-	    key('⌘+j', function () {
-	      console.log("You pressed join line!");
-	      return false;
-	    });
-	
-	    key('⌘+/', function () {
-	      console.log("You pressed comment!");
-	      return false;
-	    });
-	  }
-	};
-	
-	module.exports = shortcuts;
-
-/***/ },
 /* 221 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -25097,9 +25117,9 @@
 	
 	var React = __webpack_require__(1);
 	var Link = __webpack_require__(159).Link;
-	var Shortcuts = __webpack_require__(220);
+	var Shortcuts = __webpack_require__(217);
 	
-	var Sloth = __webpack_require__(218);
+	var Sloth = __webpack_require__(219);
 	
 	var Level2 = React.createClass({
 	  displayName: 'Level2',
@@ -25127,7 +25147,7 @@
 	          'SHORTCUT SLOTHS'
 	        ),
 	        React.createElement(
-	          'div',
+	          'h2',
 	          null,
 	          'Level 2'
 	        ),
@@ -25139,12 +25159,12 @@
 	        React.createElement(
 	          'div',
 	          null,
-	          'What if you could select many sloths and simultaneously wake them up?'
+	          'Wouldn\'t it be great if you could simultaneously wake up multiple sloths?'
 	        ),
 	        React.createElement(
 	          'div',
 	          null,
-	          'Try using \'command+D\' when selecting a sloth!'
+	          'Try pressing \'command+D\' when selecting a sloth!'
 	        ),
 	        React.createElement(
 	          'div',
@@ -25152,10 +25172,17 @@
 	          '(You should be able to finish this level with 1 click and 5 shortcuts!)'
 	        ),
 	        React.createElement(
-	          'button',
-	          { onClick: this.context.checkWin.bind(null, 2) },
-	          'Next'
-	        )
+	          'div',
+	          { className: 'button-row' },
+	          React.createElement(
+	            'button',
+	            {
+	              className: 'button',
+	              onClick: this.context.checkWin.bind(null, 6) },
+	            'Next'
+	          )
+	        ),
+	        '        '
 	      ),
 	      React.createElement(
 	        'section',
@@ -25187,9 +25214,9 @@
 	
 	var React = __webpack_require__(1);
 	var Link = __webpack_require__(159).Link;
-	var Shortcuts = __webpack_require__(220);
+	var Shortcuts = __webpack_require__(217);
 	
-	var Sloth = __webpack_require__(218);
+	var Sloth = __webpack_require__(219);
 	
 	var Level3 = React.createClass({
 	  displayName: 'Level3',
@@ -25218,14 +25245,14 @@
 	          'SHORTCUT SLOTHS'
 	        ),
 	        React.createElement(
-	          'div',
+	          'h2',
 	          null,
 	          'Level 3'
 	        ),
 	        React.createElement(
 	          'div',
 	          null,
-	          'Nice! But we can go even faster! '
+	          'Nice! But we can go even faster!'
 	        ),
 	        React.createElement(
 	          'div',
@@ -25238,26 +25265,23 @@
 	          '(You should be able to finish this level with 1 click and 1 shortcut!)'
 	        ),
 	        React.createElement(
-	          'button',
-	          { onClick: this.context.checkWin.bind(null, 3) },
-	          'Next'
-	        )
+	          'div',
+	          { className: 'button-row' },
+	          React.createElement(
+	            'button',
+	            {
+	              className: 'button',
+	              onClick: this.context.checkWin.bind(null, 6) },
+	            'Next'
+	          )
+	        ),
+	        '        '
 	      ),
 	      React.createElement(
 	        'section',
 	        { className: 'board', style: { alignItems: "center" } },
 	        React.createElement('div', { className: 'row' }),
 	        React.createElement('div', { className: 'row' }),
-	        React.createElement(
-	          'div',
-	          { className: 'row' },
-	          React.createElement(Sloth, null),
-	          React.createElement(Sloth, null),
-	          React.createElement(Sloth, null),
-	          React.createElement(Sloth, null),
-	          React.createElement(Sloth, null),
-	          React.createElement(Sloth, null)
-	        ),
 	        React.createElement(
 	          'div',
 	          { className: 'row' },
@@ -25283,9 +25307,10 @@
 	
 	var React = __webpack_require__(1);
 	var Link = __webpack_require__(159).Link;
-	var Shortcuts = __webpack_require__(220);
+	var Shortcuts = __webpack_require__(217);
 	
-	var Sloth = __webpack_require__(218);
+	var Sloth = __webpack_require__(219);
+	var SurlySloth = __webpack_require__(224);
 	
 	var Level4 = React.createClass({
 	  displayName: 'Level4',
@@ -25299,7 +25324,6 @@
 	    Shortcuts.unbindAll();
 	    Shortcuts.loadLvl2();
 	    Shortcuts.loadLvl3();
-	    Shortcuts.loadLvl4();
 	  },
 	
 	  render: function render() {
@@ -25315,30 +25339,32 @@
 	          'SHORTCUT SLOTHS'
 	        ),
 	        React.createElement(
-	          'div',
+	          'h2',
 	          null,
 	          'Level 4'
 	        ),
 	        React.createElement(
 	          'div',
 	          null,
-	          'Different lines '
+	          'There are more sloths than before! Wake them up, you got this!'
 	        ),
 	        React.createElement(
 	          'div',
 	          null,
-	          '\'command-l\' to select a line! (need different sloths eventually)'
+	          'Use either \'command-D\' or \'ctrl-command-G\' to select all the sloths!'
 	        ),
 	        React.createElement(
 	          'div',
-	          null,
-	          '(You should be able to finish this level with 1 click and 1 shortcut!)'
+	          { className: 'button-row' },
+	          React.createElement(
+	            'button',
+	            {
+	              className: 'button',
+	              onClick: this.context.checkWin.bind(null, 6) },
+	            'Next'
+	          )
 	        ),
-	        React.createElement(
-	          'button',
-	          { onClick: this.context.checkWin.bind(null, 4) },
-	          'Next'
-	        )
+	        '        '
 	      ),
 	      React.createElement(
 	        'section',
@@ -25371,6 +25397,496 @@
 	});
 	
 	module.exports = Level4;
+
+/***/ },
+/* 224 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var ReactDOM = __webpack_require__(158);
+	
+	var classNames = __webpack_require__(220);
+	
+	var SurlySloth = React.createClass({
+	  displayName: 'SurlySloth',
+	
+	
+	  componentDidMount: function componentDidMount() {
+	    document.addEventListener('click', this.handleClickOutside, false);
+	  },
+	
+	  componentWillUnmount: function componentWillUnmount() {
+	    document.removeEventListener('click', this.handleClickOutside, false);
+	  },
+	
+	  handleClick: function handleClick(e) {
+	    if (!e.currentTarget.classList.contains("surly")) {
+	      $(e.currentTarget).addClass("clicked");
+	    }
+	  },
+	
+	  handleClickOutside: function handleClickOutside(e) {
+	    if (!ReactDOM.findDOMNode(this).contains(event.target)) {
+	      $(ReactDOM.findDOMNode(this)).removeClass("clicked");
+	    }
+	  },
+	
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      {
+	        className: 'sloth surly animated',
+	        onClick: this.handleClick },
+	      React.createElement('div', { className: 'jail' }),
+	      React.createElement('div', { className: 'bg' })
+	    );
+	  }
+	});
+	
+	module.exports = SurlySloth;
+
+/***/ },
+/* 225 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var Link = __webpack_require__(159).Link;
+	var Shortcuts = __webpack_require__(217);
+	
+	var Sloth = __webpack_require__(219);
+	var SurlySloth = __webpack_require__(224);
+	
+	var Level5 = React.createClass({
+	  displayName: 'Level5',
+	
+	  contextTypes: {
+	    router: React.PropTypes.object.isRequired,
+	    checkWin: React.PropTypes.func
+	  },
+	
+	  componentDidMount: function componentDidMount() {
+	    Shortcuts.unbindAll();
+	    Shortcuts.loadLvl2();
+	    Shortcuts.loadLvl3();
+	    Shortcuts.loadLvl5();
+	  },
+	
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      { className: 'level' },
+	      React.createElement(
+	        'section',
+	        { className: 'sidebar' },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'SHORTCUT SLOTHS'
+	        ),
+	        React.createElement(
+	          'h2',
+	          null,
+	          'Level 5'
+	        ),
+	        React.createElement(
+	          'div',
+	          null,
+	          'What\'s this? Some sloths didn\'t like being woken up!'
+	        ),
+	        React.createElement(
+	          'div',
+	          null,
+	          'Surly sloths cannot be clicked. Oh no! What can we do?'
+	        ),
+	        React.createElement(
+	          'div',
+	          null,
+	          'Maybe you can try selecting an entire row at once with \'command-L\'!)'
+	        ),
+	        React.createElement(
+	          'div',
+	          null,
+	          'Pressing \'command-L\' again with a line selected selects the next line!'
+	        ),
+	        React.createElement(
+	          'div',
+	          null,
+	          '(You should be able to finish this level with 1 click and 2 shortcuts!)'
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'button-row' },
+	          React.createElement(
+	            'button',
+	            {
+	              className: 'button',
+	              onClick: this.context.checkWin.bind(null, 6) },
+	            'Next'
+	          )
+	        )
+	      ),
+	      React.createElement(
+	        'section',
+	        { className: 'board', style: { alignItems: "center" } },
+	        React.createElement('div', { className: 'row' }),
+	        React.createElement('div', { className: 'row' }),
+	        React.createElement(
+	          'div',
+	          { className: 'row' },
+	          React.createElement(Sloth, null),
+	          React.createElement(SurlySloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(SurlySloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(SurlySloth, null)
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'row' },
+	          React.createElement(SurlySloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(SurlySloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(SurlySloth, null),
+	          React.createElement(Sloth, null)
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Level5;
+
+/***/ },
+/* 226 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var Link = __webpack_require__(159).Link;
+	var Shortcuts = __webpack_require__(217);
+	
+	var Sloth = __webpack_require__(219);
+	var SavageSloth = __webpack_require__(227);
+	
+	var Level6 = React.createClass({
+	  displayName: 'Level6',
+	
+	  contextTypes: {
+	    router: React.PropTypes.object.isRequired,
+	    checkWin: React.PropTypes.func
+	  },
+	
+	  componentDidMount: function componentDidMount() {
+	    Shortcuts.unbindAll();
+	    Shortcuts.loadLvl2();
+	    Shortcuts.loadLvl3();
+	    Shortcuts.loadLvl5();
+	    Shortcuts.loadLvl6();
+	  },
+	
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      { className: 'level' },
+	      React.createElement(
+	        'section',
+	        { className: 'sidebar' },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'SHORTCUT SLOTHS'
+	        ),
+	        React.createElement(
+	          'h2',
+	          null,
+	          'Level 6'
+	        ),
+	        React.createElement(
+	          'div',
+	          null,
+	          'Oh no! These sloths are REALLY angry!'
+	        ),
+	        React.createElement(
+	          'div',
+	          null,
+	          'Savage sloths cannot be reasoned with! There is only one way to deal with them...'
+	        ),
+	        React.createElement(
+	          'h2',
+	          null,
+	          'THROW THEM IN JAIL.'
+	        ),
+	        React.createElement(
+	          'div',
+	          null,
+	          'Use \'command-/\' to put a sloth in jail!'
+	        ),
+	        React.createElement(
+	          'div',
+	          null,
+	          'But make sure not to jail any other sloths!'
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'button-row' },
+	          React.createElement(
+	            'button',
+	            {
+	              className: 'button',
+	              onClick: this.context.checkWin.bind(null, 6) },
+	            'Next'
+	          )
+	        )
+	      ),
+	      React.createElement(
+	        'section',
+	        { className: 'board', style: { alignItems: "center" } },
+	        React.createElement('div', { className: 'row' }),
+	        React.createElement('div', { className: 'row' }),
+	        React.createElement(
+	          'div',
+	          { className: 'row' },
+	          React.createElement(Sloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(Sloth, null)
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'row' },
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null)
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Level6;
+
+/***/ },
+/* 227 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var ReactDOM = __webpack_require__(158);
+	
+	var classNames = __webpack_require__(220);
+	
+	var SavageSloth = React.createClass({
+	  displayName: 'SavageSloth',
+	
+	
+	  componentDidMount: function componentDidMount() {
+	    document.addEventListener('click', this.handleClickOutside, false);
+	  },
+	
+	  componentWillUnmount: function componentWillUnmount() {
+	    document.removeEventListener('click', this.handleClickOutside, false);
+	  },
+	
+	  handleClick: function handleClick(e) {
+	    if (!e.currentTarget.classList.contains("savage")) {
+	      $(e.currentTarget).addClass("clicked");
+	    }
+	  },
+	
+	  handleClickOutside: function handleClickOutside(e) {
+	    if (!ReactDOM.findDOMNode(this).contains(event.target)) {
+	      $(ReactDOM.findDOMNode(this)).removeClass("clicked");
+	    }
+	  },
+	
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      {
+	        className: 'sloth savage animated',
+	        onClick: this.handleClick },
+	      React.createElement('div', { className: 'jail' }),
+	      React.createElement('div', { className: 'bg' })
+	    );
+	  }
+	});
+	
+	module.exports = SavageSloth;
+
+/***/ },
+/* 228 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var Link = __webpack_require__(159).Link;
+	var Shortcuts = __webpack_require__(217);
+	
+	var Sloth = __webpack_require__(219);
+	var ShortcutSloth = __webpack_require__(229);
+	var SurlySloth = __webpack_require__(224);
+	var SavageSloth = __webpack_require__(227);
+	
+	var LevelEnd = React.createClass({
+	  displayName: 'LevelEnd',
+	
+	  contextTypes: {
+	    router: React.PropTypes.object.isRequired,
+	    checkWin: React.PropTypes.func
+	  },
+	
+	  componentDidMount: function componentDidMount() {
+	    Shortcuts.unbindAll();
+	    Shortcuts.unbindSpace();
+	  },
+	
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      { className: 'level' },
+	      React.createElement(
+	        'section',
+	        { className: 'sidebar' },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'SHORTCUT SLOTHS'
+	        ),
+	        React.createElement(
+	          'h2',
+	          null,
+	          'That\'s it! Thanks for playing!'
+	        )
+	      ),
+	      React.createElement(
+	        'section',
+	        { className: 'board', style: { alignItems: "center" } },
+	        React.createElement(
+	          'div',
+	          { className: 'row' },
+	          React.createElement(Sloth, null),
+	          React.createElement(ShortcutSloth, null),
+	          React.createElement(SurlySloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(ShortcutSloth, null)
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'row' },
+	          React.createElement(SurlySloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(ShortcutSloth, null),
+	          React.createElement(SurlySloth, null),
+	          React.createElement(SavageSloth, null)
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'row' },
+	          React.createElement(Sloth, null),
+	          React.createElement(ShortcutSloth, null),
+	          React.createElement(SurlySloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(ShortcutSloth, null)
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'row' },
+	          React.createElement(SurlySloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(ShortcutSloth, null),
+	          React.createElement(SurlySloth, null),
+	          React.createElement(SavageSloth, null)
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'row' },
+	          React.createElement(Sloth, null),
+	          React.createElement(ShortcutSloth, null),
+	          React.createElement(SurlySloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(ShortcutSloth, null)
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'row' },
+	          React.createElement(SurlySloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(ShortcutSloth, null),
+	          React.createElement(SurlySloth, null),
+	          React.createElement(SavageSloth, null)
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = LevelEnd;
+
+/***/ },
+/* 229 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var ReactDOM = __webpack_require__(158);
+	
+	var classNames = __webpack_require__(220);
+	
+	var ShortcutSloth = React.createClass({
+	  displayName: 'ShortcutSloth',
+	
+	
+	  componentDidMount: function componentDidMount() {
+	    document.addEventListener('click', this.handleClickOutside, false);
+	  },
+	
+	  componentWillUnmount: function componentWillUnmount() {
+	    document.removeEventListener('click', this.handleClickOutside, false);
+	  },
+	
+	  handleClick: function handleClick(e) {
+	    $(e.currentTarget).addClass("clicked");
+	  },
+	
+	  handleClickOutside: function handleClickOutside(e) {
+	    if (!ReactDOM.findDOMNode(this).contains(event.target)) {
+	      $(ReactDOM.findDOMNode(this)).removeClass("clicked");
+	    }
+	  },
+	
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      {
+	        className: 'sloth shortcut animated',
+	        onClick: this.handleClick },
+	      React.createElement('div', { className: 'jail' }),
+	      React.createElement('div', { className: 'bg' })
+	    );
+	  }
+	});
+	
+	module.exports = ShortcutSloth;
 
 /***/ }
 /******/ ]);

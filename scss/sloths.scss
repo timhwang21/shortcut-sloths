@@ -23,12 +23,50 @@
 
 .sloth.sleepy .bg {
   background-image: url("../images/sloth-sleepy.svg");
+}
+
+.sloth.sleepy.animated .bg {
   @include animation($shake-animation);
   @include animation-duration(3s);
 }
 
 .sloth.shortcut .bg {
   background-image: url("../images/sloth-shortcut.svg");
+}
+
+.sloth.shortcut.animated .bg {
   @include animation($shake-animation);
   @include animation-duration(1s);
+}
+
+.sloth.surly .bg {
+  background-image: url("../images/sloth-surly.svg");
+}
+
+.sloth.surly.animated .bg {
+  @include animation($shake-angry-animation);
+  @include animation-duration(1s);
+}
+
+.sloth.savage .bg {
+  background-image: url("../images/sloth-savage.svg");
+}
+
+.sloth.savage.animated .bg {
+  @include animation($shake-angry-animation);
+  @include animation-duration(.2s);
+}
+
+.sloth.jailed .jail{
+  position: absolute;
+  z-index: 1;
+  height: 100px;
+  width: 100px;
+  background: repeating-linear-gradient(
+    to right,
+    #555,
+    #555 10px,
+    rgba(0, 0, 0, 0) 10px,
+    rgba(0, 0, 0, 0) 20px
+  );
 }
