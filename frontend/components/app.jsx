@@ -2,6 +2,20 @@ var React = require('react');
 var Shortcuts = require('../../js/shortcuts');
 
 var App = React.createClass({
+  contextTypes: {
+    router: React.PropTypes.object.isRequired
+  },
+
+  childContextTypes: {
+    checkWin: React.PropTypes.func,
+  },
+
+  getChildContext: function() {
+    return {
+      checkWin: this.checkWin
+    }
+  },
+
   getInitialState: function() {
     return {won: false};
   },
@@ -10,22 +24,12 @@ var App = React.createClass({
     Shortcuts.loadHotKeys();
   },
 
-  childContextTypes: {
-    checkWin: React.PropTypes.func,
-    won: React.PropTypes.bool
-  },
-
-  getChildContext: function() {
-    return {
-      checkWin: this.checkWin,
-      won: this.state.won
-    }
-  },
-
-  checkWin: function(e) {
+  checkWin: function(level) {
+    console.log("level", level);
     if ($( ".sleepy" ).length === 0) {
-      console.log("You won!!");
-      this.setState({won: true});
+      this.context.router.push(String(level + 1))
+    } else {
+      console.log("Eventually the sidebar will shake!");
     }
   },
 

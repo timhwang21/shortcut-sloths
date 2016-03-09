@@ -1,4 +1,16 @@
 var shortcuts = {
+  unbindAll: function() {
+    key.unbind('⌘+d');
+    key.unbind('ctrl+⌘+g');
+    key.unbind('⌘+j');
+    key.unbind('⌘+l');
+    key.unbind('⇧+⌘+l');
+    key.unbind('ctrl+⌘+up');
+    key.unbind('ctrl+⌘+down');
+    key.unbind('⌘+j');
+    key.unbind('⌘+/');
+  },
+
   returnSelectedClasses: function() {
     var selectedClasses = $( ".clicked" ).last().attr( "class" ).split(" ");
     var index = selectedClasses.indexOf("clicked");
@@ -12,28 +24,28 @@ var shortcuts = {
     key('space', function() {
       $( ".clicked" ).toggleClass( "sleepy shortcut" );
     });
+  },
 
-    // Select word
+  loadLvl2: function() {
     key('⌘+d', function() {
       console.log("You pressed select word!");
       
       if ($( ".clicked ").length > 0) {
-        var selectedClasses = this.returnSelectedClasses();
+        var selectedClasses = $( this.returnSelectedClasses() );
         var sameElements = $( ".clicked ").last().nextAll(this.returnSelectedClasses()).not( ".clicked ");
+        var startIdx = selectedClasses.index($( ".clicked" ).last()) + 1; 
 
-        if ( sameElements.length > 0) {
-          sameElements.
-            first().
-            addClass( "clicked" )
+        if (startIdx < selectedClasses.length) {
+          selectedClasses.slice(startIdx).first().addClass( "clicked" )
         } else {
-          $( selectedClasses ).not( ".clicked" ).
-            first().
-            addClass( "clicked" )
+          selectedClasses.not( ".clicked" ).first().addClass( "clicked" )
         }
       }
       return false;
     }.bind(this));
+  },
 
+  loadLvl3: function() {
     key('ctrl+⌘+g', function() {
       console.log("You pressed select all words!");
 
@@ -44,9 +56,21 @@ var shortcuts = {
       }
       return false;
     }.bind(this));
+  },
 
+  loadLvl4: function() {
     key('⌘+l', function() {
       console.log("You pressed select line!");
+      $( ".clicked" ).siblings().addClass( "clicked" );
+    });
+  },
+    
+
+  tempLoadRest: function() {
+
+
+    key('⌘+j', function() {
+      console.log("You pressed join line!");
       return false;
     });
 
@@ -77,11 +101,6 @@ var shortcuts = {
 
     key('⌘+/', function() {
       console.log("You pressed comment!");
-      return false;
-    });
-
-    key('⇧+⌘+.', function() {
-      console.log("You pressed close open tag!");
       return false;
     });
   }

@@ -5,7 +5,7 @@ var Shortcuts = require('../../js/shortcuts');
 
 var Sloth = require('./sloth');
 
-var Level1 = React.createClass({
+var Level2 = React.createClass({
   contextTypes: {
     router: React.PropTypes.object.isRequired,
     checkWin: React.PropTypes.func
@@ -13,6 +13,7 @@ var Level1 = React.createClass({
 
   componentDidMount: function() {
     Shortcuts.unbindAll();
+    Shortcuts.loadLvl2();
   },
 
   render: function() {
@@ -20,12 +21,13 @@ var Level1 = React.createClass({
       <div className="level">
         <section className="sidebar">
           <h1>SHORTCUT SLOTHS</h1>
-          <div>Level 1</div>
-          <div>Oh no! The regularly active shortcut sloths have turned into sleepy sloths! It's your job to wake them up!</div>
-          <div>(Click each sloth, and press space to transform them from a sleepy sloth to a shortcut sloth!)</div>
+          <div>Level 2</div>
+          <div>Great job! But wasn't it slow clicking on each individual sloth?</div>
+          <div>What if you could select many sloths and simultaneously wake them up?</div>
+          <div>Try using 'command+D' when selecting a sloth!</div>
+          <div>(You should be able to finish this level with 1 click and 5 shortcuts!)</div>
 
-          <button onClick={this.context.checkWin.bind(null, 1)}>Next</button>
-
+          <button onClick={this.context.checkWin.bind(null, 2)}>Next</button>
         </section>
 
         <section className="board" style={{alignItems: "center"}}>
@@ -45,4 +47,4 @@ var Level1 = React.createClass({
   }
 });
 
-module.exports = Level1;
+module.exports = Level2;

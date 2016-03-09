@@ -164,14 +164,20 @@ body {
   padding: 20px 30px; }
 
 .board {
+  flex-direction: column;
+  align-content: center;
+  background: #55bb22;
+  height: 750px;
+  width: 750px;
+  min-width: 750px;
+  border-bottom-left-radius: 10px; }
+
+.row {
   flex-direction: row;
   flex-wrap: wrap;
-  align-content: flex-start;
-  background: #55bb22;
-  height: 720px;
-  width: 720px;
-  min-width: 720px;
-  border-bottom-left-radius: 10px; }
+  justify-content: space-around;
+  height: 120px;
+  width: 100%; }
 
 #root, .sloths {
   height: 100%;

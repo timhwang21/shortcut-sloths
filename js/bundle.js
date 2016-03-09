@@ -57,12 +57,16 @@
 	
 	var App = __webpack_require__(216);
 	var Level1 = __webpack_require__(217);
+	var Level2 = __webpack_require__(221);
+	var Level3 = __webpack_require__(222);
 	
 	var routes = React.createElement(
 	  Route,
 	  { path: '/', component: App },
 	  React.createElement(IndexRedirect, { to: '1' }),
-	  React.createElement(Route, { path: '1', component: Level1 })
+	  React.createElement(Route, { path: '1', component: Level1 }),
+	  React.createElement(Route, { path: '2', component: Level2 }),
+	  React.createElement(Route, { path: '3', component: Level3 })
 	);
 	
 	$(function () {
@@ -24738,6 +24742,20 @@
 	var App = React.createClass({
 	  displayName: 'App',
 	
+	  contextTypes: {
+	    router: React.PropTypes.object.isRequired
+	  },
+	
+	  childContextTypes: {
+	    checkWin: React.PropTypes.func
+	  },
+	
+	  getChildContext: function getChildContext() {
+	    return {
+	      checkWin: this.checkWin
+	    };
+	  },
+	
 	  getInitialState: function getInitialState() {
 	    return { won: false };
 	  },
@@ -24746,22 +24764,12 @@
 	    Shortcuts.loadHotKeys();
 	  },
 	
-	  childContextTypes: {
-	    checkWin: React.PropTypes.func,
-	    won: React.PropTypes.bool
-	  },
-	
-	  getChildContext: function getChildContext() {
-	    return {
-	      checkWin: this.checkWin,
-	      won: this.state.won
-	    };
-	  },
-	
-	  checkWin: function checkWin(e) {
+	  checkWin: function checkWin(level) {
+	    console.log("level", level);
 	    if ($(".sleepy").length === 0) {
-	      console.log("You won!!");
-	      this.setState({ won: true });
+	      this.context.router.push(String(level + 1));
+	    } else {
+	      console.log("Eventually the sidebar will shake!");
 	    }
 	  },
 	
@@ -24783,16 +24791,21 @@
 	'use strict';
 	
 	var React = __webpack_require__(1);
+	var Link = __webpack_require__(159).Link;
+	var Shortcuts = __webpack_require__(220);
 	
 	var Sloth = __webpack_require__(218);
 	
 	var Level1 = React.createClass({
 	  displayName: 'Level1',
 	
-	
 	  contextTypes: {
-	    checkWin: React.PropTypes.func,
-	    won: React.PropTypes.bool
+	    router: React.PropTypes.object.isRequired,
+	    checkWin: React.PropTypes.func
+	  },
+	
+	  componentDidMount: function componentDidMount() {
+	    Shortcuts.unbindAll();
 	  },
 	
 	  render: function render() {
@@ -24815,36 +24828,37 @@
 	        React.createElement(
 	          'div',
 	          null,
-	          'Turn the sleepy sloths into shortcut sloths! (click and press space)'
+	          'Oh no! The regularly active shortcut sloths have turned into sleepy sloths! It\'s your job to wake them up!'
+	        ),
+	        React.createElement(
+	          'div',
+	          null,
+	          '(Click each sloth, and press space to transform them from a sleepy sloth to a shortcut sloth!)'
 	        ),
 	        React.createElement(
 	          'button',
-	          { onClick: this.context.checkWin },
-	          'Win Check'
-	        ),
-	        this.context.won ? React.createElement(
-	          'span',
-	          null,
-	          'Won'
-	        ) : React.createElement(
-	          'span',
-	          null,
-	          'Not Won'
+	          { onClick: this.context.checkWin.bind(null, 1) },
+	          'Next'
 	        )
 	      ),
 	      React.createElement(
 	        'section',
 	        { className: 'board', style: { alignItems: "center" } },
-	        React.createElement(Sloth, null),
-	        React.createElement(Sloth, null),
-	        React.createElement(Sloth, null),
-	        React.createElement(Sloth, null),
-	        React.createElement(Sloth, null),
-	        React.createElement(Sloth, null)
+	        React.createElement('div', { className: 'row' }),
+	        React.createElement('div', { className: 'row' }),
+	        React.createElement(
+	          'div',
+	          { className: 'row' },
+	          React.createElement(Sloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(Sloth, null)
+	        )
 	      )
 	    );
 	  }
-	
 	});
 	
 	module.exports = Level1;
@@ -24953,9 +24967,21 @@
 /* 220 */
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
 	
 	var shortcuts = {
+	  unbindAll: function unbindAll() {
+	    key.unbind('⌘+d');
+	    key.unbind('ctrl+⌘+g');
+	    key.unbind('⌘+j');
+	    key.unbind('⌘+l');
+	    key.unbind('⇧+⌘+l');
+	    key.unbind('ctrl+⌘+up');
+	    key.unbind('ctrl+⌘+down');
+	    key.unbind('⌘+j');
+	    key.unbind('⌘+/');
+	  },
+	
 	  returnSelectedClasses: function returnSelectedClasses() {
 	    var selectedClasses = $(".clicked").last().attr("class").split(" ");
 	    var index = selectedClasses.indexOf("clicked");
@@ -24971,24 +24997,28 @@
 	    key('space', function () {
 	      $(".clicked").toggleClass("sleepy shortcut");
 	    });
+	  },
 	
-	    // Select word
+	  loadLvl2: function loadLvl2() {
 	    key('⌘+d', function () {
 	      console.log("You pressed select word!");
 	
 	      if ($(".clicked ").length > 0) {
-	        var selectedClasses = this.returnSelectedClasses();
+	        var selectedClasses = $(this.returnSelectedClasses());
 	        var sameElements = $(".clicked ").last().nextAll(this.returnSelectedClasses()).not(".clicked ");
+	        var startIdx = selectedClasses.index($(".clicked").last()) + 1;
 	
-	        if (sameElements.length > 0) {
-	          sameElements.first().addClass("clicked");
+	        if (startIdx < selectedClasses.length) {
+	          selectedClasses.slice(startIdx).first().addClass("clicked");
 	        } else {
-	          $(selectedClasses).not(".clicked").first().addClass("clicked");
+	          selectedClasses.not(".clicked").first().addClass("clicked");
 	        }
 	      }
 	      return false;
 	    }.bind(this));
+	  },
 	
+	  loadLvl3: function loadLvl3() {
 	    key('ctrl+⌘+g', function () {
 	      console.log("You pressed select all words!");
 	
@@ -24998,9 +25028,19 @@
 	      }
 	      return false;
 	    }.bind(this));
+	  },
 	
+	  loadLvl4: function loadLvl4() {
 	    key('⌘+l', function () {
 	      console.log("You pressed select line!");
+	      $(".clicked").siblings().addClass("clicked");
+	    });
+	  },
+	
+	  tempLoadRest: function tempLoadRest() {
+	
+	    key('⌘+j', function () {
+	      console.log("You pressed join line!");
 	      return false;
 	    });
 	
@@ -25033,15 +25073,196 @@
 	      console.log("You pressed comment!");
 	      return false;
 	    });
-	
-	    key('⇧+⌘+.', function () {
-	      console.log("You pressed close open tag!");
-	      return false;
-	    });
 	  }
 	};
 	
 	module.exports = shortcuts;
+
+/***/ },
+/* 221 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var Link = __webpack_require__(159).Link;
+	var Shortcuts = __webpack_require__(220);
+	
+	var Sloth = __webpack_require__(218);
+	
+	var Level2 = React.createClass({
+	  displayName: 'Level2',
+	
+	  contextTypes: {
+	    router: React.PropTypes.object.isRequired,
+	    checkWin: React.PropTypes.func
+	  },
+	
+	  componentDidMount: function componentDidMount() {
+	    Shortcuts.unbindAll();
+	    Shortcuts.loadLvl2();
+	  },
+	
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      { className: 'level' },
+	      React.createElement(
+	        'section',
+	        { className: 'sidebar' },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'SHORTCUT SLOTHS'
+	        ),
+	        React.createElement(
+	          'div',
+	          null,
+	          'Level 2'
+	        ),
+	        React.createElement(
+	          'div',
+	          null,
+	          'Great job! But wasn\'t it slow clicking on each individual sloth?'
+	        ),
+	        React.createElement(
+	          'div',
+	          null,
+	          'What if you could select many sloths and simultaneously wake them up?'
+	        ),
+	        React.createElement(
+	          'div',
+	          null,
+	          'Try using \'command+D\' when selecting a sloth!'
+	        ),
+	        React.createElement(
+	          'div',
+	          null,
+	          '(You should be able to finish this level with 1 click and 5 shortcuts!)'
+	        ),
+	        React.createElement(
+	          'button',
+	          { onClick: this.context.checkWin.bind(null, 2) },
+	          'Next'
+	        )
+	      ),
+	      React.createElement(
+	        'section',
+	        { className: 'board', style: { alignItems: "center" } },
+	        React.createElement('div', { className: 'row' }),
+	        React.createElement('div', { className: 'row' }),
+	        React.createElement(
+	          'div',
+	          { className: 'row' },
+	          React.createElement(Sloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(Sloth, null)
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Level2;
+
+/***/ },
+/* 222 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var Link = __webpack_require__(159).Link;
+	var Shortcuts = __webpack_require__(220);
+	
+	var Sloth = __webpack_require__(218);
+	
+	var Level3 = React.createClass({
+	  displayName: 'Level3',
+	
+	  contextTypes: {
+	    router: React.PropTypes.object.isRequired,
+	    checkWin: React.PropTypes.func
+	  },
+	
+	  componentDidMount: function componentDidMount() {
+	    Shortcuts.unbindAll();
+	    Shortcuts.loadLvl2();
+	    Shortcuts.loadLvl3();
+	  },
+	
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      { className: 'level' },
+	      React.createElement(
+	        'section',
+	        { className: 'sidebar' },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'SHORTCUT SLOTHS'
+	        ),
+	        React.createElement(
+	          'div',
+	          null,
+	          'Level 3'
+	        ),
+	        React.createElement(
+	          'div',
+	          null,
+	          'Nice! But we can go even faster! '
+	        ),
+	        React.createElement(
+	          'div',
+	          null,
+	          'Try using \'ctrl+command+G\' when selecting a sloth!'
+	        ),
+	        React.createElement(
+	          'div',
+	          null,
+	          '(You should be able to finish this level with 1 click and 1 shortcut!)'
+	        ),
+	        React.createElement(
+	          'button',
+	          { onClick: this.context.checkWin.bind(null, 3) },
+	          'Next'
+	        )
+	      ),
+	      React.createElement(
+	        'section',
+	        { className: 'board', style: { alignItems: "center" } },
+	        React.createElement('div', { className: 'row' }),
+	        React.createElement('div', { className: 'row' }),
+	        React.createElement(
+	          'div',
+	          { className: 'row' },
+	          React.createElement(Sloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(Sloth, null)
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'row' },
+	          React.createElement(Sloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(Sloth, null),
+	          React.createElement(Sloth, null)
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Level3;
 
 /***/ }
 /******/ ]);
