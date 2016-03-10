@@ -26438,7 +26438,19 @@
 	            null,
 	            'trying out every new shortcut'
 	          ),
-	          ' in your editor as you play!'
+	          ' as you play! Our favorite editors are ',
+	          React.createElement(
+	            'a',
+	            { href: 'https://www.sublimetext.com/' },
+	            'Sublime Text'
+	          ),
+	          ' and ',
+	          React.createElement(
+	            'a',
+	            { href: 'https://atom.io/' },
+	            'Atom'
+	          ),
+	          '.'
 	        ),
 	        React.createElement(
 	          'p',

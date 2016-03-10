@@ -3,6 +3,8 @@
 
 $header-font-stack: 'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif;
 $body-font-stack: 'Varela Round', sans-serif;
+$code-font-stack: 'menlo', Consolas, monospace;
+
 $off-white: #f8f8f8;
 $pink: #f99;
 $dark-pink: #ff7473;
@@ -68,6 +70,10 @@ a {
     color: white;
     transition: all 100ms ease;
   }
+}
+
+code {
+  font-family: $code-fond-stack;
 }
 
 .pink {
