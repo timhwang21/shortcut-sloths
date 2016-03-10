@@ -25073,17 +25073,22 @@
 	        React.createElement(
 	          'p',
 	          null,
-	          'Welcome to ',
 	          React.createElement(
 	            'em',
 	            null,
 	            'Shortcut Sloths'
 	          ),
-	          ', a game about ',
+	          ' is a game about ',
 	          React.createElement(
 	            'em',
 	            null,
 	            'text editor shortcuts'
+	          ),
+	          '... and ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'sloths'
 	          ),
 	          '!'
 	        ),
@@ -26661,7 +26666,7 @@
 	        React.createElement(
 	          'p',
 	          null,
-	          'Sloth images were created by ',
+	          'Sloths edited from graphic by ',
 	          React.createElement(
 	            'a',
 	            { href: 'https://thenounproject.com/wattenberger/' },
@@ -26683,6 +26688,16 @@
 	            'a',
 	            { href: 'https://github.com/timhwang21/shortcut-sloths' },
 	            'Github!'
+	          )
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'Have questions, comments, or suggestions? ',
+	          React.createElement(
+	            'a',
+	            { href: 'mailto:timhwang21@gmail.com?Subject=Shortcut%Sloths' },
+	            'Let\'s talk!'
 	          )
 	        )
 	      ),

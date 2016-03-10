@@ -26,10 +26,13 @@ var LevelEnd = React.createClass({
             The game logic is implemented with <em>jQuery</em>, and the frontend is built with <em>React</em>. 
           </p>
           <p>
-            Sloth images were created by <a href="https://thenounproject.com/wattenberger/">Amelia Wattenberger</a> from the Noun Project. Thank you!
+            Sloths edited from graphic by <a href="https://thenounproject.com/wattenberger/">Amelia Wattenberger</a> from the Noun Project. Thank you!
           </p>
           <p>
             Check out <em>Shortcut Sloths</em> on <a href="https://github.com/timhwang21/shortcut-sloths">Github!</a> 
+          </p>
+          <p>
+            Have questions, comments, or suggestions? <a href="mailto:timhwang21@gmail.com?Subject=Shortcut%Sloths">Let's talk!</a> 
           </p>
 
         </section>
