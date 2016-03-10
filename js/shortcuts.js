@@ -130,7 +130,14 @@ var shortcuts = {
   loadLvl6: function() {
     key('⌘+/', function() {
       // console.log("You pressed comment!");
-      $( ".clicked" ).toggleClass( "jailed animated" );
+      var clicked = $( ".clicked" );
+      if (clicked.length === $( ".clicked.jailed" ).length) {
+        clicked.removeClass( "jailed" );
+        clicked.addClass( "animated" );
+      } else {
+        clicked.addClass( "jailed" );
+        clicked.removeClass( "animated" );
+      }
       return false;
     });
   },
