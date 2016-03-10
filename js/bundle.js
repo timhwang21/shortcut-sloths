@@ -24901,7 +24901,7 @@
 	
 	  loadLvl2: function loadLvl2() {
 	    key('⌘+d', function () {
-	      console.log("You pressed select word!");
+	      // console.log("You pressed select word!");
 	      var clicked = $(".clicked");
 	      if (clicked.length > 0) {
 	        var selectedClasses = $(this.returnSelectedClasses());
@@ -24920,7 +24920,7 @@
 	
 	  loadLvl3: function loadLvl3() {
 	    key('ctrl+⌘+g', function () {
-	      console.log("You pressed select all words!");
+	      // console.log("You pressed select all words!");
 	
 	      if ($(".clicked ").length > 0) {
 	        var selectedClasses = $(this.returnSelectedClasses());
@@ -24932,7 +24932,7 @@
 	
 	  loadLvl5: function loadLvl5() {
 	    key('⌘+l', function () {
-	      console.log("You pressed select line!");
+	      // console.log("You pressed select line!");
 	
 	      var clicked = $(".clicked");
 	      if (clicked.length < clicked.siblings().length) {
@@ -24946,7 +24946,7 @@
 	
 	  loadLvl6: function loadLvl6() {
 	    key('⌘+/', function () {
-	      console.log("You pressed comment!");
+	      // console.log("You pressed comment!");
 	      $(".clicked").toggleClass("jailed animated");
 	      return false;
 	    });
@@ -24954,7 +24954,7 @@
 	
 	  loadLvl7: function loadLvl7() {
 	    key('ctrl+⌘+up', function () {
-	      console.log("You pressed swap up!");
+	      // console.log("You pressed swap up!");
 	      var clicked = $(".clicked");
 	      var row = clicked.parent();
 	      if (row.prev().first().length > 0 && $.inArray(row.prev().first()[0], row) === -1) {
@@ -24964,7 +24964,7 @@
 	    });
 	
 	    key('ctrl+⌘+down', function () {
-	      console.log("You pressed swap down!");
+	      // console.log("You pressed swap down!");
 	      var clicked = $(".clicked");
 	      var row = clicked.parent();
 	      // debugger;
@@ -24978,17 +24978,17 @@
 	  tempLoadRest: function tempLoadRest() {
 	
 	    key('⌘+j', function () {
-	      console.log("You pressed join line!");
+	      // console.log("You pressed join line!");
 	      return false;
 	    });
 	
 	    key('⇧+⌘+l', function () {
-	      console.log("You pressed split line!");
+	      // console.log("You pressed split line!");
 	      return false;
 	    });
 	
 	    key('⇧+⌘+d', function () {
-	      console.log("You pressed duplicate line!");
+	      // console.log("You pressed duplicate line!");
 	      var clicked = $(".clicked");
 	      var row = clicked.parent();
 	      row.after(row.clone());
