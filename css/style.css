@@ -537,7 +537,7 @@
 .board {
   flex-direction: column;
   align-content: center;
-  background: #55bb22;
+  background: #60d050;
   height: 620px;
   width: 1000px;
   min-width: 725px;
@@ -602,6 +602,9 @@ a {
     background: rgba(255, 200, 200, 0.25);
     color: white;
     transition: all 100ms ease; }
+
+code {
+  font-family: "menlo", Consolas, monospace; }
 
 .pink {
   color: #f99; }

@@ -36,7 +36,7 @@ var Index = React.createClass({
       <div className="level">
         <section className="sidebar">
           <h1>SHORTCUT SLOTHS</h1>
-          <p>Welcome to <em>Shortcut Sloths</em>, a game about <em>text editor shortcuts</em>!</p>
+          <p><em>Shortcut Sloths</em> is a game about <em>text editor shortcuts</em>... and <em>sloths</em>!</p>
           <p>The purpose of this game is to introduce features of modern text editors, in order to <em>increase typing speed</em> and <em>improve programmer happiness</em>.</p>
           <p>
             We recommend playing this game with your favorite text editor open, and <em>trying out every new shortcut</em> as you play!
