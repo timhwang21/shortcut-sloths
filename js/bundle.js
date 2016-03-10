@@ -26470,7 +26470,7 @@
 	          React.createElement(
 	            'em',
 	            null,
-	            'Macs only.'
+	            'Mac shortcuts only.'
 	          ),
 	          ' Sorry!'
 	        ),
