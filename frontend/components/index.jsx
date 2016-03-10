@@ -42,7 +42,7 @@ var Index = React.createClass({
             We recommend playing this game with your favorite text editor open, and <em>trying out every new shortcut</em> as you play!
             Our favorite editors are <a href="https://www.sublimetext.com/">Sublime Text</a> and <a href="https://atom.io/">Atom</a>.
           </p>
-          <p><em>PC users</em>: Unfortunately, <em>Shortcut Sloths</em> is currently configured to work with <em>Mac shortcuts only.</em> Sorry!</p>
+          <p><em>PC users</em>: Unfortunately, <em>Shortcut Sloths</em> is currently configured to work with <em>Mac shortcuts only</em>. Sorry!</p>
           <h2>Have fun!</h2>
         </section>
 
