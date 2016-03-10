@@ -26424,8 +26424,9 @@
 	          React.createElement(
 	            'em',
 	            null,
-	            'trying out every new shortcut!'
-	          )
+	            'trying out every new shortcut'
+	          ),
+	          ' in your editor as you play!'
 	        ),
 	        React.createElement(
 	          'h2',
