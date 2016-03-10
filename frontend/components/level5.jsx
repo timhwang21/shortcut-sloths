@@ -9,7 +9,8 @@ var SurlySloth = require('./surlySloth');
 var Level5 = React.createClass({
   contextTypes: {
     router: React.PropTypes.object.isRequired,
-    checkWin: React.PropTypes.func
+    checkWin: React.PropTypes.func,
+    errorMsg: React.PropTypes.string
   },
 
   componentDidMount: function() {
@@ -39,9 +40,8 @@ var Level5 = React.createClass({
           <h1>SHORTCUT SLOTHS</h1>
           <h2>Level 5</h2>
           <p>What's this? Some sloths didn't like being woken up, and are <em>surly</em>!</p>
-          <p>Surly sloths <em>cannot be clicked</em>, but <em>can be placated</em> with <em>space</em>! How can you select them without clicking them?</p>
-          <p>Try <em>selecting an entire row at once</em> with <em>'command-L'</em>!</p>
-          <p>Pressing <em>'command-L'</em> again with a line selected <em>selects the next line</em>!</p>
+          <p>Surly sloths <em>cannot be clicked</em>, but can be <em>placated</em> by pressing <em>space</em>! How can you select them without clicking them?</p>
+          <p>Try <em>selecting an entire row at once</em> with <em>'command-L'</em>. Pressing <em>'command-L'</em> again with a line selected <em>selects the next line</em>!</p>
 
           <div className="button-row">
             <button 
@@ -50,6 +50,8 @@ var Level5 = React.createClass({
               Next
             </button>
           </div>
+          <h2 className="error">{this.context.errorMsg}</h2>
+
         </section>
 
         <section className="board" style={{alignItems: "center"}}>

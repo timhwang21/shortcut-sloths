@@ -52,28 +52,30 @@
 	var Router = __webpack_require__(159).Router;
 	var Route = __webpack_require__(159).Route;
 	var IndexRoute = __webpack_require__(159).IndexRoute;
-	var IndexRedirect = __webpack_require__(159).IndexRedirect;
 	var hashHistory = __webpack_require__(159).hashHistory;
 	
 	var App = __webpack_require__(216);
+	var Index = __webpack_require__(230);
 	var Level1 = __webpack_require__(218);
 	var Level2 = __webpack_require__(221);
 	var Level3 = __webpack_require__(222);
 	var Level4 = __webpack_require__(223);
 	var Level5 = __webpack_require__(225);
 	var Level6 = __webpack_require__(226);
+	var Level7 = __webpack_require__(231);
 	var LevelEnd = __webpack_require__(228);
 	
 	var routes = React.createElement(
 	  Route,
 	  { path: '/', component: App },
-	  React.createElement(IndexRedirect, { to: '1' }),
+	  React.createElement(IndexRoute, { component: Index }),
 	  React.createElement(Route, { path: '1', component: Level1 }),
 	  React.createElement(Route, { path: '2', component: Level2 }),
 	  React.createElement(Route, { path: '3', component: Level3 }),
 	  React.createElement(Route, { path: '4', component: Level4 }),
 	  React.createElement(Route, { path: '5', component: Level5 }),
 	  React.createElement(Route, { path: '6', component: Level6 }),
+	  React.createElement(Route, { path: '7', component: Level7 }),
 	  React.createElement(Route, { path: 'end', component: LevelEnd })
 	);
 	
@@ -24755,28 +24757,52 @@
 	  },
 	
 	  childContextTypes: {
-	    checkWin: React.PropTypes.func
+	    checkWin: React.PropTypes.func,
+	    errorMsg: React.PropTypes.string
 	  },
 	
 	  getChildContext: function getChildContext() {
 	    return {
-	      checkWin: this.checkWin
+	      checkWin: this.checkWin,
+	      errorMsg: this.state.errorMsg
 	    };
 	  },
 	
 	  getInitialState: function getInitialState() {
-	    return { won: false };
+	    return {
+	      won: false,
+	      errorMsg: ''
+	    };
 	  },
 	
 	  componentDidMount: function componentDidMount() {
 	    Shortcuts.loadHotKeys();
 	  },
 	
+	  // checkWin: function(level) {
+	  //   if (
+	  //     $( ".sleepy" ).length === 0 &&
+	  //     $( ".shortcut.jailed" ).length === 0 &&
+	  //     $( ".savage" ).not( ".jailed" ).length === 0
+	  //     ) {
+	  //     this.context.router.push(String(level))
+	  //   } else {
+	  //     console.log("Eventually the sidebar will shake!");
+	  //   }
+	  // },
+	
 	  checkWin: function checkWin(level) {
-	    if ($(".sleepy").length === 0 && $(".shortcut.jailed").length === 0 && $(".savage").not(".jailed").length === 0) {
-	      this.context.router.push(String(level));
+	    if ($(".surly").length > 0) {
+	      this.setState({ errorMsg: "There are still surly sloths to be placated!" });
+	    } else if ($(".savage").not(".jailed").length > 0) {
+	      this.setState({ errorMsg: "There are surly sloths roaming free!" });
+	    } else if ($(".shortcut.jailed").length > 0) {
+	      this.setState({ errorMsg: "There are innocent sloths in jail!" });
+	    } else if ($(".sleepy").length > 0) {
+	      this.setState({ errorMsg: "There are still sleepy sloths to be awoken!" });
 	    } else {
-	      console.log("Eventually the sidebar will shake!");
+	      this.setState({ errorMsg: "" });
+	      this.context.router.push(String(level));
 	    }
 	  },
 	
@@ -24915,7 +24941,7 @@
 	        clicked.parent().next().children().addClass("clicked");
 	      }
 	      return false;
-	    }.bind(this));
+	    });
 	  },
 	
 	  loadLvl6: function loadLvl6() {
@@ -24923,7 +24949,30 @@
 	      console.log("You pressed comment!");
 	      $(".clicked").toggleClass("jailed animated");
 	      return false;
-	    }.bind(this));
+	    });
+	  },
+	
+	  loadLvl7: function loadLvl7() {
+	    key('ctrl+⌘+up', function () {
+	      console.log("You pressed swap up!");
+	      var clicked = $(".clicked");
+	      var row = clicked.parent();
+	      if (row.prev().first().length > 0 && $.inArray(row.prev().first()[0], row) === -1) {
+	        row.prev().first().before(row.detach());
+	      }
+	      return false;
+	    });
+	
+	    key('ctrl+⌘+down', function () {
+	      console.log("You pressed swap down!");
+	      var clicked = $(".clicked");
+	      var row = clicked.parent();
+	      // debugger;
+	      if (row.next().last().length > 0 && $.inArray(row.next().last()[0], row) === -1) {
+	        row.next().last().after(row.detach());
+	      }
+	      return false;
+	    });
 	  },
 	
 	  tempLoadRest: function tempLoadRest() {
@@ -24938,24 +24987,11 @@
 	      return false;
 	    });
 	
-	    key('ctrl+⌘+up', function () {
-	      console.log("You pressed swap up!");
-	      return false;
-	    });
-	
-	    key('ctrl+⌘+down', function () {
-	      console.log("You pressed swap down!");
-	      return false;
-	    });
-	
 	    key('⇧+⌘+d', function () {
 	      console.log("You pressed duplicate line!");
-	
-	      return false;
-	    });
-	
-	    key('⌘+j', function () {
-	      console.log("You pressed join line!");
+	      var clicked = $(".clicked");
+	      var row = clicked.parent();
+	      row.after(row.clone());
 	      return false;
 	    });
 	  }
@@ -24980,7 +25016,8 @@
 	
 	  contextTypes: {
 	    router: React.PropTypes.object.isRequired,
-	    checkWin: React.PropTypes.func
+	    checkWin: React.PropTypes.func,
+	    errorMsg: React.PropTypes.string
 	  },
 	
 	  componentDidMount: function componentDidMount() {
@@ -25066,6 +25103,11 @@
 	            'Next'
 	          )
 	        )
+	      ),
+	      React.createElement(
+	        'h2',
+	        { className: 'error' },
+	        this.context.errorMsg
 	      ),
 	      React.createElement(
 	        'section',
@@ -25208,7 +25250,8 @@
 	
 	  contextTypes: {
 	    router: React.PropTypes.object.isRequired,
-	    checkWin: React.PropTypes.func
+	    checkWin: React.PropTypes.func,
+	    errorMsg: React.PropTypes.string
 	  },
 	
 	  componentDidMount: function componentDidMount() {
@@ -25299,7 +25342,11 @@
 	            'Next'
 	          )
 	        ),
-	        '        '
+	        React.createElement(
+	          'h2',
+	          { className: 'error' },
+	          this.context.errorMsg
+	        )
 	      ),
 	      React.createElement(
 	        'section',
@@ -25351,7 +25398,8 @@
 	
 	  contextTypes: {
 	    router: React.PropTypes.object.isRequired,
-	    checkWin: React.PropTypes.func
+	    checkWin: React.PropTypes.func,
+	    errorMsg: React.PropTypes.string
 	  },
 	
 	  componentDidMount: function componentDidMount() {
@@ -25448,6 +25496,11 @@
 	              onClick: this.context.checkWin.bind(null, 4) },
 	            'Next'
 	          )
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'error' },
+	          this.context.errorMsg
 	        )
 	      ),
 	      React.createElement(
@@ -25500,7 +25553,8 @@
 	
 	  contextTypes: {
 	    router: React.PropTypes.object.isRequired,
-	    checkWin: React.PropTypes.func
+	    checkWin: React.PropTypes.func,
+	    errorMsg: React.PropTypes.string
 	  },
 	
 	  componentDidMount: function componentDidMount() {
@@ -25575,6 +25629,11 @@
 	              onClick: this.context.checkWin.bind(null, 5) },
 	            'Next'
 	          )
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'error' },
+	          this.context.errorMsg
 	        )
 	      ),
 	      React.createElement(
@@ -25685,7 +25744,8 @@
 	
 	  contextTypes: {
 	    router: React.PropTypes.object.isRequired,
-	    checkWin: React.PropTypes.func
+	    checkWin: React.PropTypes.func,
+	    errorMsg: React.PropTypes.string
 	  },
 	
 	  componentDidMount: function componentDidMount() {
@@ -25744,13 +25804,13 @@
 	            null,
 	            'cannot be clicked'
 	          ),
-	          ', but ',
+	          ', but can be ',
 	          React.createElement(
 	            'em',
 	            null,
-	            'can be placated'
+	            'placated'
 	          ),
-	          ' with ',
+	          ' by pressing ',
 	          React.createElement(
 	            'em',
 	            null,
@@ -25773,12 +25833,7 @@
 	            null,
 	            '\'command-L\''
 	          ),
-	          '!'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          'Pressing ',
+	          '. Pressing ',
 	          React.createElement(
 	            'em',
 	            null,
@@ -25802,6 +25857,11 @@
 	              onClick: this.context.checkWin.bind(null, 6) },
 	            'Next'
 	          )
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'error' },
+	          this.context.errorMsg
 	        )
 	      ),
 	      React.createElement(
@@ -25864,7 +25924,8 @@
 	
 	  contextTypes: {
 	    router: React.PropTypes.object.isRequired,
-	    checkWin: React.PropTypes.func
+	    checkWin: React.PropTypes.func,
+	    errorMsg: React.PropTypes.string
 	  },
 	
 	  componentDidMount: function componentDidMount() {
@@ -25934,35 +25995,18 @@
 	        React.createElement(
 	          'p',
 	          null,
-	          'Use ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'Throw sloths in jail'
+	          ),
+	          ' using ',
 	          React.createElement(
 	            'em',
 	            null,
 	            '\'command-/\''
 	          ),
-	          ' to ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'throw a selected sloth in jail'
-	          ),
-	          '!'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          '(How did you ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'select unselectable sloths'
-	          ),
-	          ' before?)'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          'Make sure to ',
+	          '! Make sure to ',
 	          React.createElement(
 	            'em',
 	            null,
@@ -25971,15 +26015,31 @@
 	          ' before moving on!'
 	        ),
 	        React.createElement(
+	          'p',
+	          null,
+	          '(Hint: how did you ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'select unselectable sloths'
+	          ),
+	          ' before?)'
+	        ),
+	        React.createElement(
 	          'div',
 	          { className: 'button-row' },
 	          React.createElement(
 	            'button',
 	            {
 	              className: 'button',
-	              onClick: this.context.checkWin.bind(null, "end") },
+	              onClick: this.context.checkWin.bind(null, 7) },
 	            'Next'
 	          )
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'error' },
+	          this.context.errorMsg
 	        )
 	      ),
 	      React.createElement(
@@ -26086,11 +26146,6 @@
 	    checkWin: React.PropTypes.func
 	  },
 	
-	  componentDidMount: function componentDidMount() {
-	    // Shortcuts.unbindAll();
-	    // Shortcuts.unbindSpace();
-	  },
-	
 	  render: function render() {
 	    return React.createElement(
 	      'div',
@@ -26106,7 +26161,56 @@
 	        React.createElement(
 	          'h2',
 	          null,
-	          'That\'s it! Thanks for playing!'
+	          'That\'s it so far! Thanks for playing!'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'em',
+	            null,
+	            'Shortcut Sloths'
+	          ),
+	          ' is a two-day Javascript project by ',
+	          React.createElement(
+	            'a',
+	            { href: 'https://www.github.com/timhwang21' },
+	            'Tim Hwang'
+	          ),
+	          '. The game logic is implemented with ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'jQuery'
+	          ),
+	          ', and the frontend is built with ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'React'
+	          ),
+	          '.'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'Sloth images were created by ',
+	          React.createElement(
+	            'a',
+	            { href: 'https://thenounproject.com/wattenberger/' },
+	            'Amelia Wattenberger'
+	          ),
+	          ' from the Noun Project. Thank you!'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'Find it on ',
+	          React.createElement(
+	            'a',
+	            { href: 'https://github.com/timhwang21/shortcut-sloths' },
+	            'Github!'
+	          )
 	        )
 	      ),
 	      React.createElement(
@@ -26225,6 +26329,344 @@
 	});
 	
 	module.exports = ShortcutSloth;
+
+/***/ },
+/* 230 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var Link = __webpack_require__(159).Link;
+	var Shortcuts = __webpack_require__(217);
+	
+	var ShortcutSloth = __webpack_require__(229);
+	
+	var Index = React.createClass({
+	  displayName: 'Index',
+	
+	  contextTypes: {
+	    router: React.PropTypes.object.isRequired,
+	    checkWin: React.PropTypes.func
+	  },
+	
+	  componentDidMount: function componentDidMount() {
+	    Shortcuts.unbindAll();
+	    document.addEventListener('keydown', this.handleEnter, false);
+	  },
+	
+	  componentWillUnmount: function componentWillUnmount() {
+	    Shortcuts.unbindAll();
+	    document.removeEventListener('keydown', this.handleEnter, false);
+	  },
+	
+	  handleEnter: function handleEnter(e) {
+	    if (e.keyCode == 13) {
+	      $(".button").click();
+	    }
+	  },
+	
+	  handleClick: function handleClick(e) {
+	    e.preventDefault();
+	    this.context.router.push("1");
+	  },
+	
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      { className: 'level' },
+	      React.createElement(
+	        'section',
+	        { className: 'sidebar' },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'SHORTCUT SLOTHS'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'Welcome to ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'Shortcut Sloths'
+	          ),
+	          ', a game about ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'text editor shortcuts'
+	          ),
+	          '!'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'The purpose of this game is to introduce features of modern text editors, in order to ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'increase typing speed'
+	          ),
+	          ' and ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'improve programmer happiness'
+	          ),
+	          '.'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'We recommend playing this game with your favorite text editor open, and ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'trying out every new shortcut!'
+	          )
+	        ),
+	        React.createElement(
+	          'h2',
+	          null,
+	          'Have fun!'
+	        )
+	      ),
+	      React.createElement(
+	        'section',
+	        { className: 'board', style: { alignItems: "center" } },
+	        React.createElement('div', { className: 'row' }),
+	        React.createElement('div', { className: 'row' }),
+	        React.createElement(
+	          'div',
+	          { className: 'row' },
+	          React.createElement(ShortcutSloth, null),
+	          React.createElement(
+	            'button',
+	            {
+	              className: 'start-button',
+	              onClick: this.handleClick },
+	            'PLAY!'
+	          ),
+	          React.createElement(ShortcutSloth, null)
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Index;
+
+/***/ },
+/* 231 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var Link = __webpack_require__(159).Link;
+	var Shortcuts = __webpack_require__(217);
+	
+	var Sloth = __webpack_require__(219);
+	var ShortcutSloth = __webpack_require__(229);
+	var SavageSloth = __webpack_require__(227);
+	
+	var Level7 = React.createClass({
+	  displayName: 'Level7',
+	
+	  contextTypes: {
+	    router: React.PropTypes.object.isRequired,
+	    checkWin: React.PropTypes.func,
+	    errorMsg: React.PropTypes.string
+	  },
+	
+	  componentDidMount: function componentDidMount() {
+	    Shortcuts.unbindAll();
+	    Shortcuts.loadLvl2();
+	    Shortcuts.loadLvl3();
+	    Shortcuts.loadLvl5();
+	    Shortcuts.loadLvl6();
+	    Shortcuts.loadLvl7();
+	    document.addEventListener('keydown', this.handleEnter, false);
+	  },
+	
+	  componentWillUnmount: function componentWillUnmount() {
+	    Shortcuts.unbindAll();
+	    document.removeEventListener('keydown', this.handleEnter, false);
+	  },
+	
+	  handleEnter: function handleEnter(e) {
+	    if (e.keyCode == 13) {
+	      $(".button").click();
+	    }
+	  },
+	
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      { className: 'level' },
+	      React.createElement(
+	        'section',
+	        { className: 'sidebar' },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'SHORTCUT SLOTHS'
+	        ),
+	        React.createElement(
+	          'h2',
+	          null,
+	          'Level 7'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'That\'s a lot of ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'savage sloths!'
+	          )
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'There is a single ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'sleepy sloth'
+	          ),
+	          ' at the bottom. However, ',
+	          React.createElement(
+	            'em',
+	            null,
+	            '\'command + L\''
+	          ),
+	          ' only selects the ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'next line'
+	          ),
+	          ' -- not the ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'previous line'
+	          ),
+	          '!'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'If only you could get the ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'sleepy sloth'
+	          ),
+	          ' to the top...'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'Try selecting the ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'sleepy sloth'
+	          ),
+	          ', and pressing ',
+	          React.createElement(
+	            'em',
+	            null,
+	            '\'ctrl + command + up/down'
+	          ),
+	          '!'
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'button-row' },
+	          React.createElement(
+	            'button',
+	            {
+	              className: 'button',
+	              onClick: this.context.checkWin.bind(null, "end") },
+	            'Next'
+	          )
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'error' },
+	          this.context.errorMsg
+	        )
+	      ),
+	      React.createElement(
+	        'section',
+	        { className: 'board', style: { alignItems: "center" } },
+	        React.createElement(
+	          'div',
+	          { className: 'row' },
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null)
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'row' },
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null)
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'row' },
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null)
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'row' },
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null)
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'row' },
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null)
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'row' },
+	          React.createElement(Sloth, null)
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Level7;
 
 /***/ }
 /******/ ]);

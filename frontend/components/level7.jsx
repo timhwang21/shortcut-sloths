@@ -7,7 +7,7 @@ var Sloth = require('./sloth');
 var ShortcutSloth = require('./shortcutSloth');
 var SavageSloth = require('./savageSloth');
 
-var Level6 = React.createClass({
+var Level7 = React.createClass({
   contextTypes: {
     router: React.PropTypes.object.isRequired,
     checkWin: React.PropTypes.func,
@@ -20,6 +20,7 @@ var Level6 = React.createClass({
     Shortcuts.loadLvl3();
     Shortcuts.loadLvl5();
     Shortcuts.loadLvl6();
+    Shortcuts.loadLvl7();
     document.addEventListener('keydown', this.handleEnter, false);
   },
 
@@ -39,17 +40,23 @@ var Level6 = React.createClass({
       <div className="level">
         <section className="sidebar">
           <h1>SHORTCUT SLOTHS</h1>
-          <h2>Level 6</h2>
-          <p>Oh no! These sloths are <em>REALLY</em> angry!</p>
-          <p>Savage sloths <em>cannot be reasoned with</em>! There is only one way to deal with them...</p>
-          <h3>JAIL THEM.</h3>
-          <p><em>Throw sloths in jail</em> using <em>'command-/'</em>! Make sure to <em>free any innocent sloths</em> before moving on!</p>
-          <p>(Hint: how did you <em>select unselectable sloths</em> before?)</p>
+          <h2>Level 7</h2>
+          <p>That's a lot of <em>savage sloths!</em></p>
+          <p>
+            There is a single <em>sleepy sloth</em> at the bottom. 
+            However, <em>'command + L'</em> only selects the <em>next line</em> -- not the <em>previous line</em>!
+          </p>
+          <p>
+            If only you could get the <em>sleepy sloth</em> to the top...
+          </p>
+          <p>
+            Try selecting the <em>sleepy sloth</em>, and pressing <em>'ctrl + command + up/down</em>!
+          </p>
 
           <div className="button-row">
             <button 
               className="button" 
-              onClick={this.context.checkWin.bind(null, 7)}>
+              onClick={this.context.checkWin.bind(null, "end")}>
               Next
             </button>
           </div>
@@ -58,15 +65,13 @@ var Level6 = React.createClass({
         </section>
 
         <section className="board" style={{alignItems: "center"}}>
-          <div className="row"></div>
-          <div className="row"></div>
           <div className="row">
-            <Sloth />
-            <ShortcutSloth />
-            <Sloth />
-            <ShortcutSloth />
-            <Sloth />
-            <ShortcutSloth />
+            <SavageSloth />
+            <SavageSloth />
+            <SavageSloth />
+            <SavageSloth />
+            <SavageSloth />
+            <SavageSloth />
           </div>
           <div className="row">
             <SavageSloth />
@@ -75,6 +80,33 @@ var Level6 = React.createClass({
             <SavageSloth />
             <SavageSloth />
             <SavageSloth />
+          </div>
+          <div className="row">
+            <SavageSloth />
+            <SavageSloth />
+            <SavageSloth />
+            <SavageSloth />
+            <SavageSloth />
+            <SavageSloth />
+          </div>
+          <div className="row">
+            <SavageSloth />
+            <SavageSloth />
+            <SavageSloth />
+            <SavageSloth />
+            <SavageSloth />
+            <SavageSloth />
+          </div>
+          <div className="row">
+            <SavageSloth />
+            <SavageSloth />
+            <SavageSloth />
+            <SavageSloth />
+            <SavageSloth />
+            <SavageSloth />
+          </div>
+          <div className="row">
+            <Sloth />
           </div>
 
         </section>
@@ -83,4 +115,4 @@ var Level6 = React.createClass({
   }
 });
 
-module.exports = Level6;
+module.exports = Level7;

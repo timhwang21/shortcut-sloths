@@ -554,10 +554,10 @@
 html, body, div, section, header {
   display: flex;
   box-sizing: border-box;
-  font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif;
+  font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
   margin: 0;
   border: 0;
-  color: white; }
+  color: #f8f8f8; }
 
 html, body, .root, .game, .level {
   flex-direction: row;
@@ -583,7 +583,7 @@ h3 {
 
 p {
   font-size: 18px;
-  font-family: 'Varela Round', sans-serif;
+  font-family: "Varela Round", sans-serif;
   display: inline;
   text-weight: 100;
   margin: 10px; }
@@ -592,6 +592,19 @@ em {
   color: #f99;
   display: inline;
   font-style: normal; }
+
+a {
+  color: #f99;
+  font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
+  padding: 0 2px;
+  transition: all 100ms ease; }
+  a:hover {
+    background: rgba(255, 200, 200, 0.25);
+    color: white;
+    transition: all 100ms ease; }
+
+.pink {
+  color: #f99; }
 
 #root, .sloths {
   height: 100%;
@@ -602,15 +615,17 @@ em {
   justify-content: center;
   padding-top: 40px; }
 
-.button {
+button {
   background: #ff7473;
   border: none;
   border-radius: 24px;
-  color: #fff;
-  font-family: 'Varela Round', sans-serif;
+  color: #f8f8f8;
   font-size: 24px;
   padding: 12px 18px;
   text-align: center; }
+
+.button {
+  font-family: "Varela Round", sans-serif; }
   .button:hover {
     opacity: .9;
     transition: all 100ms ease; }
@@ -620,5 +635,30 @@ em {
     transition: all 100ms ease; }
   .button:focus {
     outline: 0; }
+
+.start-button {
+  box-shadow: 0px 10px 0px #c82928;
+  font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
+  height: 90px;
+  width: 100px; }
+  .start-button:hover {
+    opacity: .9;
+    transition: all 100ms ease; }
+  .start-button:active {
+    opacity: .75;
+    transform: translateY(10px);
+    box-shadow: none;
+    transition: all 100ms ease; }
+  .start-button:focus {
+    outline: 0; }
+
+.error {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  top: 0;
+  margin: 0 auto;
+  background: #ff7473;
+  z-index: 3; }
 
 /*# sourceMappingURL=style.css.map */

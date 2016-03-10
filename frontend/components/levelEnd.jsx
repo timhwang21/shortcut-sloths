@@ -14,17 +14,23 @@ var LevelEnd = React.createClass({
     checkWin: React.PropTypes.func
   },
 
-  componentDidMount: function() {
-    // Shortcuts.unbindAll();
-    // Shortcuts.unbindSpace();
-  },
-
   render: function() {
     return (
       <div className="level">
         <section className="sidebar">
           <h1>SHORTCUT SLOTHS</h1>
-          <h2>That's it! Thanks for playing!</h2>
+          <h2>That's it so far! Thanks for playing!</h2>
+
+          <p>
+            <em>Shortcut Sloths</em> is a two-day Javascript project by <a href="https://www.github.com/timhwang21">Tim Hwang</a>. 
+            The game logic is implemented with <em>jQuery</em>, and the frontend is built with <em>React</em>. 
+          </p>
+          <p>
+            Sloth images were created by <a href="https://thenounproject.com/wattenberger/">Amelia Wattenberger</a> from the Noun Project. Thank you!
+          </p>
+          <p>
+            Find it on <a href="https://github.com/timhwang21/shortcut-sloths">Github!</a> 
+          </p>
 
         </section>
 

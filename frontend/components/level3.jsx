@@ -8,7 +8,8 @@ var ShortcutSloth = require('./shortcutSloth');
 var Level3 = React.createClass({
   contextTypes: {
     router: React.PropTypes.object.isRequired,
-    checkWin: React.PropTypes.func
+    checkWin: React.PropTypes.func,
+    errorMsg: React.PropTypes.string
   },
 
   componentDidMount: function() {
@@ -46,7 +47,9 @@ var Level3 = React.createClass({
               onClick={this.context.checkWin.bind(null, 4)}>
               Next
             </button>
-          </div>        
+          </div>
+          <h2 className="error">{this.context.errorMsg}</h2>
+
         </section>
 
         <section className="board" style={{alignItems: "center"}}>

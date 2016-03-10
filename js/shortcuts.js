@@ -124,7 +124,7 @@ var shortcuts = {
         clicked.parent().next().children().addClass( "clicked" );
       }
       return false;
-    }.bind(this));
+    });
   },
 
   loadLvl6: function() {
@@ -132,7 +132,32 @@ var shortcuts = {
       console.log("You pressed comment!");
       $( ".clicked" ).toggleClass( "jailed animated" );
       return false;
-    }.bind(this));
+    });
+  },
+
+  loadLvl7: function() {
+    key('ctrl+⌘+up', function() {
+      console.log("You pressed swap up!");
+      var clicked = $( ".clicked" );
+      var row = clicked.parent();
+      if (row.prev().first().length > 0 && 
+        $.inArray(row.prev().first()[0], row) === -1) {
+        row.prev().first().before(row.detach());
+      }
+      return false;    
+    });
+
+    key('ctrl+⌘+down', function() {
+      console.log("You pressed swap down!");
+      var clicked = $( ".clicked" );
+      var row = clicked.parent();
+      // debugger;
+      if (row.next().last().length > 0 &&
+        $.inArray(row.next().last()[0], row) === -1) {
+        row.next().last().after(row.detach());
+      }
+      return false;
+    });
   },
     
 
@@ -149,24 +174,12 @@ var shortcuts = {
       return false;
     });
 
-    key('ctrl+⌘+up', function() {
-      console.log("You pressed swap up!");
-      return false;
-    });
-
-    key('ctrl+⌘+down', function() {
-      console.log("You pressed swap down!");
-      return false;
-    });
 
     key('⇧+⌘+d', function() {
       console.log("You pressed duplicate line!");
-
-      return false;
-    });
-
-    key('⌘+j', function() {
-      console.log("You pressed join line!");
+      var clicked = $( ".clicked" );
+      var row = clicked.parent();
+      row.after(row.clone());
       return false;
     });
 

@@ -2,13 +2,12 @@ var React = require('react');
 var Link = require('react-router').Link;
 var Shortcuts = require('../../js/shortcuts');
 
-var Sloth = require('./sloth');
+var ShortcutSloth = require('./shortcutSloth');
 
-var Level1 = React.createClass({
+var Index = React.createClass({
   contextTypes: {
     router: React.PropTypes.object.isRequired,
-    checkWin: React.PropTypes.func,
-    errorMsg: React.PropTypes.string
+    checkWin: React.PropTypes.func
   },
 
   componentDidMount: function() {
@@ -27,36 +26,33 @@ var Level1 = React.createClass({
     }
   },
 
+  handleClick: function(e) {
+    e.preventDefault();
+    this.context.router.push("1");
+  },
+
   render: function() {
     return (
       <div className="level">
         <section className="sidebar">
           <h1>SHORTCUT SLOTHS</h1>
-          <h2>Level 1</h2>
-          <p>Oh no! The regularly active <em>shortcut sloths</em> have turned into <em>sleepy sloths</em>! It's your job to <em>wake them up</em>!</p>
-          <p><em>Click each sloth</em>, and press <em>space</em> to transform them from sleepy sloths to shortcut sloths!</p>
-
-          <div className="button-row">
-            <button 
-              className="button" 
-              onClick={this.context.checkWin.bind(null, 2)}>
-              Next
-            </button>
-
-          </div>
+          <p>Welcome to <em>Shortcut Sloths</em>, a game about <em>text editor shortcuts</em>!</p>
+          <p>The purpose of this game is to introduce features of modern text editors, in order to <em>increase typing speed</em> and <em>improve programmer happiness</em>.</p>
+          <p>We recommend playing this game with your favorite text editor open, and <em>trying out every new shortcut!</em></p>
+          <h2>Have fun!</h2>
         </section>
-        <h2 className="error">{this.context.errorMsg}</h2>
 
         <section className="board" style={{alignItems: "center"}}>
           <div className="row"></div>
           <div className="row"></div>
           <div className="row">
-            <Sloth />
-            <Sloth />
-            <Sloth />
-            <Sloth />
-            <Sloth />
-            <Sloth />
+            <ShortcutSloth /> 
+            <button
+              className="start-button"
+              onClick={this.handleClick} >
+              PLAY!
+            </button>
+            <ShortcutSloth /> 
           </div>
         </section>
       </div>
@@ -64,4 +60,4 @@ var Level1 = React.createClass({
   }
 });
 
-module.exports = Level1;
+module.exports = Index;
