@@ -7,6 +7,8 @@ Shortcut Sloths
 
 It is recommended to play this game with your favorite text editor open, and trying out every new shortcut in your editor as you play!
 
+**Currently, Shortcut Sloths is configured to only work for Mac hotkeys. Sorry!**
+
 Have fun!
 
 ## Author

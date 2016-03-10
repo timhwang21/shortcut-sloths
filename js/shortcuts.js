@@ -28,7 +28,7 @@ var shortcuts = {
     key('space', function() {
       var clicked = $( ".clicked" );
       clicked.not( ".jailed" ).removeClass( "sleepy surly" );
-      clicked.not( ".jailed" ).addClass( "shortcut" );
+      clicked.not( ".jailed" ).not( ".savage" ).addClass( "shortcut" );
     });
 
     key('left', function() {

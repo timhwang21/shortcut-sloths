@@ -55,15 +55,15 @@
 	var hashHistory = __webpack_require__(159).hashHistory;
 	
 	var App = __webpack_require__(216);
-	var Index = __webpack_require__(218);
-	var Level1 = __webpack_require__(221);
-	var Level2 = __webpack_require__(223);
-	var Level3 = __webpack_require__(224);
-	var Level4 = __webpack_require__(225);
-	var Level5 = __webpack_require__(227);
-	var Level6 = __webpack_require__(228);
-	var Level7 = __webpack_require__(230);
-	var LevelEnd = __webpack_require__(231);
+	var Index = __webpack_require__(230);
+	var Level1 = __webpack_require__(218);
+	var Level2 = __webpack_require__(221);
+	var Level3 = __webpack_require__(222);
+	var Level4 = __webpack_require__(223);
+	var Level5 = __webpack_require__(225);
+	var Level6 = __webpack_require__(226);
+	var Level7 = __webpack_require__(231);
+	var LevelEnd = __webpack_require__(228);
 	
 	var routes = React.createElement(
 	  Route,
@@ -21700,9 +21700,7 @@
 	    _TransitionUtils.runLeaveHooks(leaveRoutes);
 	
 	    // Tear down confirmation hooks for left routes
-	    leaveRoutes.filter(function (route) {
-	      return enterRoutes.indexOf(route) === -1;
-	    }).forEach(removeListenBeforeHooksForRoute);
+	    leaveRoutes.forEach(removeListenBeforeHooksForRoute);
 	
 	    _TransitionUtils.runEnterHooks(enterRoutes, nextState, function (error, redirectInfo) {
 	      if (error) {
@@ -21971,25 +21969,16 @@
 	  var leaveRoutes = undefined,
 	      enterRoutes = undefined;
 	  if (prevRoutes) {
-	    (function () {
-	      var parentIsLeaving = false;
-	      leaveRoutes = prevRoutes.filter(function (route) {
-	        if (parentIsLeaving) {
-	          return true;
-	        } else {
-	          var isLeaving = nextRoutes.indexOf(route) === -1 || routeParamsChanged(route, prevState, nextState);
-	          if (isLeaving) parentIsLeaving = true;
-	          return isLeaving;
-	        }
-	      });
+	    leaveRoutes = prevRoutes.filter(function (route) {
+	      return nextRoutes.indexOf(route) === -1 || routeParamsChanged(route, prevState, nextState);
+	    });
 	
-	      // onLeave hooks start at the leaf route.
-	      leaveRoutes.reverse();
+	    // onLeave hooks start at the leaf route.
+	    leaveRoutes.reverse();
 	
-	      enterRoutes = nextRoutes.filter(function (route) {
-	        return prevRoutes.indexOf(route) === -1 || leaveRoutes.indexOf(route) !== -1;
-	      });
-	    })();
+	    enterRoutes = nextRoutes.filter(function (route) {
+	      return prevRoutes.indexOf(route) === -1 || leaveRoutes.indexOf(route) !== -1;
+	    });
 	  } else {
 	    leaveRoutes = [];
 	    enterRoutes = nextRoutes;
@@ -24866,7 +24855,7 @@
 	    key('space', function () {
 	      var clicked = $(".clicked");
 	      clicked.not(".jailed").removeClass("sleepy surly");
-	      clicked.not(".jailed").addClass("shortcut");
+	      clicked.not(".jailed").not(".savage").addClass("shortcut");
 	    });
 	
 	    key('left', function () {
@@ -25020,237 +25009,7 @@
 	var Link = __webpack_require__(159).Link;
 	var Shortcuts = __webpack_require__(217);
 	
-	var ShortcutSloth = __webpack_require__(219);
-	
-	var Index = React.createClass({
-	  displayName: 'Index',
-	
-	  contextTypes: {
-	    router: React.PropTypes.object.isRequired,
-	    checkWin: React.PropTypes.func
-	  },
-	
-	  componentDidMount: function componentDidMount() {
-	    Shortcuts.unbindAll();
-	    document.addEventListener('keydown', this.handleEnter, false);
-	  },
-	
-	  componentWillUnmount: function componentWillUnmount() {
-	    Shortcuts.unbindAll();
-	    document.removeEventListener('keydown', this.handleEnter, false);
-	  },
-	
-	  handleEnter: function handleEnter(e) {
-	    if (e.keyCode == 13) {
-	      $(".button").click();
-	    }
-	  },
-	
-	  handleClick: function handleClick(e) {
-	    e.preventDefault();
-	    this.context.router.push("1");
-	  },
-	
-	  render: function render() {
-	    return React.createElement(
-	      'div',
-	      { className: 'level' },
-	      React.createElement(
-	        'section',
-	        { className: 'sidebar' },
-	        React.createElement(
-	          'h1',
-	          null,
-	          'SHORTCUT SLOTHS'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          'Welcome to ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'Shortcut Sloths'
-	          ),
-	          ', a game about ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'text editor shortcuts'
-	          ),
-	          '!'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          'The purpose of this game is to introduce features of modern text editors, in order to ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'increase typing speed'
-	          ),
-	          ' and ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'improve programmer happiness'
-	          ),
-	          '.'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          'We recommend playing this game with your favorite text editor open, and ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'trying out every new shortcut'
-	          ),
-	          ' in your editor as you play!'
-	        ),
-	        React.createElement(
-	          'h2',
-	          null,
-	          'Have fun!'
-	        )
-	      ),
-	      React.createElement(
-	        'section',
-	        { className: 'board', style: { alignItems: "center" } },
-	        React.createElement('div', { className: 'row' }),
-	        React.createElement('div', { className: 'row' }),
-	        React.createElement(
-	          'div',
-	          { className: 'row' },
-	          React.createElement(ShortcutSloth, null),
-	          React.createElement(
-	            'button',
-	            {
-	              className: 'start-button',
-	              onClick: this.handleClick },
-	            'PLAY!'
-	          ),
-	          React.createElement(ShortcutSloth, null)
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = Index;
-
-/***/ },
-/* 219 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(1);
-	var ReactDOM = __webpack_require__(158);
-	
-	var classNames = __webpack_require__(220);
-	
-	var ShortcutSloth = React.createClass({
-	  displayName: 'ShortcutSloth',
-	
-	
-	  componentDidMount: function componentDidMount() {
-	    document.addEventListener('click', this.handleClickOutside, false);
-	  },
-	
-	  componentWillUnmount: function componentWillUnmount() {
-	    document.removeEventListener('click', this.handleClickOutside, false);
-	  },
-	
-	  handleClick: function handleClick(e) {
-	    $(e.currentTarget).addClass("clicked");
-	  },
-	
-	  handleClickOutside: function handleClickOutside(e) {
-	    if (!ReactDOM.findDOMNode(this).contains(event.target)) {
-	      $(ReactDOM.findDOMNode(this)).removeClass("clicked");
-	    }
-	  },
-	
-	  render: function render() {
-	    return React.createElement(
-	      'div',
-	      {
-	        className: 'sloth shortcut animated',
-	        onClick: this.handleClick },
-	      React.createElement('div', { className: 'jail' }),
-	      React.createElement('div', { className: 'bg' })
-	    );
-	  }
-	});
-	
-	module.exports = ShortcutSloth;
-
-/***/ },
-/* 220 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
-	  Copyright (c) 2016 Jed Watson.
-	  Licensed under the MIT License (MIT), see
-	  http://jedwatson.github.io/classnames
-	*/
-	/* global define */
-	
-	(function () {
-		'use strict';
-	
-		var hasOwn = {}.hasOwnProperty;
-	
-		function classNames () {
-			var classes = [];
-	
-			for (var i = 0; i < arguments.length; i++) {
-				var arg = arguments[i];
-				if (!arg) continue;
-	
-				var argType = typeof arg;
-	
-				if (argType === 'string' || argType === 'number') {
-					classes.push(arg);
-				} else if (Array.isArray(arg)) {
-					classes.push(classNames.apply(null, arg));
-				} else if (argType === 'object') {
-					for (var key in arg) {
-						if (hasOwn.call(arg, key) && arg[key]) {
-							classes.push(key);
-						}
-					}
-				}
-			}
-	
-			return classes.join(' ');
-		}
-	
-		if (typeof module !== 'undefined' && module.exports) {
-			module.exports = classNames;
-		} else if (true) {
-			// register as 'classnames', consistent with npm package name
-			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
-				return classNames;
-			}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-		} else {
-			window.classNames = classNames;
-		}
-	}());
-
-
-/***/ },
-/* 221 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(1);
-	var Link = __webpack_require__(159).Link;
-	var Shortcuts = __webpack_require__(217);
-	
-	var Sloth = __webpack_require__(222);
+	var Sloth = __webpack_require__(219);
 	
 	var Level1 = React.createClass({
 	  displayName: 'Level1',
@@ -25331,7 +25090,19 @@
 	            null,
 	            'space'
 	          ),
-	          ' to transform them from sleepy sloths to shortcut sloths!'
+	          ' to transform them from ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'sleepy sloths'
+	          ),
+	          ' to ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'shortcut sloths'
+	          ),
+	          '!'
 	        ),
 	        React.createElement(
 	          'div',
@@ -25373,7 +25144,7 @@
 	module.exports = Level1;
 
 /***/ },
-/* 222 */
+/* 219 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25420,7 +25191,61 @@
 	module.exports = Sloth;
 
 /***/ },
-/* 223 */
+/* 220 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	  Copyright (c) 2016 Jed Watson.
+	  Licensed under the MIT License (MIT), see
+	  http://jedwatson.github.io/classnames
+	*/
+	/* global define */
+	
+	(function () {
+		'use strict';
+	
+		var hasOwn = {}.hasOwnProperty;
+	
+		function classNames () {
+			var classes = [];
+	
+			for (var i = 0; i < arguments.length; i++) {
+				var arg = arguments[i];
+				if (!arg) continue;
+	
+				var argType = typeof arg;
+	
+				if (argType === 'string' || argType === 'number') {
+					classes.push(arg);
+				} else if (Array.isArray(arg)) {
+					classes.push(classNames.apply(null, arg));
+				} else if (argType === 'object') {
+					for (var key in arg) {
+						if (hasOwn.call(arg, key) && arg[key]) {
+							classes.push(key);
+						}
+					}
+				}
+			}
+	
+			return classes.join(' ');
+		}
+	
+		if (typeof module !== 'undefined' && module.exports) {
+			module.exports = classNames;
+		} else if (true) {
+			// register as 'classnames', consistent with npm package name
+			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+				return classNames;
+			}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		} else {
+			window.classNames = classNames;
+		}
+	}());
+
+
+/***/ },
+/* 221 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25429,8 +25254,8 @@
 	var Link = __webpack_require__(159).Link;
 	var Shortcuts = __webpack_require__(217);
 	
-	var Sloth = __webpack_require__(222);
-	var ShortcutSloth = __webpack_require__(219);
+	var Sloth = __webpack_require__(219);
+	var ShortcutSloth = __webpack_require__(229);
 	
 	var Level2 = React.createClass({
 	  displayName: 'Level2',
@@ -25568,7 +25393,7 @@
 	module.exports = Level2;
 
 /***/ },
-/* 224 */
+/* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25577,8 +25402,8 @@
 	var Link = __webpack_require__(159).Link;
 	var Shortcuts = __webpack_require__(217);
 	
-	var Sloth = __webpack_require__(222);
-	var ShortcutSloth = __webpack_require__(219);
+	var Sloth = __webpack_require__(219);
+	var ShortcutSloth = __webpack_require__(229);
 	
 	var Level3 = React.createClass({
 	  displayName: 'Level3',
@@ -25723,7 +25548,7 @@
 	module.exports = Level3;
 
 /***/ },
-/* 225 */
+/* 223 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25732,8 +25557,8 @@
 	var Link = __webpack_require__(159).Link;
 	var Shortcuts = __webpack_require__(217);
 	
-	var Sloth = __webpack_require__(222);
-	var SurlySloth = __webpack_require__(226);
+	var Sloth = __webpack_require__(219);
+	var SurlySloth = __webpack_require__(224);
 	
 	var Level4 = React.createClass({
 	  displayName: 'Level4',
@@ -25865,7 +25690,7 @@
 	module.exports = Level4;
 
 /***/ },
-/* 226 */
+/* 224 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25914,7 +25739,7 @@
 	module.exports = SurlySloth;
 
 /***/ },
-/* 227 */
+/* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25923,8 +25748,8 @@
 	var Link = __webpack_require__(159).Link;
 	var Shortcuts = __webpack_require__(217);
 	
-	var Sloth = __webpack_require__(222);
-	var SurlySloth = __webpack_require__(226);
+	var Sloth = __webpack_require__(219);
+	var SurlySloth = __webpack_require__(224);
 	
 	var Level5 = React.createClass({
 	  displayName: 'Level5',
@@ -26093,7 +25918,7 @@
 	module.exports = Level5;
 
 /***/ },
-/* 228 */
+/* 226 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26102,9 +25927,9 @@
 	var Link = __webpack_require__(159).Link;
 	var Shortcuts = __webpack_require__(217);
 	
-	var Sloth = __webpack_require__(222);
-	var ShortcutSloth = __webpack_require__(219);
-	var SavageSloth = __webpack_require__(229);
+	var Sloth = __webpack_require__(219);
+	var ShortcutSloth = __webpack_require__(229);
+	var SavageSloth = __webpack_require__(227);
 	
 	var Level6 = React.createClass({
 	  displayName: 'Level6',
@@ -26262,7 +26087,7 @@
 	module.exports = Level6;
 
 /***/ },
-/* 229 */
+/* 227 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26311,7 +26136,7 @@
 	module.exports = SavageSloth;
 
 /***/ },
-/* 230 */
+/* 228 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26320,220 +26145,10 @@
 	var Link = __webpack_require__(159).Link;
 	var Shortcuts = __webpack_require__(217);
 	
-	var Sloth = __webpack_require__(222);
-	var ShortcutSloth = __webpack_require__(219);
-	var SavageSloth = __webpack_require__(229);
-	
-	var Level7 = React.createClass({
-	  displayName: 'Level7',
-	
-	  contextTypes: {
-	    router: React.PropTypes.object.isRequired,
-	    checkWin: React.PropTypes.func,
-	    errorMsg: React.PropTypes.string
-	  },
-	
-	  componentDidMount: function componentDidMount() {
-	    Shortcuts.unbindAll();
-	    Shortcuts.loadLvl2();
-	    Shortcuts.loadLvl3();
-	    Shortcuts.loadLvl5();
-	    Shortcuts.loadLvl6();
-	    Shortcuts.loadLvl7();
-	    document.addEventListener('keydown', this.handleEnter, false);
-	  },
-	
-	  componentWillUnmount: function componentWillUnmount() {
-	    Shortcuts.unbindAll();
-	    document.removeEventListener('keydown', this.handleEnter, false);
-	  },
-	
-	  handleEnter: function handleEnter(e) {
-	    if (e.keyCode == 13) {
-	      $(".button").click();
-	    }
-	  },
-	
-	  render: function render() {
-	    return React.createElement(
-	      'div',
-	      { className: 'level' },
-	      React.createElement(
-	        'section',
-	        { className: 'sidebar' },
-	        React.createElement(
-	          'h1',
-	          null,
-	          'SHORTCUT SLOTHS'
-	        ),
-	        React.createElement(
-	          'h2',
-	          null,
-	          'Level 7'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          'That\'s a lot of ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'savage sloths!'
-	          )
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          'There is a single ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'sleepy sloth'
-	          ),
-	          ' at the bottom. However, ',
-	          React.createElement(
-	            'em',
-	            null,
-	            '\'command + L\''
-	          ),
-	          ' only selects the ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'next line'
-	          ),
-	          ' -- not the ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'previous line'
-	          ),
-	          '!'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          'If only you could get the ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'sleepy sloth'
-	          ),
-	          ' to the top...'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          'Try selecting the ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'sleepy sloth'
-	          ),
-	          ', and pressing ',
-	          React.createElement(
-	            'em',
-	            null,
-	            '\'ctrl + command + up/down'
-	          ),
-	          '!'
-	        ),
-	        React.createElement(
-	          'div',
-	          { className: 'button-row' },
-	          React.createElement(
-	            'button',
-	            {
-	              className: 'button',
-	              onClick: this.context.checkWin.bind(null, "end") },
-	            'Next'
-	          )
-	        ),
-	        React.createElement(
-	          'h2',
-	          { className: 'error' },
-	          this.context.errorMsg
-	        )
-	      ),
-	      React.createElement(
-	        'section',
-	        { className: 'board', style: { alignItems: "center" } },
-	        React.createElement(
-	          'div',
-	          { className: 'row' },
-	          React.createElement(SavageSloth, null),
-	          React.createElement(SavageSloth, null),
-	          React.createElement(SavageSloth, null),
-	          React.createElement(SavageSloth, null),
-	          React.createElement(SavageSloth, null),
-	          React.createElement(SavageSloth, null)
-	        ),
-	        React.createElement(
-	          'div',
-	          { className: 'row' },
-	          React.createElement(SavageSloth, null),
-	          React.createElement(SavageSloth, null),
-	          React.createElement(SavageSloth, null),
-	          React.createElement(SavageSloth, null),
-	          React.createElement(SavageSloth, null),
-	          React.createElement(SavageSloth, null)
-	        ),
-	        React.createElement(
-	          'div',
-	          { className: 'row' },
-	          React.createElement(SavageSloth, null),
-	          React.createElement(SavageSloth, null),
-	          React.createElement(SavageSloth, null),
-	          React.createElement(SavageSloth, null),
-	          React.createElement(SavageSloth, null),
-	          React.createElement(SavageSloth, null)
-	        ),
-	        React.createElement(
-	          'div',
-	          { className: 'row' },
-	          React.createElement(SavageSloth, null),
-	          React.createElement(SavageSloth, null),
-	          React.createElement(SavageSloth, null),
-	          React.createElement(SavageSloth, null),
-	          React.createElement(SavageSloth, null),
-	          React.createElement(SavageSloth, null)
-	        ),
-	        React.createElement(
-	          'div',
-	          { className: 'row' },
-	          React.createElement(SavageSloth, null),
-	          React.createElement(SavageSloth, null),
-	          React.createElement(SavageSloth, null),
-	          React.createElement(SavageSloth, null),
-	          React.createElement(SavageSloth, null),
-	          React.createElement(SavageSloth, null)
-	        ),
-	        React.createElement(
-	          'div',
-	          { className: 'row' },
-	          React.createElement(Sloth, null)
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = Level7;
-
-/***/ },
-/* 231 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(1);
-	var Link = __webpack_require__(159).Link;
-	var Shortcuts = __webpack_require__(217);
-	
-	var Sloth = __webpack_require__(222);
-	var ShortcutSloth = __webpack_require__(219);
-	var SurlySloth = __webpack_require__(226);
-	var SavageSloth = __webpack_require__(229);
+	var Sloth = __webpack_require__(219);
+	var ShortcutSloth = __webpack_require__(229);
+	var SurlySloth = __webpack_require__(224);
+	var SavageSloth = __webpack_require__(227);
 	
 	var LevelEnd = React.createClass({
 	  displayName: 'LevelEnd',
@@ -26679,6 +26294,414 @@
 	});
 	
 	module.exports = LevelEnd;
+
+/***/ },
+/* 229 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var ReactDOM = __webpack_require__(158);
+	
+	var classNames = __webpack_require__(220);
+	
+	var ShortcutSloth = React.createClass({
+	  displayName: 'ShortcutSloth',
+	
+	
+	  componentDidMount: function componentDidMount() {
+	    document.addEventListener('click', this.handleClickOutside, false);
+	  },
+	
+	  componentWillUnmount: function componentWillUnmount() {
+	    document.removeEventListener('click', this.handleClickOutside, false);
+	  },
+	
+	  handleClick: function handleClick(e) {
+	    $(e.currentTarget).addClass("clicked");
+	  },
+	
+	  handleClickOutside: function handleClickOutside(e) {
+	    if (!ReactDOM.findDOMNode(this).contains(event.target)) {
+	      $(ReactDOM.findDOMNode(this)).removeClass("clicked");
+	    }
+	  },
+	
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      {
+	        className: 'sloth shortcut animated',
+	        onClick: this.handleClick },
+	      React.createElement('div', { className: 'jail' }),
+	      React.createElement('div', { className: 'bg' })
+	    );
+	  }
+	});
+	
+	module.exports = ShortcutSloth;
+
+/***/ },
+/* 230 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var Link = __webpack_require__(159).Link;
+	var Shortcuts = __webpack_require__(217);
+	
+	var ShortcutSloth = __webpack_require__(229);
+	
+	var Index = React.createClass({
+	  displayName: 'Index',
+	
+	  contextTypes: {
+	    router: React.PropTypes.object.isRequired,
+	    checkWin: React.PropTypes.func
+	  },
+	
+	  componentDidMount: function componentDidMount() {
+	    Shortcuts.unbindAll();
+	    document.addEventListener('keydown', this.handleEnter, false);
+	  },
+	
+	  componentWillUnmount: function componentWillUnmount() {
+	    Shortcuts.unbindAll();
+	    document.removeEventListener('keydown', this.handleEnter, false);
+	  },
+	
+	  handleEnter: function handleEnter(e) {
+	    if (e.keyCode == 13) {
+	      $(".button").click();
+	    }
+	  },
+	
+	  handleClick: function handleClick(e) {
+	    e.preventDefault();
+	    this.context.router.push("1");
+	  },
+	
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      { className: 'level' },
+	      React.createElement(
+	        'section',
+	        { className: 'sidebar' },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'SHORTCUT SLOTHS'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'Welcome to ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'Shortcut Sloths'
+	          ),
+	          ', a game about ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'text editor shortcuts'
+	          ),
+	          '!'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'The purpose of this game is to introduce features of modern text editors, in order to ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'increase typing speed'
+	          ),
+	          ' and ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'improve programmer happiness'
+	          ),
+	          '.'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'We recommend playing this game with your favorite text editor open, and ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'trying out every new shortcut'
+	          ),
+	          ' in your editor as you play!'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'em',
+	            null,
+	            'PC users'
+	          ),
+	          ': Unfortunately, ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'Shortcut Sloths'
+	          ),
+	          ' is currently configured to work with ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'Macs only.'
+	          ),
+	          ' Sorry!'
+	        ),
+	        React.createElement(
+	          'h2',
+	          null,
+	          'Have fun!'
+	        )
+	      ),
+	      React.createElement(
+	        'section',
+	        { className: 'board', style: { alignItems: "center" } },
+	        React.createElement('div', { className: 'row' }),
+	        React.createElement('div', { className: 'row' }),
+	        React.createElement(
+	          'div',
+	          { className: 'row' },
+	          React.createElement(ShortcutSloth, null),
+	          React.createElement(
+	            'button',
+	            {
+	              className: 'start-button',
+	              onClick: this.handleClick },
+	            'PLAY!'
+	          ),
+	          React.createElement(ShortcutSloth, null)
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Index;
+
+/***/ },
+/* 231 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var Link = __webpack_require__(159).Link;
+	var Shortcuts = __webpack_require__(217);
+	
+	var Sloth = __webpack_require__(219);
+	var ShortcutSloth = __webpack_require__(229);
+	var SavageSloth = __webpack_require__(227);
+	
+	var Level7 = React.createClass({
+	  displayName: 'Level7',
+	
+	  contextTypes: {
+	    router: React.PropTypes.object.isRequired,
+	    checkWin: React.PropTypes.func,
+	    errorMsg: React.PropTypes.string
+	  },
+	
+	  componentDidMount: function componentDidMount() {
+	    Shortcuts.unbindAll();
+	    Shortcuts.loadLvl2();
+	    Shortcuts.loadLvl3();
+	    Shortcuts.loadLvl5();
+	    Shortcuts.loadLvl6();
+	    Shortcuts.loadLvl7();
+	    document.addEventListener('keydown', this.handleEnter, false);
+	  },
+	
+	  componentWillUnmount: function componentWillUnmount() {
+	    Shortcuts.unbindAll();
+	    document.removeEventListener('keydown', this.handleEnter, false);
+	  },
+	
+	  handleEnter: function handleEnter(e) {
+	    if (e.keyCode == 13) {
+	      $(".button").click();
+	    }
+	  },
+	
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      { className: 'level' },
+	      React.createElement(
+	        'section',
+	        { className: 'sidebar' },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'SHORTCUT SLOTHS'
+	        ),
+	        React.createElement(
+	          'h2',
+	          null,
+	          'Level 7'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'That\'s a lot of ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'savage sloths!'
+	          )
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'There is a single ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'sleepy sloth'
+	          ),
+	          ' at the bottom. However, ',
+	          React.createElement(
+	            'em',
+	            null,
+	            '\'command + L\''
+	          ),
+	          ' only selects the ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'next line'
+	          ),
+	          ' -- not the ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'previous line'
+	          ),
+	          '!'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'If only you could get the ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'sleepy sloth'
+	          ),
+	          ' to the top...'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'Try selecting the ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'sleepy sloth'
+	          ),
+	          ', and pressing ',
+	          React.createElement(
+	            'em',
+	            null,
+	            '\'ctrl + command + up/down\''
+	          ),
+	          '!'
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'button-row' },
+	          React.createElement(
+	            'button',
+	            {
+	              className: 'button',
+	              onClick: this.context.checkWin.bind(null, "end") },
+	            'Next'
+	          )
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'error' },
+	          this.context.errorMsg
+	        )
+	      ),
+	      React.createElement(
+	        'section',
+	        { className: 'board', style: { alignItems: "center" } },
+	        React.createElement(
+	          'div',
+	          { className: 'row' },
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null)
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'row' },
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null)
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'row' },
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null)
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'row' },
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null)
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'row' },
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null),
+	          React.createElement(SavageSloth, null)
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'row' },
+	          React.createElement(Sloth, null)
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Level7;
 
 /***/ }
 /******/ ]);

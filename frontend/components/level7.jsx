@@ -50,7 +50,7 @@ var Level7 = React.createClass({
             If only you could get the <em>sleepy sloth</em> to the top...
           </p>
           <p>
-            Try selecting the <em>sleepy sloth</em>, and pressing <em>'ctrl + command + up/down</em>!
+            Try selecting the <em>sleepy sloth</em>, and pressing <em>'ctrl + command + up/down'</em>!
           </p>
 
           <div className="button-row">
