@@ -44,7 +44,7 @@ var Level7 = React.createClass({
           <p>That's a lot of <em>savage sloths!</em></p>
           <p>
             There is a single <em>sleepy sloth</em> at the bottom. 
-            However, <em>'command + L'</em> only selects the <em>next line</em> -- not <em>previous line</em>!
+            However, <em>'command + L'</em> only selects the <em>next line</em> -- not <em>previous lines</em>!
           </p>
           <p>
             If only you could get the <em>sleepy sloth</em> to the top...
