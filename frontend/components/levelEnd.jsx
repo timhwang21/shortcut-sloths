@@ -29,7 +29,7 @@ var LevelEnd = React.createClass({
             Sloth images were created by <a href="https://thenounproject.com/wattenberger/">Amelia Wattenberger</a> from the Noun Project. Thank you!
           </p>
           <p>
-            Find it on <a href="https://github.com/timhwang21/shortcut-sloths">Github!</a> 
+            Check out <em>Shortcut Sloths</em> on <a href="https://github.com/timhwang21/shortcut-sloths">Github!</a> 
           </p>
 
         </section>

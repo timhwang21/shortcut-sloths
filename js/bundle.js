@@ -26217,7 +26217,13 @@
 	        React.createElement(
 	          'p',
 	          null,
-	          'Find it on ',
+	          'Check out ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'Shortcut Sloths'
+	          ),
+	          ' on ',
 	          React.createElement(
 	            'a',
 	            { href: 'https://github.com/timhwang21/shortcut-sloths' },
