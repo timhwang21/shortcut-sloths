@@ -45,7 +45,7 @@ var App = React.createClass({
     if ($( ".surly" ).length > 0) {
       this.setState({errorMsg: "There are still surly sloths to be placated!"});
     } else if ($( ".savage" ).not( ".jailed" ).length > 0) {
-      this.setState({errorMsg: "There are surly sloths roaming free!"});
+      this.setState({errorMsg: "There are still savage sloths roaming free!"});
     } else if ($( ".shortcut.jailed" ).length > 0) {
       this.setState({errorMsg: "There are innocent sloths in jail!"});
     } else if ($( ".sleepy" ).length > 0) {

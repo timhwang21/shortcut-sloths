@@ -38,7 +38,7 @@ var Level4 = React.createClass({
         <section className="sidebar">
           <h1>SHORTCUT SLOTHS</h1>
           <h2>Level 4</h2>
-          <p>There are more sloths than before! Wake them up, you got this!</p>
+          <p>There are more sloths than before! Wake them up -- you got this!</p>
           <p>Use either <em>'command-D'</em> or <em>'ctrl-command-G'</em> to select all the sloths!</p>
           <p>Or click them one by one, if that's your thing.</p>
 
