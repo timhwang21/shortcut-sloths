@@ -26,7 +26,7 @@ var LevelEnd = React.createClass({
             The game logic is implemented with <em>jQuery</em>, and the frontend is built with <em>React</em>. 
           </p>
           <p>
-            Sloths edited from graphic by <a href="https://thenounproject.com/wattenberger/">Amelia Wattenberger</a> from the Noun Project. Thank you!
+            Sloths edited from graphic by <a href="https://thenounproject.com/wattenberger/">Amelia Wattenberger</a>. Thank you!
           </p>
           <p>
             Check out <em>Shortcut Sloths</em> on <a href="https://github.com/timhwang21/shortcut-sloths">Github!</a> 
