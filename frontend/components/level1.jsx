@@ -33,7 +33,7 @@ var Level1 = React.createClass({
         <section className="sidebar">
           <h1>SHORTCUT SLOTHS</h1>
           <h2>Level 1</h2>
-          <p>Oh no! The regularly active <em>shortcut sloths</em> have turned into <em>sleepy sloths</em>! It's your job to <em>wake them up</em>!</p>
+          <p>Oh no! The regularly active <em>shortcut sloths</em> have turned into <em>sleepy sloths</em>! It's your job to <em>wake them up</em> with <em>the power of shortcuts!</em>!</p>
           <p><em>Click each sloth</em>, and press <em>space</em> to transform them from <em>sleepy sloths</em> to <em>shortcut sloths</em>!</p>
           <p>Hit <em>'next'</em> or press <em>enter</em> when all the sloths are awake!</p>
 

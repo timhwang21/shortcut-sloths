@@ -25361,6 +25361,12 @@
 	            null,
 	            'wake them up'
 	          ),
+	          ' with ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'the power of shortcuts!'
+	          ),
 	          '!'
 	        ),
 	        React.createElement(
@@ -26060,11 +26066,10 @@
 	        React.createElement(
 	          'p',
 	          null,
-	          'Surly sloths ',
 	          React.createElement(
 	            'em',
 	            null,
-	            'cannot be clicked'
+	            'Surly sloths cannot be clicked'
 	          ),
 	          ', but can be ',
 	          React.createElement(
@@ -26241,7 +26246,13 @@
 	        React.createElement(
 	          'p',
 	          null,
-	          'Savage sloths ',
+	          'These are ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'savage sloths'
+	          ),
+	          ', and they ',
 	          React.createElement(
 	            'em',
 	            null,
@@ -26449,7 +26460,7 @@
 	        React.createElement(
 	          'p',
 	          null,
-	          'That\'s a lot of ',
+	          'That\'s a LOT of ',
 	          React.createElement(
 	            'em',
 	            null,

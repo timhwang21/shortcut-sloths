@@ -41,7 +41,7 @@ var Level6 = React.createClass({
           <h1>SHORTCUT SLOTHS</h1>
           <h2>Level 6</h2>
           <p>Oh no! These sloths are <em>REALLY</em> angry!</p>
-          <p>Savage sloths <em>cannot be reasoned with</em>! There is only one way to deal with them...</p>
+          <p>These are <em>savage sloths</em>, and they <em>cannot be reasoned with</em>! There is only one way to deal with them...</p>
           <h3>JAIL THEM.</h3>
           <p><em>Throw sloths in jail</em> using <em>'command-/'</em>! Make sure to <em>free any innocent sloths</em> before moving on!</p>
           <p>(Hint: how did you <em>select unselectable sloths</em> before?)</p>
