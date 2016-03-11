@@ -41,7 +41,7 @@ var Level7 = React.createClass({
         <section className="sidebar">
           <h1>SHORTCUT SLOTHS</h1>
           <h2>Level 7</h2>
-          <p>That's a lot of <em>savage sloths!</em></p>
+          <p>That's a LOT of <em>savage sloths!</em></p>
           <p>
             There is a single <em>sleepy sloth</em> at the bottom. 
             However, <em>'command + L'</em> only selects the <em>next line</em> -- not <em>previous lines</em>!
