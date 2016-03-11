@@ -25365,7 +25365,7 @@
 	          React.createElement(
 	            'em',
 	            null,
-	            'the power of shortcuts!'
+	            'the power of shortcuts'
 	          ),
 	          '!'
 	        ),
