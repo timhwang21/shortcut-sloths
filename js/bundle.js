@@ -26683,7 +26683,7 @@
 	            { href: 'https://thenounproject.com/wattenberger/' },
 	            'Amelia Wattenberger'
 	          ),
-	          ' from the Noun Project. Thank you!'
+	          '. Thank you!'
 	        ),
 	        React.createElement(
 	          'p',
