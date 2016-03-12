@@ -5,7 +5,6 @@ var Shortcuts = require('../../js/shortcuts');
 var Sloth = require('./sloth');
 var ShortcutSloth = require('./shortcutSloth');
 
-
 var Level2 = React.createClass({
   contextTypes: {
     router: React.PropTypes.object.isRequired,
@@ -16,18 +15,10 @@ var Level2 = React.createClass({
   componentDidMount: function() {
     Shortcuts.unbindAll();
     Shortcuts.loadLvl2();
-    document.addEventListener('keydown', this.handleEnter, false);
   },
 
   componentWillUnmount: function() {
     Shortcuts.unbindAll();
-    document.removeEventListener('keydown', this.handleEnter, false)
-  },
-
-  handleEnter: function(e) {
-    if (e.keyCode == 13) {
-      $( ".button" ).click();
-    }
   },
 
   render: function() {

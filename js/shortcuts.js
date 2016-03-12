@@ -1,18 +1,18 @@
 var shortcuts = {
+  handleEnter: function(e) {
+    if (e.keyCode == 13) {
+      $( ".button" ).click();
+    }
+  },
+
   unbindAll: function() {
     key.unbind('⌘+d');
     key.unbind('ctrl+⌘+g');
-    key.unbind('⌘+j');
     key.unbind('⌘+l');
-    key.unbind('⇧+⌘+l');
+    key.unbind('ctrl+l');
     key.unbind('ctrl+⌘+up');
     key.unbind('ctrl+⌘+down');
-    key.unbind('⌘+j');
     key.unbind('⌘+/');
-  },
-
-  unbindSpace: function() {
-    key.unbind('space');
   },
 
   returnSelectedClasses: function() {
@@ -30,6 +30,8 @@ var shortcuts = {
       clicked.not( ".jailed" ).removeClass( "sleepy surly" );
       clicked.not( ".jailed" ).not( ".savage" ).addClass( "shortcut" );
     });
+
+    document.addEventListener('keydown', this.handleEnter, false);
 
     key('left', function() {
       var clicked = $( ".clicked" );
@@ -114,7 +116,7 @@ var shortcuts = {
   },
 
   loadLvl5: function() {
-    key('⌘+l', function() {
+    key('⌘+l, ctrl+l', function() {
       // console.log("You pressed select line!");
 
       var clicked = $( ".clicked" );
@@ -169,18 +171,6 @@ var shortcuts = {
     
 
   tempLoadRest: function() {
-
-
-    key('⌘+j', function() {
-      // console.log("You pressed join line!");
-      return false;
-    });
-
-    key('⇧+⌘+l', function() {
-      // console.log("You pressed split line!");
-      return false;
-    });
-
 
     key('⇧+⌘+d', function() {
       // console.log("You pressed duplicate line!");
