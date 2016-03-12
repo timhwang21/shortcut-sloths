@@ -99,11 +99,12 @@ button {
   font-size: 24px;
   padding: 12px 18px;
   text-align: center;
-  
 }
 
 .button {
   font-family: $body-font-stack;
+  height: 53px;
+  width: 91px;
 
   &:hover {
     opacity: .9;

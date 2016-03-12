@@ -525,9 +525,8 @@
 .sidebar {
   flex-direction: column;
   background: #706060;
-  height: 100%;
-  min-height: 600px;
   width: 40%;
+  min-height: 650px;
   min-width: 400px;
   padding: 40px 40px;
   margin: 0 auto; }
@@ -629,7 +628,9 @@ button {
   text-align: center; }
 
 .button {
-  font-family: "Varela Round", sans-serif; }
+  font-family: "Varela Round", sans-serif;
+  height: 53px;
+  width: 91px; }
   .button:hover {
     opacity: .9;
     transition: all 100ms ease; }

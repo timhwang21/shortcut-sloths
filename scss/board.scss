@@ -2,16 +2,11 @@
   justify-content: space-between;
 }
 
-.sidebar, .board {
-  // border: 2px solid red;
-}
-
 .sidebar {
   flex-direction: column;
   background: #706060;
-  height: 100%;
-  min-height: 600px;
   width: 40%;
+  min-height: 650px;
   min-width: 400px;
   padding: 40px 40px;
   margin: 0 auto;
