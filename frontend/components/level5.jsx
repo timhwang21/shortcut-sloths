@@ -2,7 +2,6 @@ var React = require('react');
 var Link = require('react-router').Link;
 var Shortcuts = require('../../js/shortcuts');
 
-
 var Sloth = require('./sloth');
 var SurlySloth = require('./surlySloth');
 
@@ -18,20 +17,11 @@ var Level5 = React.createClass({
     Shortcuts.loadLvl2();
     Shortcuts.loadLvl3();
     Shortcuts.loadLvl5();
-    document.addEventListener('keydown', this.handleEnter, false);
   },
 
   componentWillUnmount: function() {
     Shortcuts.unbindAll();
-    document.removeEventListener('keydown', this.handleEnter, false)
   },
-
-  handleEnter: function(e) {
-    if (e.keyCode == 13) {
-      $( ".button" ).click();
-    }
-  },
-
 
   render: function() {
     return (
@@ -42,6 +32,7 @@ var Level5 = React.createClass({
           <p>What's this? Some sloths didn't like being woken up, and are <em>surly</em>!</p>
           <p><em>Surly sloths cannot be clicked</em>, but can be <em>placated</em> by pressing <em>space</em>! How can you select them without clicking them?</p>
           <p>Try <em>selecting an entire row at once</em> with <em>'command-L'</em>. Pressing <em>'command-L'</em> again with a line selected <em>selects the next line</em>!</p>
+          <p>(<em>Safari users</em>: Press <em>'ctrl-L'</em> for now. Sorry!)</p>
 
           <div className="button-row">
             <button 

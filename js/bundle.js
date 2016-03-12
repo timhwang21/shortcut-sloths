@@ -24835,20 +24835,20 @@
 	'use strict';
 	
 	var shortcuts = {
+	  handleEnter: function handleEnter(e) {
+	    if (e.keyCode == 13) {
+	      $(".button").click();
+	    }
+	  },
+	
 	  unbindAll: function unbindAll() {
 	    key.unbind('⌘+d');
 	    key.unbind('ctrl+⌘+g');
-	    key.unbind('⌘+j');
 	    key.unbind('⌘+l');
-	    key.unbind('⇧+⌘+l');
+	    key.unbind('ctrl+l');
 	    key.unbind('ctrl+⌘+up');
 	    key.unbind('ctrl+⌘+down');
-	    key.unbind('⌘+j');
 	    key.unbind('⌘+/');
-	  },
-	
-	  unbindSpace: function unbindSpace() {
-	    key.unbind('space');
 	  },
 	
 	  returnSelectedClasses: function returnSelectedClasses() {
@@ -24868,6 +24868,8 @@
 	      clicked.not(".jailed").removeClass("sleepy surly");
 	      clicked.not(".jailed").not(".savage").addClass("shortcut");
 	    });
+	
+	    document.addEventListener('keydown', this.handleEnter, false);
 	
 	    key('left', function () {
 	      var clicked = $(".clicked");
@@ -24942,7 +24944,7 @@
 	  },
 	
 	  loadLvl5: function loadLvl5() {
-	    key('⌘+l', function () {
+	    key('⌘+l, ctrl+l', function () {
 	      // console.log("You pressed select line!");
 	
 	      var clicked = $(".clicked");
@@ -24995,16 +24997,6 @@
 	
 	  tempLoadRest: function tempLoadRest() {
 	
-	    key('⌘+j', function () {
-	      // console.log("You pressed join line!");
-	      return false;
-	    });
-	
-	    key('⇧+⌘+l', function () {
-	      // console.log("You pressed split line!");
-	      return false;
-	    });
-	
 	    key('⇧+⌘+d', function () {
 	      // console.log("You pressed duplicate line!");
 	      var clicked = $(".clicked");
@@ -25039,18 +25031,10 @@
 	
 	  componentDidMount: function componentDidMount() {
 	    Shortcuts.unbindAll();
-	    document.addEventListener('keydown', this.handleEnter, false);
 	  },
 	
 	  componentWillUnmount: function componentWillUnmount() {
 	    Shortcuts.unbindAll();
-	    document.removeEventListener('keydown', this.handleEnter, false);
-	  },
-	
-	  handleEnter: function handleEnter(e) {
-	    if (e.keyCode == 13) {
-	      $(".button").click();
-	    }
 	  },
 	
 	  handleClick: function handleClick(e) {
@@ -25112,7 +25096,13 @@
 	        React.createElement(
 	          'p',
 	          null,
-	          'We recommend playing this game with your favorite text editor open, and ',
+	          'We recommend playing this game ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'in Chrome'
+	          ),
+	          ' with your favorite text editor open, and ',
 	          React.createElement(
 	            'em',
 	            null,
@@ -25172,7 +25162,7 @@
 	          React.createElement(
 	            'button',
 	            {
-	              className: 'start-button',
+	              className: 'button start-button',
 	              onClick: this.handleClick },
 	            'PLAY!'
 	          ),
@@ -25309,18 +25299,10 @@
 	
 	  componentDidMount: function componentDidMount() {
 	    Shortcuts.unbindAll();
-	    document.addEventListener('keydown', this.handleEnter, false);
 	  },
 	
 	  componentWillUnmount: function componentWillUnmount() {
 	    Shortcuts.unbindAll();
-	    document.removeEventListener('keydown', this.handleEnter, false);
-	  },
-	
-	  handleEnter: function handleEnter(e) {
-	    if (e.keyCode == 13) {
-	      $(".button").click();
-	    }
 	  },
 	
 	  render: function render() {
@@ -25525,18 +25507,10 @@
 	  componentDidMount: function componentDidMount() {
 	    Shortcuts.unbindAll();
 	    Shortcuts.loadLvl2();
-	    document.addEventListener('keydown', this.handleEnter, false);
 	  },
 	
 	  componentWillUnmount: function componentWillUnmount() {
 	    Shortcuts.unbindAll();
-	    document.removeEventListener('keydown', this.handleEnter, false);
-	  },
-	
-	  handleEnter: function handleEnter(e) {
-	    if (e.keyCode == 13) {
-	      $(".button").click();
-	    }
 	  },
 	
 	  render: function render() {
@@ -25674,18 +25648,10 @@
 	    Shortcuts.unbindAll();
 	    Shortcuts.loadLvl2();
 	    Shortcuts.loadLvl3();
-	    document.addEventListener('keydown', this.handleEnter, false);
 	  },
 	
 	  componentWillUnmount: function componentWillUnmount() {
 	    Shortcuts.unbindAll();
-	    document.removeEventListener('keydown', this.handleEnter, false);
-	  },
-	
-	  handleEnter: function handleEnter(e) {
-	    if (e.keyCode == 13) {
-	      $(".button").click();
-	    }
 	  },
 	
 	  render: function render() {
@@ -25829,18 +25795,10 @@
 	    Shortcuts.unbindAll();
 	    Shortcuts.loadLvl2();
 	    Shortcuts.loadLvl3();
-	    document.addEventListener('keydown', this.handleEnter, false);
 	  },
 	
 	  componentWillUnmount: function componentWillUnmount() {
 	    Shortcuts.unbindAll();
-	    document.removeEventListener('keydown', this.handleEnter, false);
-	  },
-	
-	  handleEnter: function handleEnter(e) {
-	    if (e.keyCode == 13) {
-	      $(".button").click();
-	    }
 	  },
 	
 	  render: function render() {
@@ -26021,18 +25979,10 @@
 	    Shortcuts.loadLvl2();
 	    Shortcuts.loadLvl3();
 	    Shortcuts.loadLvl5();
-	    document.addEventListener('keydown', this.handleEnter, false);
 	  },
 	
 	  componentWillUnmount: function componentWillUnmount() {
 	    Shortcuts.unbindAll();
-	    document.removeEventListener('keydown', this.handleEnter, false);
-	  },
-	
-	  handleEnter: function handleEnter(e) {
-	    if (e.keyCode == 13) {
-	      $(".button").click();
-	    }
 	  },
 	
 	  render: function render() {
@@ -26113,6 +26063,23 @@
 	            'selects the next line'
 	          ),
 	          '!'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          '(',
+	          React.createElement(
+	            'em',
+	            null,
+	            'Safari users'
+	          ),
+	          ': Press ',
+	          React.createElement(
+	            'em',
+	            null,
+	            '\'ctrl-L\''
+	          ),
+	          ' for now. Sorry!)'
 	        ),
 	        React.createElement(
 	          'div',
@@ -26207,12 +26174,6 @@
 	  componentWillUnmount: function componentWillUnmount() {
 	    Shortcuts.unbindAll();
 	    document.removeEventListener('keydown', this.handleEnter, false);
-	  },
-	
-	  handleEnter: function handleEnter(e) {
-	    if (e.keyCode == 13) {
-	      $(".button").click();
-	    }
 	  },
 	
 	  render: function render() {
@@ -26432,12 +26393,6 @@
 	  componentWillUnmount: function componentWillUnmount() {
 	    Shortcuts.unbindAll();
 	    document.removeEventListener('keydown', this.handleEnter, false);
-	  },
-	
-	  handleEnter: function handleEnter(e) {
-	    if (e.keyCode == 13) {
-	      $(".button").click();
-	    }
 	  },
 	
 	  render: function render() {

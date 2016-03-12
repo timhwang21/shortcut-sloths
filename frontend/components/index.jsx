@@ -12,18 +12,10 @@ var Index = React.createClass({
 
   componentDidMount: function() {
     Shortcuts.unbindAll();
-    document.addEventListener('keydown', this.handleEnter, false);
   },
 
   componentWillUnmount: function() {
     Shortcuts.unbindAll();
-    document.removeEventListener('keydown', this.handleEnter, false)
-  },
-
-  handleEnter: function(e) {
-    if (e.keyCode == 13) {
-      $( ".button" ).click();
-    }
   },
 
   handleClick: function(e) {
@@ -39,7 +31,7 @@ var Index = React.createClass({
           <p><em>Shortcut Sloths</em> is a game about <em>text editor shortcuts</em>... and <em>sloths</em>!</p>
           <p>The purpose of this game is to introduce features of modern text editors, in order to <em>increase typing speed</em> and <em>improve programmer happiness</em>.</p>
           <p>
-            We recommend playing this game with your favorite text editor open, and <em>trying out every new shortcut</em> as you play!
+            We recommend playing this game <em>in Chrome</em> with your favorite text editor open, and <em>trying out every new shortcut</em> as you play!
             Our favorite editors are <a href="https://www.sublimetext.com/">Sublime Text</a> and <a href="https://atom.io/">Atom</a>.
           </p>
           <p><em>PC users</em>: Unfortunately, <em>Shortcut Sloths</em> is currently configured to work with <em>Mac shortcuts only</em>. Sorry!</p>
@@ -52,7 +44,7 @@ var Index = React.createClass({
           <div className="row">
             <ShortcutSloth /> 
             <button
-              className="start-button"
+              className="button start-button"
               onClick={this.handleClick} >
               PLAY!
             </button>

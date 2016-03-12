@@ -2,7 +2,6 @@ var React = require('react');
 var Link = require('react-router').Link;
 var Shortcuts = require('../../js/shortcuts');
 
-
 var Sloth = require('./sloth');
 var ShortcutSloth = require('./shortcutSloth');
 var SavageSloth = require('./savageSloth');
@@ -26,12 +25,6 @@ var Level6 = React.createClass({
   componentWillUnmount: function() {
     Shortcuts.unbindAll();
     document.removeEventListener('keydown', this.handleEnter, false)
-  },
-
-  handleEnter: function(e) {
-    if (e.keyCode == 13) {
-      $( ".button" ).click();
-    }
   },
 
   render: function() {

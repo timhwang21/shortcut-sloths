@@ -13,18 +13,10 @@ var Level1 = React.createClass({
 
   componentDidMount: function() {
     Shortcuts.unbindAll();
-    document.addEventListener('keydown', this.handleEnter, false);
   },
 
   componentWillUnmount: function() {
     Shortcuts.unbindAll();
-    document.removeEventListener('keydown', this.handleEnter, false)
-  },
-
-  handleEnter: function(e) {
-    if (e.keyCode == 13) {
-      $( ".button" ).click();
-    }
   },
 
   render: function() {
